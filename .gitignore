@@ -1,0 +1,5 @@
+/packages
+packarch-omz/oh-my-zsh
+packarch-vim/vimrc
+cleanup.sh
+push.sh
