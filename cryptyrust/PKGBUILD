@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=cryptyrust
-pkgver=e476882
+pkgver=0.2.r194
 pkgrel=1
 pkgdesc="Strong file encryption"
 arch=('any')
@@ -14,25 +14,15 @@ sha1sums=('SKIP')
 
 build() {
   cd "$pkgname"
-  if command -v rustup > /dev/null 2>&1; then
-    RUSTFLAGS="-C target-cpu=native" rustup run stable \
-      cargo build --release
-  elif rustc --version | grep -q nightly; then
-    RUSTFLAGS="-C target-cpu=native" \
-      cargo build --release
-  else
-    cargo build --release
-  fi
+  cargo build --release
 }
 
 pkgver() {
   cd "$pkgname"
-  echo $(git describe --always | sed 's/-/./g')
+  printf "0.2.r%s" "$(git rev-list --count HEAD)"
 }
 
 package() {
   cd "$pkgname"
   install -Dm755 "target/release/cryptyrust_cli" "$pkgdir/usr/bin/cryptyrust_cli"
 }
-
-# vim:set ts=2 sw=2 et:
