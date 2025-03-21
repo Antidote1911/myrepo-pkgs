@@ -1,0 +1,18 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=packarch-fonts
+pkgver=1.0
+pkgrel=7
+pkgdesc="Text and icon fonts for Packarch"
+arch=('any')
+url="https://github.com/packarch-os/packarch-packages"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	(find * -type f -exec install -Dm 644 "{}" "$pkgdir/usr/share/fonts/packarch/{}" \;)
+}
