@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=cryptyrust
-pkgver=0.2.r194
+pkgver=0.2.r223
 pkgrel=1
 pkgdesc="Strong file encryption"
 arch=('any')
