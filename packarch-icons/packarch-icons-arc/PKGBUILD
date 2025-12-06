@@ -1,0 +1,21 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=packarch-icons-arc
+pkgver=1.0
+pkgrel=7
+pkgdesc="Arc Icon theme for Packarch"
+arch=('any')
+url="https://github.com/packarch-os/packarch-icons"
+license=('GPL3')
+groups=(packarch-icons)
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	local _iconsdir="$pkgdir"/usr/share/icons
+	mkdir -p "$_iconsdir"
+	cp -r "$srcdir"/* "$_iconsdir"
+}

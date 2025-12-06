@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Satanic
+Comment=A dark theme with flat style for GNOME
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Satanic
+MetacityTheme=Satanic
+IconTheme=Mint-Y
+ButtonLayout=:minimize,maximize,close

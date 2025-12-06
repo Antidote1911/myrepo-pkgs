@@ -1,0 +1,21 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=packarch-gtk-theme-spark
+pkgver=1.0
+pkgrel=6
+pkgdesc="Spark gtk theme for Packarch"
+arch=('any')
+url="https://github.com/packarch-os/packarch-themes"
+license=('GPL3')
+groups=(packarch-themes)
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	local _themesdir="$pkgdir"/usr/share/themes
+	mkdir -p "$_themesdir"
+	cp -r "$srcdir"/* "$_themesdir"
+}
