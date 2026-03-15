@@ -1,0 +1,15 @@
+# Maintainer: Antidote1911 <antidote1911@gmail.com>
+
+pkgname="packarch-mirrorlist"
+pkgver=2.0
+pkgrel=2
+pkgdesc='Packarch mirrorlist'
+arch=('any')
+url="https://github.com/Antidite1911"
+license=('GPL3')
+source=("$pkgname")
+sha512sums=('864b346d77eadf58305788ec22a542a59e00972298a7c7608710b2b425cf4d6ba0bd9871edc891be01a7c34b95be2516a2b35cc55e6c963e1350ff5f8b6ab967')
+
+package() {
+	install -Dm 644 "$pkgname"  "$pkgdir"/etc/pacman.d/"$pkgname"
+}
