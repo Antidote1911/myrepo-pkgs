@@ -1,0 +1,21 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=packarch-backgrounds
+pkgver=1.0
+pkgrel=6
+pkgdesc="Default wallpapers for Packarch"
+arch=('any')
+url="https://github.com/packarch-os/packarch-wallpapers"
+license=('GPL3')
+groups=(packarch-wallpapers)
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	local _bgdir="$pkgdir"/usr/share/wallpapers
+	mkdir -p "$_bgdir"
+	cp -r "$srcdir"/* "$_bgdir"
+}
