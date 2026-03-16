@@ -15,7 +15,7 @@ prepare() {
 }
 
 package() {
-	local _bgdir="$pkgdir"/usr/share/wallpapers
+	local _bgdir="$pkgdir"/usr/share/wallpapers/Packarch
 	mkdir -p "$_bgdir"
 	cp -r "$srcdir"/* "$_bgdir"
 }
