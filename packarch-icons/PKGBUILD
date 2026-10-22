@@ -1,0 +1,21 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Icon themes for Packarch (all of them; Qogir and Papirus from the official packages)
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3.
+
+pkgname=packarch-icons
+pkgver=2.0
+pkgrel=3
+pkgdesc="Icon themes for Packarch (all of them; Qogir and Papirus from the official packages)"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=('qogir-icon-theme' 'papirus-icon-theme')
+conflicts=(packarch-icons-arc packarch-icons-breeze packarch-icons-hack packarch-icons-luna packarch-icons-luv packarch-icons-nordic packarch-icons-numix packarch-icons-papirus packarch-icons-qogir packarch-icons-white packarch-icons-win11 packarch-icons-zafiro)
+replaces=(packarch-icons-arc packarch-icons-breeze packarch-icons-hack packarch-icons-luna packarch-icons-luv packarch-icons-nordic packarch-icons-numix packarch-icons-papirus packarch-icons-qogir packarch-icons-white packarch-icons-win11 packarch-icons-zafiro)
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

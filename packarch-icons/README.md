@@ -1,2 +1,0 @@
-# packarch-icons
- // Packages : Icons

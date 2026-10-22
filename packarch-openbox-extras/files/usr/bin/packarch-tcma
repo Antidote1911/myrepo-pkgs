@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
+##
+## Commands of the Thunar custom actions (Openbox session):
+##   --terminal          terminal in the current folder
+##   --asroot COMMAND    run COMMAND as root
+##   --wallpaper FILE    set FILE as wallpaper
+##   --lockscreen FILE   set FILE as lock screen image
+
+openbox_dir="$HOME/.config/openbox"
+notify_cmd="notify-send -i /usr/share/packarch/icons/dunst/desktop.png"
+
+open_terminal() {
+	alacritty
+}
+
+open_asroot() {
+	if [[ -x "$openbox_dir"/scripts/ob-asroot ]]; then
+		"$openbox_dir"/scripts/ob-asroot "$@"
+	else
+		${notify_cmd} -u critical "Ouverture en root indisponible !"
+	fi
+}
+
+set_wallpaper() {
+	if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
+		for head in {0..10}; do
+			nitrogen --head="$head" --save --set-zoom-fill "$@" &>/dev/null
+		done
+	else
+		hsetroot -cover "$@"
+		${notify_cmd} -u normal "Fond d'écran appliqué temporairement..."
+	fi
+}
+
+set_lockscreen() {
+	if [[ "$XDG_SESSION_TYPE" == 'wayland' ]]; then
+		${notify_cmd} -u critical "Indisponible sous Wayland !"
+	else
+		${notify_cmd} -u normal "Génération des images, veuillez patienter..."
+		betterlockscreen -u "$@"
+	fi
+}
+
+case "$1" in
+	--terminal) open_terminal ;;
+	--asroot) open_asroot "$2" ;;
+	--wallpaper) set_wallpaper "$2" ;;
+	--lockscreen) set_lockscreen "$2" ;;
+esac

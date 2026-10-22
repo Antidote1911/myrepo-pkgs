@@ -1,10 +1,10 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=packarch-rmatrix
-pkgver=0.2.r9
+pkgver=2.0.2.r7
 pkgrel=1
 pkgdesc="Rust port of a curses-based 'Matrix'-like screen"
-arch=('any')
+arch=('x86_64')
 url="https://github.com/Antidote1911/rmatrix"
 license=('GPL3')
 provides=("rmatrix")
@@ -20,10 +20,13 @@ build() {
 
 pkgver() {
   cd "$pkgname"
-  printf "0.2.r%s" "$(git rev-list --count HEAD)"
+  # Crate version, then the number of commits
+  printf "%s.r%s" "$(sed -n 's/^version = "\(.*\)"$/\1/p' Cargo.toml | head -1)" \
+    "$(git rev-list --count HEAD)"
 }
 
 package() {
   cd "$pkgname"
-  install -Dm755 "target/release/rmatrix" "$pkgdir/usr/bin/rmatrix"
+  # The crate is named r-matrix: the command stays rmatrix
+  install -Dm755 "target/release/r-matrix" "$pkgdir/usr/bin/rmatrix"
 }

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
+##
+## Reload the status bar and the wallpaper after a change of the monitor
+## configuration (Openbox session). Used by the "Affichage / Écrans" menu.
+
+config_dir="$HOME/.config"
+openbox_dir="$config_dir/openbox"
+
+## Restart a running process gracefully
+restart() {
+	local proc="$1"
+	shift
+
+	if pgrep -x "$proc" >/dev/null 2>&1; then
+		pkill -TERM -x "$proc"
+
+		local i=0
+		while pgrep -x "$proc" >/dev/null 2>&1 && (( i < 50 )); do
+			sleep 0.1
+			((i++))
+		done
+
+		# Force kill if still running after 5 seconds
+		pgrep -x "$proc" >/dev/null 2>&1 && pkill -KILL -x "$proc"
+	fi
+
+	"$@" >/dev/null 2>&1 &
+}
+
+[[ "$DESKTOP_SESSION" == 'openbox' ]] || exit 0
+
+wallpaper="$(grep -w 'file' "$config_dir"/nitrogen/bg-saved.cfg | cut -d'=' -f2 | head -n1)"
+for head in {0..10}; do
+	nitrogen --head="$head" --save --set-zoom-fill "$wallpaper" &>/dev/null
+done
+"$openbox_dir"/themes/launch-bar.sh
+restart lead lead

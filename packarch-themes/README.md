@@ -1,2 +1,0 @@
-# packarch-themes
- // Packages : Themes

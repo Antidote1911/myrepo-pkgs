@@ -1,5 +1,11 @@
-/packages
-packarch-omz/oh-my-zsh
-packarch-vim/vimrc
-cleanup.sh
-push.sh
+# makepkg build directories and results
+src/
+pkg/
+*.pkg.tar.zst
+*.pkg.tar.zst.sig
+# Sources downloaded by makepkg (AUR packages)
+aur/*/*.tar.*
+aur/*/*/
+!aur/*/keys/
+!aur/*/LICENSES/
+packarch-rmatrix/packarch-rmatrix/

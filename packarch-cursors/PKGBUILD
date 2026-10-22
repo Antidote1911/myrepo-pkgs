@@ -1,0 +1,18 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Cursor themes for Packarch (all of them)
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3.
+
+pkgname=packarch-cursors
+pkgver=2.0
+pkgrel=2
+pkgdesc="Cursor themes for Packarch (all of them)"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

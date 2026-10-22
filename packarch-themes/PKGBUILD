@@ -1,0 +1,20 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# GTK and Openbox themes for Packarch (all of them)
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3.
+
+pkgname=packarch-themes
+pkgver=2.0
+pkgrel=2
+pkgdesc="GTK and Openbox themes for Packarch (all of them)"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+conflicts=(packarch-gtk-theme-adapta packarch-gtk-theme-arc packarch-gtk-theme-blade packarch-gtk-theme-catppuccin packarch-gtk-theme-cyberpunk packarch-gtk-theme-dracula packarch-gtk-theme-easy packarch-gtk-theme-everforest packarch-gtk-theme-groot packarch-gtk-theme-gruvbox packarch-gtk-theme-hack packarch-gtk-theme-juno packarch-gtk-theme-kripton packarch-gtk-theme-manhattan packarch-gtk-theme-nordic packarch-gtk-theme-rick packarch-gtk-theme-satanic packarch-gtk-theme-slime packarch-gtk-theme-spark packarch-gtk-theme-sweet packarch-gtk-theme-wave packarch-gtk-theme-white packarch-gtk-theme-windows)
+replaces=(packarch-gtk-theme-adapta packarch-gtk-theme-arc packarch-gtk-theme-blade packarch-gtk-theme-catppuccin packarch-gtk-theme-cyberpunk packarch-gtk-theme-dracula packarch-gtk-theme-easy packarch-gtk-theme-everforest packarch-gtk-theme-groot packarch-gtk-theme-gruvbox packarch-gtk-theme-hack packarch-gtk-theme-juno packarch-gtk-theme-kripton packarch-gtk-theme-manhattan packarch-gtk-theme-nordic packarch-gtk-theme-rick packarch-gtk-theme-satanic packarch-gtk-theme-slime packarch-gtk-theme-spark packarch-gtk-theme-sweet packarch-gtk-theme-wave packarch-gtk-theme-white packarch-gtk-theme-windows)
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}
