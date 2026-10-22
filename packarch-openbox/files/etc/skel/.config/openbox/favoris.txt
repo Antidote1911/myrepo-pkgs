@@ -1,0 +1,11 @@
+# Favoris Internet du menu Openbox (section « Favoris Internet »).
+# Un favori par ligne : Nom:adresse
+# Une ligne « - » ajoute un séparateur ; les lignes commençant par # sont
+# ignorées. Les changements sont pris en compte à la prochaine ouverture du
+# menu.
+
+Google:https://www.google.fr
+GitHub:https://github.com
+-
+CachyOS:https://cachyos.org
+Arch Wiki:https://wiki.archlinux.org/title/Main_page_(Fran%C3%A7ais)

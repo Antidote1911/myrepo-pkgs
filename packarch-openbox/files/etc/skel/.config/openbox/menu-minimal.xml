@@ -28,6 +28,7 @@
 		</item>
 		<separator/>
 		<menu id="app-menu" execute="obmenu-generator" label="Applications"/>
+		<menu id="pa-bookmarks" execute="&pipes;/pa-bookmarks" label="Favoris Internet"/>
 		<menu id="preferences" label="Préférences">
 			<menu id="obconfig" label="Openbox">
 				<menu id="pa-ob-menu" execute="&pipes;/pa-ob-menu" label="Style du menu"/>

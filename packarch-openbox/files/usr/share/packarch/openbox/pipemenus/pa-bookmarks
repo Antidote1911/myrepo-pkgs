@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+##
+## Openbox Pipemenu: internet bookmarks of ~/.config/openbox/favoris.txt, one
+## per line as NAME:ADDRESS (e.g. "Google:https://www.google.fr"). Empty lines
+## and lines starting with # are ignored; a line "-" adds a separator. The
+## address is opened by xdg-open (default web browser).
+
+# Variables and functions
+MENUS_LIBDIR='/usr/share/packarch/openbox/menulib'
+if ! . "$MENUS_LIBDIR/packarch.cfg" 2> /dev/null; then
+	echo "Error: Failed to locate packarch.cfg in $MENUS_LIBDIR" >&2
+	exit 1
+fi
+
+file="${XDG_CONFIG_HOME:-$HOME/.config}/openbox/favoris.txt"
+
+# Single-quoted for the shell of the menu command
+quote() {
+	printf "'%s'" "${1//\'/\'\\\'\'}"
+}
+
+menuStart
+count=0
+if [[ -r "$file" ]]; then
+	while IFS= read -r line || [[ -n "$line" ]]; do
+		line="${line%$'\r'}"
+		[[ "$line" =~ ^[[:space:]]*(#|$) ]] && continue
+		if [[ "$line" =~ ^[[:space:]]*-[[:space:]]*$ ]]; then
+			menuSeparator
+			continue
+		fi
+		# NAME:ADDRESS, split at the first ':' (the address has its own)
+		[[ "$line" == *:* ]] || continue
+		name="${line%%:*}"
+		url="${line#*:}"
+		name="${name#"${name%%[![:space:]]*}"}"; name="${name%"${name##*[![:space:]]}"}"
+		url="${url#"${url%%[![:space:]]*}"}"; url="${url%"${url##*[![:space:]]}"}"
+		[[ -n "$name" && -n "$url" ]] || continue
+		menuItem "$name" "xdg-open $(quote "$url")"
+		count=$((count+1))
+	done < "$file"
+fi
+(( count )) || menuSeparator "Aucun favori"
+menuSeparator
+menuItem 'Modifier les favoris' "sh -c 'mkdir -p \"\$(dirname \"\$1\")\" && touch \"\$1\" && exo-open \"\$1\"' sh $(quote "$file")"
+menuEnd

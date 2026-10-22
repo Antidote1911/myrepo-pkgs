@@ -37,6 +37,8 @@
 		<separator/>
 		<menu icon="&icons;/root.png" id="pa-asroot" execute="&pipes;/pa-asroot" label="Applications en root"/>
 		<separator/>
+		<menu icon="&icons;/browser.png" id="pa-bookmarks" execute="&pipes;/pa-bookmarks" label="Favoris Internet"/>
+		<separator/>
 		<menu icon="&icons;/shots.png" id="pa-shots" execute="&pipes;/pa-shots" label="Capture d’écran"/>
 		<separator/>
 		<menu icon="&icons;/record.png" id="pa-record" execute="&pipes;/pa-record" label="Enregistreur d’écran"/>
