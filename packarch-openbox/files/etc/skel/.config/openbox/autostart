@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
+
+# Helper Functions ------------------------------------------
+# Usage:
+#
+#   run     <command>    -> Start only if not already running (daemons).
+#   run_bg  <command>    -> Always execute (one-shot commands/scripts).
+#   restart <command>    -> Gracefully restart a running daemon.
+
+# Check whether a process is already running.
+is_running() {
+	pgrep -x "${1##*/}" >/dev/null 2>&1
+}
+
+# Start a daemon only if it is not already running.
+run() {
+	if ! is_running "$1"; then
+		"$@" >/dev/null 2>&1 &
+	fi
+}
+
+# Run a command unconditionally.
+run_bg() {
+	"$@" >/dev/null 2>&1 &
+}
+
+# Restart a running process gracefully.
+restart() {
+	local proc="${1##*/}"
+
+	if is_running "$proc"; then
+		pkill -TERM -x "$proc"
+
+		while is_running "$proc"; do
+			sleep 0.1
+		done
+	fi
+
+	"$@" >/dev/null 2>&1 &
+}
+
+# Appearance ------------------------------------------------
+
+# Restore wallpaper
+nitrogen --restore
+
+# Launch Polybar or Tint2
+run_bg packarch-skin bar
+
+# Compositor
+run_bg ~/.config/openbox/scripts/ob-picom
+
+# Dock
+run plank
+
+# Desktop Services ------------------------------------------
+
+# XFCE settings daemon (themes, fonts, icons, cursor, DPI...)
+run xfsettingsd
+
+# Power manager
+run xfce4-power-manager
+
+# PolicyKit authentication agent: xfce-polkit is started by the XDG autostart
+# (/etc/xdg/autostart/xfce-polkit.desktop, openbox-xdg-autostart). Starting it
+# here too gives "An authentication agent already exists".
+
+# Notification daemon
+restart dunst
+
+# Music Player Daemon
+run mpd
+
+# Thunar daemon
+run thunar --daemon
+
+# Hot Corners -----------------------------------------------
+
+# Creates sensors for each configured corner
+run lead
+
+# Start skippy-xd (X11 window selector) as daemon
+run skippy-xd --start-daemon
+
+# Keyboard --------------------------------------------------
+
+# Enable Super key to open the application menu
+run ksuperkey -e 'Super_L=Alt_L|F1'
+run ksuperkey -e 'Super_R=Alt_L|F1'
+
+# Optional Applets ------------------------------------------
+
+# These applets are specifically for tint2 panel.
+# If you're using tint2 as panel, Uncomment these applets.
+
+# Network Manager
+# run nm-applet --indicator
+
+# Bluetooth
+# run blueman-applet
+
+# First Login (Packarch) ------------------------------------
+
+# Apply the current theme once (wallpaper, GTK theme, polybar, rofi, dunst,
+# plank...) and cache the lockscreen images of its wallpaper.
+if [[ ! -f ~/.config/openbox/themes/.applied ]]; then
+	run_bg sh -c '
+		sleep 2
+		packarch-skin apply && touch ~/.config/openbox/themes/.applied
+		betterlockscreen -u "$(packarch-skin wallpaper)"
+	'
+fi
+
+# Optional Commands -----------------------------------------
+
+# Reload theme after monitor configuration changes
+# run_bg sh -c "sleep 1.5 && packarch-reload-theme"

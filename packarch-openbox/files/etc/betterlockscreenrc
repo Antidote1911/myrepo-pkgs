@@ -1,0 +1,9 @@
+# Packarch: French texts of the betterlockscreen lock screen, 24-hour clock.
+# Read by betterlockscreen before ~/.config/betterlockscreen/betterlockscreenrc,
+# which can override these settings (see
+# /usr/share/doc/betterlockscreen/examples/betterlockscreenrc).
+
+locktext="Tapez votre mot de passe pour déverrouiller..."
+veriftext="Vérification..."
+wrongtext="Échec !"
+time_format="%H:%M"

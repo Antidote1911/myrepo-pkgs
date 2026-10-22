@@ -1,0 +1,96 @@
+# Spark theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#1e2541"
+foreground = "#eeffff"
+color0 = "#1e2541"
+color1 = "#f0719b"
+color2 = "#5af7b0"
+color3 = "#ffa56b"
+color4 = "#57c7ff"
+color5 = "#c792ea"
+color6 = "#89ddff"
+color7 = "#eeffff"
+color8 = "#354274"
+color9 = "#f02e6e"
+color10 = "#2ce592"
+color11 = "#ff8537"
+color12 = "#1da0e2"
+color13 = "#a742ea"
+color14 = "#47bae8"
+color15 = "#dee6e7"
+accent = "#F0719B"
+element_bg = "#EEFFFF"
+element_fg = "#303030"
+alt_background = "#c5ffff"  # darken(element_bg, 0.08)
+alt_foreground = "#d3d3d3"  # lighten(element_fg, 0.64)
+
+[roles]
+bar_background = "element_bg"
+bar_foreground = "element_fg"
+bar_alt_background = "color15"
+rofi_background = "element_bg"
+rofi_alt_background = "color15"
+rofi_foreground = "element_fg"
+rofi_active = "color10"
+rofi_urgent = "color9"
+dunst_background = "element_bg"
+dunst_foreground = "element_fg"
+dunst_frame = "color15"
+dunst_urgent = "color9"
+
+[fonts]
+polybar = "Iosevka:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "Iosevka Custom 9"
+
+[appearance]
+gtk_theme = "Spark"
+icon_theme = "Luv-Folders"
+cursor_theme = "Vimix"
+color_scheme = "prefer-light"
+rofi_icons = "Luv-Folders"
+geany_colors = "spark.conf"
+
+[openbox]
+theme = "OB-Spark"
+layout = "LIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [8, 61, 8, 8]
+
+[dunst]
+width = 300
+height = 80
+offset = "20x20"
+origin = "top-right"
+border = 0
+separator = 2
+
+[plank]
+hide_mode = "auto"
+offset = 0
+position = "right"
+theme = "Transparent"
+icon_size = 32
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 6
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0

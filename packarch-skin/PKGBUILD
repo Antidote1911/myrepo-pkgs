@@ -1,0 +1,37 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Theme (skin) chooser of the Packarch Openbox desktop: applies the themes
+# described by the theme.toml files of ~/.config/openbox/themes (see
+# packarch-openbox). Source: skin/ (Rust).
+
+pkgname=packarch-skin
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
+arch=('x86_64')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=('gcc-libs' 'glibc')
+makedepends=('cargo')
+options=(!lto)
+
+prepare() {
+	mkdir -p skin
+	cp -a "$startdir"/skin/{Cargo.toml,Cargo.lock,src} skin/
+	cd skin
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd skin
+	cargo build --frozen --release
+}
+
+check() {
+	cd skin
+	cargo test --frozen --release
+}
+
+package() {
+	install -Dm755 skin/target/release/packarch-skin "$pkgdir"/usr/bin/packarch-skin
+}

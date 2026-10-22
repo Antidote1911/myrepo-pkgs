@@ -1,0 +1,80 @@
+# Default theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#1E2128"
+foreground = "#ABB2BF"
+color0 = "#32363D"
+color1 = "#E06B74"
+color2 = "#98C379"
+color3 = "#E5C07A"
+color4 = "#62AEEF"
+color5 = "#C778DD"
+color6 = "#55B6C2"
+color7 = "#ABB2BF"
+color8 = "#50545B"
+color9 = "#EA757E"
+color10 = "#A2CD83"
+color11 = "#EFCA84"
+color12 = "#6CB8F9"
+color13 = "#D282E7"
+color14 = "#5FC0CC"
+color15 = "#B5BCC9"
+accent = "#5294E2"
+alt_background = "#292d37"  # lighten(background, 0.05)
+alt_foreground = "#5a6477"  # darken(foreground, 0.30)
+
+[fonts]
+polybar = "JetBrains Mono:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "JetBrains Mono 10"
+
+[appearance]
+gtk_theme = "Arc-Dark"
+icon_theme = "Zafiro"
+cursor_theme = "Qogirr"
+color_scheme = "prefer-dark"
+rofi_icons = "Zafiro"
+geany_colors = "arc.conf"
+
+[openbox]
+theme = "OB-Arc-Dark"
+layout = "DLIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [48, 10, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x48"
+origin = "top-right"
+border = 4
+separator = 4
+
+[plank]
+hide_mode = "intelligent"
+offset = 0
+position = "bottom"
+theme = "Transparent"
+icon_size = 32
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 6
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0

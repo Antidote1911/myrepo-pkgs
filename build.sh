@@ -8,9 +8,10 @@
 #   aur/*/        copies of AUR PKGBUILDs (./update.sh --aur refreshes them)
 #
 # A package already in the binary repository with the same version is skipped
-# (-f: rebuild). Packages built here that another one needs to be built
-# (gtkmm for nitrogen) are installed on this
-# system as dependencies, then removed at the end. Run as a normal user.
+# (-f: rebuild). Packages without build() (themes, configuration) are built
+# with --nodeps. Packages built here that an AUR package needs to be built
+# (gtkmm for nitrogen) are installed on this system as dependencies, then
+# removed at the end. Run as a normal user.
 #
 # Usage: ./build.sh [-f] [PACKAGE...]   (default: all of them)
 
@@ -22,7 +23,7 @@ repo="$(readlink -f ../myrepo)/x86_64"
 conf="${top}/makepkg.conf"
 
 # AUR packages, dependencies first
-aur_order=(gtkmm nitrogen python-pywal xfce-polkit lead-git skippy-xd-git
+aur_order=(gtkmm nitrogen xfce-polkit lead-git skippy-xd-git
     ksuperkey betterlockscreen networkmanager-dmenu-git light)
 
 force=false
@@ -115,10 +116,17 @@ for d in "${dirs[@]}"; do
         for p in "${pkgs[@]}"; do [[ -f ${repo}/${p##*/} ]] || uptodate=false; done
         if ${uptodate}; then echo "  à jour"; cd "${top}"; continue; fi
     fi
-    install_local_deps
-    import_pgp_keys
-    makepkg --config "${conf}" --syncdeps --rmdeps --cleanbuild --clean \
-        --force --noconfirm
+    if grep -q '^build()' PKGBUILD; then
+        # Compiled package: its build dependencies are needed (the packages
+        # of this repository only for the AUR ones, e.g. gtkmm for nitrogen)
+        [[ ${d} == aur/* ]] && install_local_deps
+        import_pgp_keys
+        deps=(--syncdeps --rmdeps)
+    else
+        # Files only: the dependencies are only needed at installation
+        deps=(--nodeps)
+    fi
+    makepkg --config "${conf}" "${deps[@]}" --cleanbuild --clean --force --noconfirm
     # Read again: pkgver() of the -git packages updates the version
     mapfile -t pkgs < <(makepkg --config "${conf}" --packagelist | grep -v -e '-debug-' -e '-docs-')
     for p in "${pkgs[@]}"; do add_pkg "${p}"; rm -f "${p}"; done

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com> -->
+<!DOCTYPE menu [
+  <!ENTITY pipes "/usr/share/packarch/openbox/pipemenus">
+]>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/  file:///usr/share/openbox/menu.xsd">
+  <menu id="root-menu" title="Menu" label="Openbox 3">
+<!--	<separator label="Menu principal"/>  -->
+		<item label="Terminal">
+			<action name="Execute">
+				<command>alacritty</command>
+			</action>
+		</item>
+		<item label="Gestionnaire de fichiers">
+			<action name="Execute">
+				<command>thunar</command>
+			</action>
+		</item>
+		<item label="Navigateur web">
+			<action name="Execute">
+				<command>firefox</command>
+			</action>
+		</item>
+		<item label="Éditeur de texte">
+			<action name="Execute">
+				<command>geany</command>
+			</action>
+		</item>
+		<separator/>
+		<menu id="app-menu" execute="obmenu-generator" label="Applications"/>
+		<menu id="pa-asroot" execute="&pipes;/pa-asroot" label="Applications en root"/>
+		<menu id="pa-shots" execute="&pipes;/pa-shots" label="Capture d’écran"/>
+		<menu id="pa-record" execute="&pipes;/pa-record" label="Enregistreur d’écran"/>
+		<separator/>
+		<menu id="pa-places" execute="&pipes;/pa-places --recent ~/" label="Emplacements"/>
+		<menu id="ac-recent" execute="&pipes;/pa-recent-files" label="Fichiers récents"/>
+		<menu id="preferences" label="Préférences">
+			<menu id="obconfig" label="Openbox">
+				<menu id="pa-ob-menu" execute="&pipes;/pa-ob-menu" label="Style du menu"/>
+				<item label="Paramètres">
+					<action name="Execute">
+						<command>obconf</command>
+					</action>
+				</item>
+				<separator/>
+				<item label="Modifier menu.xml">
+					<action name="Execute">
+						<command>exo-open ~/.config/openbox/menu-simple.xml</command>
+					</action>
+				</item>
+				<item label="Modifier rc.xml">
+					<action name="Execute">
+						<command>exo-open ~/.config/openbox/rc.xml</command>
+					</action>
+				</item>
+				<item label="Modifier autostart">
+					<action name="Execute">
+						<command>exo-open ~/.config/openbox/autostart</command>
+					</action>
+				</item>
+				<separator/>
+				<item label="Recharger la configuration">
+					<action name="Reconfigure"/>
+				</item>
+				<item label="Redémarrer Openbox">
+					<action name="Restart"/>
+				</item>
+			</menu>
+			<menu id="CompositingPipeMenu" execute="&pipes;/pa-compositor" label="Compositeur"/>
+			<menu id="PanelPipeMenu" execute="&pipes;/pa-panel" label="Panneau / Barre"/>
+			<menu id="XrandrPipeMenu" execute="&pipes;/pa-randr" label="Affichage / Écrans"/>
+			<separator/>
+			<menu id="StylePipeMenu" execute="packarch-skin openbox-menu" label="Changer de style"/>
+			<menu id="FontPipeMenu" execute="&pipes;/pa-change-fonts" label="Changer de police"/>
+			<menu id="SchemePipeMenu" execute="&pipes;/pa-change-scheme" label="Couleurs du terminal"/>
+			<separator/>
+			<item label="Recharger le thème">
+				<action name="Execute">
+					<command>packarch-reload-theme</command>
+				</action>
+			</item>
+			<item label="Changer de fond d’écran">
+				<action name="Execute">
+					<command>nitrogen</command>
+				</action>
+			</item>
+			<item label="Apparence">
+				<action name="Execute">
+					<command>xfce4-appearance-settings</command>
+				</action>
+			</item>
+			<item label="Paramètres Qt5">
+				<action name="Execute">
+					<command>qt5ct</command>
+				</action>
+			</item>
+			<item label="Paramètres Qt6">
+				<action name="Execute">
+					<command>qt6ct</command>
+				</action>
+			</item>
+			<item label="Gestionnaire Kvantum">
+				<action name="Execute">
+					<command>kvantummanager</command>
+				</action>
+			</item>
+			<separator/>
+			<item label="Paramètres audio">
+				<action name="Execute">
+					<command>pavucontrol</command>
+				</action>
+			</item>
+			<item label="Gestion de l’énergie">
+				<action name="Execute">
+					<command>xfce4-power-manager-settings</command>
+				</action>
+			</item>
+			<item label="Gestionnaire de paramètres">
+				<action name="Execute">
+					<command>xfce4-settings-manager</command>
+				</action>
+			</item>
+		</menu>
+		<menu id="KeybindsPipeMenu" execute="&pipes;/pa-kb-pipemenu" label="Raccourcis clavier"/>
+		<separator/>
+		<item label="Verrouiller l’écran">
+			<action name="Execute">
+				<command>betterlockscreen --lock</command>
+			</action>
+		</item>
+		<menu id="Exit" label="Système">
+				<menu id="SystemPipeMenu" execute="&pipes;/pa-sysinfo" label="Infos système"/>
+				<separator/>
+				<item label="Se déconnecter">
+					<action name="Execute">
+						<command>&pipes;/pa-powermenu --logout</command>
+					</action>
+				</item>
+				<item label="Mettre en veille">
+					<action name="Execute">
+						<command>&pipes;/pa-powermenu --suspend</command>
+					</action>
+				</item>
+				<item label="Redémarrer">
+					<action name="Execute">
+						<command>&pipes;/pa-powermenu --reboot</command>
+					</action>
+				</item>
+				<item label="Éteindre">
+					<action name="Execute">
+						<command>&pipes;/pa-powermenu --shutdown</command>
+					</action>
+				</item>
+		</menu>
+	</menu>
+</openbox_menu>
+<!-- vim:sw=2
+-->

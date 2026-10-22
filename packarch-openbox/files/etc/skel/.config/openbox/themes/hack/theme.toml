@@ -1,0 +1,97 @@
+# Hack theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#01161b"
+foreground = "#66FFFF"
+color0 = "#01161b"
+color1 = "#007b82"
+color2 = "#028c94"
+color3 = "#039ca4"
+color4 = "#04acb5"
+color5 = "#05bbc5"
+color6 = "#06ccd7"
+color7 = "#a3b5b8"
+color8 = "#01161b"
+color9 = "#007b82"
+color10 = "#028c94"
+color11 = "#039ca4"
+color12 = "#04acb5"
+color13 = "#05bbc5"
+color14 = "#06ccd7"
+color15 = "#a3b5b8"
+accent = "#007B82"
+color_red = "#ff0000"
+color_green = "#00ff00"
+color_yellow = "#ffff00"
+alt_background = "#022a34"  # lighten(background, 0.05)
+alt_foreground = "#00cccc"  # darken(foreground, 0.30)
+
+[roles]
+rofi_active = "color_green"
+rofi_urgent = "color_red"
+dunst_frame = "accent"
+dunst_urgent = "color_red"
+
+[fonts]
+polybar = "Iosevka:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "Iosevka 10"
+
+[appearance]
+gtk_theme = "Hack"
+icon_theme = "Hack"
+cursor_theme = "LyraB"
+color_scheme = "prefer-dark"
+rofi_icons = "Hack"
+geany_colors = "hack.conf"
+
+[openbox]
+theme = "OB-Hack"
+layout = "LC"
+menu = "menu-simple.xml"
+# top, bottom, left, right
+margins = [36, 36, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x36"
+origin = "top-right"
+border = 1
+separator = 1
+
+[plank]
+hide_mode = "auto"
+offset = 0
+position = "right"
+theme = "Transparent"
+icon_size = 32
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 0
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+bars = ["top", "bottom"]
+
+[polybar.extra]
+COLOR_R = "color_red"
+COLOR_G = "color_green"
+COLOR_Y = "color_yellow"

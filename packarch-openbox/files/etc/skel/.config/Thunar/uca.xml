@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>open-terminal</icon>
+	<name>Ouvrir un terminal ici</name>
+	<unique-id>1581593230771688-1</unique-id>
+	<command>/usr/bin/packarch-tcma --terminal</command>
+	<description>Ouvrir un terminal dans le dossier courant</description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>search</icon>
+	<name>Rechercher</name>
+	<unique-id>1581593230771689-1</unique-id>
+	<command>/usr/bin/catfish --path=%f</command>
+	<description>Rechercher des fichiers et des dossiers</description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>go-parent-folder</icon>
+	<name>Ouvrir en root</name>
+	<unique-id>1622790717174452-1</unique-id>
+	<command>/usr/bin/packarch-tcma --asroot &apos;dbus-run-session thunar&apos;</command>
+	<description>Ouvrir le dossier courant en root</description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>document-edit-sign</icon>
+	<name>Modifier en root</name>
+	<unique-id>1622790919788057-2</unique-id>
+	<command>/usr/bin/packarch-tcma --asroot &apos;geany %f&apos;</command>
+	<description>Modifier le fichier en root</description>
+	<patterns>*</patterns>
+	<text-files/>
+</action>
+<action>
+	<icon>kr_comparedirs</icon>
+	<name>Comparer</name>
+	<unique-id>1622791692322694-4</unique-id>
+	<command>meld %F</command>
+	<description>Comparer des fichiers et des dossiers avec meld</description>
+	<patterns>*</patterns>
+	<directories/>
+	<text-files/>
+</action>
+<action>
+	<icon>view-preview</icon>
+	<name>Définir comme fond d’écran</name>
+	<unique-id>1622798756568291-1</unique-id>
+	<command>/usr/bin/packarch-tcma --wallpaper %f</command>
+	<description>Définir comme fond d’écran de la session</description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>rotation-locked-landscape</icon>
+	<name>Définir comme écran de verrouillage</name>
+	<unique-id>1622799434407260-2</unique-id>
+	<command>/usr/bin/packarch-tcma --lockscreen %f</command>
+	<description>Utiliser l’image en fond de l’écran de verrouillage</description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+</actions>

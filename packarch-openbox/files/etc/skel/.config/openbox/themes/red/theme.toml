@@ -1,0 +1,80 @@
+# Red theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#1e222a"
+foreground = "#c8ccd4"
+color0 = "#1e222a"
+color1 = "#e06c75"
+color2 = "#98c379"
+color3 = "#e5c07b"
+color4 = "#61afef"
+color5 = "#c678dd"
+color6 = "#56b6c2"
+color7 = "#abb2bf"
+color8 = "#545862"
+color9 = "#e06c75"
+color10 = "#98c379"
+color11 = "#e5c07b"
+color12 = "#61afef"
+color13 = "#c678dd"
+color14 = "#56b6c2"
+color15 = "#c8ccd4"
+accent = "#da6e89"
+alt_background = "#292e39"  # lighten(background, 0.05)
+alt_foreground = "#727c91"  # darken(foreground, 0.30)
+
+[fonts]
+polybar = "JetBrains Mono:bold:size=10;3"
+rofi = "JetBrainsMono Nerd Font 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "JetBrainsMono Nerd Font 10"
+
+[appearance]
+gtk_theme = "Manhattan"
+icon_theme = "Luv-Folders-Dark"
+cursor_theme = "Qogirr-Dark"
+color_scheme = "prefer-dark"
+rofi_icons = "Luv-Folders-Dark"
+geany_colors = "manhattan.conf"
+
+[openbox]
+theme = "OB-Manhattan"
+layout = "NLIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [48, 10, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x48"
+origin = "top-right"
+border = 2
+separator = 2
+
+[plank]
+hide_mode = "auto"
+offset = 0
+position = "bottom"
+theme = "Transparent"
+icon_size = 32
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 0
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0

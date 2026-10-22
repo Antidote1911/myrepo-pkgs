@@ -1,0 +1,95 @@
+# Kiss theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#FFFFFF"
+foreground = "#383a42"
+color0 = "#000000"
+color1 = "#151515"
+color2 = "#303030"
+color3 = "#454545"
+color4 = "#606060"
+color5 = "#757575"
+color6 = "#909090"
+color7 = "#F9F9F9"
+color8 = "#000000"
+color9 = "#151515"
+color10 = "#303030"
+color11 = "#454545"
+color12 = "#606060"
+color13 = "#757575"
+color14 = "#909090"
+color15 = "#F9F9F9"
+element_bg = "#0F0F0F"
+element_fg = "#e8e8e8"
+element_hl = "#E4CDAD"
+element_ac = "#ADE4B6"
+element_ur = "#E4ADAE"
+alt_background = "#1c1c1c"  # lighten(element_bg, 0.05)
+alt_foreground = "#696969"  # darken(element_fg, 0.50)
+
+[roles]
+bar_background = "element_bg"
+bar_foreground = "element_fg"
+bar_accent = "element_hl"
+screenshot_border = "element_hl"
+rofi_background = "element_bg"
+rofi_foreground = "element_fg"
+rofi_selected = "element_hl"
+rofi_active = "element_ac"
+rofi_urgent = "element_ur"
+
+[fonts]
+polybar = "JetBrains Mono:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 10
+dunst = "JetBrains Mono 10"
+
+[appearance]
+gtk_theme = "White"
+icon_theme = "Zafiro-Dark"
+cursor_theme = "Qogirr"
+color_scheme = "prefer-light"
+rofi_icons = "Zafiro-Dark"
+geany_colors = "metallic-bottle.conf"
+
+[openbox]
+theme = "OB-White"
+layout = "LC"
+menu = "menu-minimal.xml"
+# top, bottom, left, right
+margins = [50, 10, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x50"
+origin = "top-right"
+border = 0
+separator = 2
+
+[plank]
+hide_mode = "auto"
+offset = 0
+position = "bottom"
+theme = "Transparent"
+icon_size = 32
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 0
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0

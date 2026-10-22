@@ -1,0 +1,83 @@
+# Easy theme of packarch-skin (see "packarch-skin --help").
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+wallpaper = "wallpaper"
+
+[colors]
+background = "#252A35"
+foreground = "#FFFFFF"
+color0 = "#3B4252"
+color1 = "#BF616A"
+color2 = "#A3BE8C"
+color3 = "#EBCB8B"
+color4 = "#81A1C1"
+color5 = "#B48EAD"
+color6 = "#88C0D0"
+color7 = "#E5E9F0"
+color8 = "#4C566A"
+color9 = "#BF616A"
+color10 = "#A3BE8C"
+color11 = "#EBCB8B"
+color12 = "#81A1C1"
+color13 = "#B48EAD"
+color14 = "#8FBCBB"
+color15 = "#ECEFF4"
+accent = "#5294E2"
+alt_background = "#2f3644"  # lighten(background, 0.05)
+alt_foreground = "#8c8c8c"  # darken(foreground, 0.45)
+
+[fonts]
+polybar = "Iosevka:size=12;4"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 12
+geany = "JetBrainsMono Nerd Font 12"
+gtk = "Cantarell 12"
+openbox = "JetBrains Mono"
+openbox_size = 12
+dunst = "JetBrains Mono 12"
+
+[appearance]
+gtk_theme = "Arc-Dark"
+icon_theme = "Arc-Circle"
+cursor_theme = "Qogirr"
+color_scheme = "prefer-dark"
+rofi_icons = "Arc-Circle"
+geany_colors = "arc.conf"
+
+[openbox]
+theme = "OB-Arc-Easy"
+layout = "NLIMC"
+menu = "menu-minimal.xml"
+# top, bottom, left, right
+margins = [0, 0, 0, 0]
+
+[dunst]
+width = 350
+height = 100
+offset = "20x20"
+origin = "top-right"
+border = 2
+separator = 2
+
+[plank]
+hide_mode = "auto"
+offset = 0
+position = "left"
+theme = "Transparent"
+icon_size = 48
+zoom_percent = 120
+
+[picom]
+backend = "glx"
+corner_radius = 0
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+polywins = true

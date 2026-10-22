@@ -1,6 +1,8 @@
 # makepkg build directories and results
-src/
-pkg/
+/*/src/
+/*/pkg/
+/aur/*/src/
+/aur/*/pkg/
 *.pkg.tar.zst
 *.pkg.tar.zst.sig
 # Sources downloaded by makepkg (AUR packages)
@@ -9,3 +11,5 @@ aur/*/*/
 !aur/*/keys/
 !aur/*/LICENSES/
 packarch-rmatrix/packarch-rmatrix/
+# Rust build directory of packarch-skin
+packarch-skin/skin/target/

@@ -35,5 +35,5 @@ wallpaper="$(grep -w 'file' "$config_dir"/nitrogen/bg-saved.cfg | cut -d'=' -f2 
 for head in {0..10}; do
 	nitrogen --head="$head" --save --set-zoom-fill "$wallpaper" &>/dev/null
 done
-"$openbox_dir"/themes/launch-bar.sh
+packarch-skin bar
 restart lead lead
