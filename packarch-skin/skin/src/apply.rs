@@ -256,9 +256,13 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         let th = ("theme", None);
         set_xml_text(x, &[th, ("name", None)], &o.theme);
         set_xml_text(x, &[th, ("titleLayout", None)], &o.layout);
+        // Menu items: feather first for the glyphs of menu-glyphs.xml (their
+        // codepoints are also in other icon fonts, with other widths)
+        let menu_font = format!("{},feather", f.openbox);
         for (place, weight) in [("ActiveWindow", "Bold"), ("InactiveWindow", "Normal"), ("MenuHeader", "Bold"), ("MenuItem", "Normal"), ("ActiveOnScreenDisplay", "Bold"), ("InactiveOnScreenDisplay", "Normal")] {
             let font = ("font", Some(("place", place)));
-            set_xml_text(x, &[th, font, ("name", None)], &f.openbox);
+            let name = if place == "MenuItem" { &menu_font } else { &f.openbox };
+            set_xml_text(x, &[th, font, ("name", None)], name);
             set_xml_text(x, &[th, font, ("size", None)], &f.openbox_size.to_string());
             set_xml_text(x, &[th, font, ("weight", None)], weight);
             set_xml_text(x, &[th, font, ("slant", None)], "Normal");

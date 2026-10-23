@@ -29,7 +29,7 @@
 		<separator/>
 		<menu id="app-menu" execute="obmenu-generator" label=" Applications"/>
 		<menu id="pa-asroot" execute="&pipes;/pa-asroot" label=" Applications en root"/>
-		<menu id="pa-bookmarks" execute="&pipes;/pa-bookmarks" label=" Favoris Internet"/>
+		<menu id="pa-bookmarks" execute="&pipes;/pa-bookmarks" label=" Favoris Internet"/>
 		<menu id="pa-shots" execute="&pipes;/pa-shots" label=" Capture d’écran"/>
 		<menu id="pa-record" execute="&pipes;/pa-record" label=" Enregistreur d’écran"/>
 		<separator/>

@@ -48,7 +48,7 @@
       <slant>Normal</slant>
     </font>
     <font place="MenuItem">
-      <name>JetBrains Mono</name>
+      <name>JetBrains Mono,feather</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
