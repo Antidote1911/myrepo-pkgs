@@ -20,7 +20,7 @@ installer.
 | `packarch-skin` | sélecteur de thèmes du bureau Openbox (Rust, sources dans `packarch-skin/skin`) : `packarch-skin apply THÈME`, `bar`, `list`, `check`, `openbox-menu`… |
 | `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
-| `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console, sans tag : version du dernier commit) |
+| `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `deadpool`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console, sans tag : version du dernier commit) |
 | `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light` |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
