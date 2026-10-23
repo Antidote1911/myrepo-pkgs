@@ -1,0 +1,35 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Zsh configuration of CachyOS (cachyos-zsh-config 1.0.3,
+# https://github.com/CachyOS/cachyos-zsh-config) without vim, which it does
+# not use. Provides cachyos-zsh-config, required by cachyos-xfce-settings.
+#
+# Our changes, so that nothing has to be edited after installation:
+# - default Powerlevel10k configuration (p10k.zsh: lean, one line, ascii),
+#   used when ~/.p10k.zsh does not exist; `p10k configure` writes ~/.p10k.zsh
+#   (no configuration wizard at the first start)
+# - "cleanup" alias computing the orphan list when used, not at each start
+#   (the pacman call printed warnings in every terminal of the live ISO,
+#   which has no sync databases)
+# - expac dependency (used by the "rip" alias)
+
+pkgname=packarch-zsh-config
+pkgver=1.0.3
+pkgrel=2
+pkgdesc="Zsh configuration of CachyOS, without vim"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL-1.0-only')
+depends=(
+  expac fzf oh-my-zsh-git pkgfile powerline-fonts zsh zsh-autosuggestions
+  zsh-completions zsh-history-substring-search zsh-syntax-highlighting
+  zsh-theme-powerlevel10k
+)
+provides=("cachyos-zsh-config=$pkgver")
+conflicts=(cachyos-zsh-config)
+replaces=(cachyos-zsh-config)
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

@@ -20,8 +20,7 @@ menuStart
 	menuItem 'Gestionnaire de fichiers (thunar)' "$root_cmd 'dbus-run-session thunar'"
 	menuItem 'Éditeur de texte (geany)' "$root_cmd 'geany'"
 	menuSeparator
-	menuItem 'Gestionnaire de fichiers en console (ranger)' "$root_cmd 'kitty -e ranger'"
-	menuItem 'Éditeur de texte en console (vim)' "$root_cmd 'kitty -e vim'"
+	menuItem 'Éditeur de texte en console (nano)' "$root_cmd 'kitty -e nano'"
 	menuSeparator
 	menuItem 'Paramètres Qt5' "$root_cmd 'qt5ct'"
 	menuItem 'Paramètres Qt6' "$root_cmd 'qt6ct'"

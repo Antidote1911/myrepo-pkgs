@@ -766,12 +766,7 @@
     </keybind>
     <keybind key="C-A-v">
       <action name="Execute">
-        <command>kitty -e vim</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-r">
-      <action name="Execute">
-        <command>kitty -e ranger</command>
+        <command>kitty -e nano</command>
       </action>
     </keybind>
     <keybind key="C-A-h">

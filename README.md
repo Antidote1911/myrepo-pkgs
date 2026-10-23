@@ -18,6 +18,7 @@ installer.
 | `packarch-fonts` | toutes les polices (`/usr/share/fonts/packarch`), dont la police d'icônes `packarch` |
 | `packarch-openbox` | bureau Openbox : polybar, menus rofi, dunst, plank, picom, kitty, 15 thèmes (`~/.config/openbox/themes/*/theme.toml`), menus et scripts (`/usr/share/packarch/openbox`), icônes de dunst, `packarch-tcma` (actions de Thunar) et `packarch-reload-theme`, en français. La configuration va dans `/etc/skel` |
 | `packarch-skin` | sélecteur de thèmes du bureau Openbox (Rust, sources dans `packarch-skin/skin`) : `packarch-skin apply THÈME`, `bar`, `list`, `check`, `openbox-menu`… |
+| `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
 | `packarch-rmatrix` | effet « Matrix » en console |
 | `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light` |
