@@ -1,1 +1,1 @@
-source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+source /usr/share/packarch-zsh-config/packarch-config.zsh

@@ -11,7 +11,7 @@ installer.
 
 | Paquet | Contenu |
 |---|---|
-| `packarch-backgrounds` | tous les fonds d'écran (`/usr/share/backgrounds`), dont les nôtres (`pastelmount`, `satanic`, `packarch-default`) et ceux du sélecteur de thèmes XFCE (`/usr/share/backgrounds/xfcethemes/<couleur>/`, liens vers les images communes) |
+| `packarch-backgrounds` | tous les fonds d'écran (`/usr/share/backgrounds`), dont les nôtres (`pastelmount`, `satanic`, `packarch-default`) et ceux du sélecteur de thèmes XFCE (même dossier, sans sous-dossier ; liste par thème dans `theme-switcher.sh` de l'ISO) |
 | `packarch-icons` | tous les thèmes d'icônes : Packarch, Packarch-Dark, Arc-Circle, Hack, Luna (et nos variantes `Luna-Antidote-Dark`, `Luna-Green-Dark`, `Luna-Purple-Dark`, `Luna-Red-Dark`), Luv, Nordic, Numix, Papirus, Vimix, White, Win11, Zafiro. Qogir vient de `qogir-icon-theme` (dépendance, avec ses curseurs) |
 | `packarch-themes` | tous les thèmes GTK (Adapta, Arc, Blade, Catppuccin, Cyberpunk, Dracula, Everforest, Groot, Gruvbox, Hack, Juno, Kripton, Manhattan, Nordic, Rick, Slime, Spark, Sweet, Wave, White, Windows-10, et les nôtres : Satanic, Greybird-dark, Orchis-Red-Dark, Adapta-Bitmap, Arc-Bitmap) et les thèmes de fenêtres Openbox (`OB-*`) |
 | `packarch-cursors` | les curseurs : Bibata, Fluentt, Future, Lyra, Pear, Qogirr, Sweet, Vimix |
@@ -20,7 +20,7 @@ installer.
 | `packarch-skin` | sélecteur de thèmes du bureau Openbox (Rust, sources dans `packarch-skin/skin`) : `packarch-skin apply THÈME`, `bar`, `list`, `check`, `openbox-menu`… |
 | `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
-| `packarch-rmatrix` | effet « Matrix » en console |
+| `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console, sans tag : version du dernier commit) |
 | `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light` |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
@@ -30,8 +30,10 @@ Les paquets de thèmes remplacent les anciens paquets séparés
 et scripts ont été rassemblés ou créés par Aditya Shakya (adi1090x), sous
 licence GPL3 ; les mentions d'auteur des fichiers sont conservées.
 
-Les applications (`cryptyrust`, `liloucalc`, `nounours-player`, `bombicat`)
-sont empaquetées depuis leur propre dépôt (dossier `packaging/`).
+Les `PKGBUILD` de nos applications sont uniquement ici (`apps/`) : leurs
+dépôts n'ont pas à en contenir pour Arch Linux. Pour en ajouter une : créer
+`apps/<nom>/PKGBUILD` avec `url=` pointant vers son dépôt GitHub (tags
+`vX.Y.Z`) et la source `…/archive/refs/tags/v${pkgver}.tar.gz`.
 
 ## Utilisation
 
@@ -41,10 +43,16 @@ sont empaquetées depuis leur propre dépôt (dossier `packaging/`).
 ../myrepo/update.sh            # base de données, commit et push du dépôt binaire
 
 ./update.sh                    # reprend les PKGBUILD de l'AUR dans aur/
+./update.sh --apps             # met pkgver de apps/* au dernier tag GitHub
 ```
 
-Après une mise à jour, incrémenter `pkgrel` (ou `pkgver`) des paquets
+Mise à jour complète : `./update.sh --apps`, `./update.sh`, `./build.sh`,
+puis `../myrepo/update.sh`.
+
+Après une modification, incrémenter `pkgrel` (ou `pkgver`) des paquets
 modifiés : `build.sh` ne reconstruit que les versions absentes du dépôt
-binaire. `makepkg.conf` : code x86-64 générique (le `makepkg.conf` de CachyOS
-peut être en `-march=native`) et compression forte (limite de 100 Mo par
-fichier de GitHub).
+binaire (`update.sh --apps` le fait pour les nouvelles versions des
+applications). `makepkg.conf` : code x86-64 générique (le `makepkg.conf` de
+CachyOS peut être en `-march=native`), sans LTO (le code C embarqué par les
+crates Rust, zstd ou sqlite, ne se lierait pas) et compression forte (limite
+de 100 Mo par fichier de GitHub).

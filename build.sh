@@ -5,7 +5,9 @@
 # Then run ../myrepo/update.sh (database, commit and push).
 #
 #   packarch-*/   packages of this repository (themes, icons, wallpapers...)
-#   aur/*/        copies of AUR PKGBUILDs (./update.sh --aur refreshes them)
+#   apps/*/       our applications, built from their GitHub tag
+#                 (./update.sh --apps sets their version)
+#   aur/*/        copies of AUR PKGBUILDs (./update.sh refreshes them)
 #
 # A package already in the binary repository with the same version is skipped
 # (-f: rebuild). Packages without build() (themes, configuration) are built
@@ -35,12 +37,13 @@ dirs=()
 if (( $# )); then
     for p in "$@"; do
         if [[ -f $p/PKGBUILD ]]; then dirs+=("${p%/}")
+        elif [[ -f apps/$p/PKGBUILD ]]; then dirs+=("apps/$p")
         elif [[ -f aur/$p/PKGBUILD ]]; then dirs+=("aur/$p")
         else echo "Paquet inconnu : $p" >&2; exit 1
         fi
     done
 else
-    for d in */; do [[ -f $d/PKGBUILD ]] && dirs+=("${d%/}"); done
+    for d in */ apps/*/; do [[ -f $d/PKGBUILD ]] && dirs+=("${d%/}"); done
     for p in "${aur_order[@]}"; do dirs+=("aur/$p"); done
     for d in aur/*/; do
         [[ " ${aur_order[*]} " == *" $(basename "$d") "* ]] ||

@@ -6,7 +6,7 @@
 
 pkgname=packarch-backgrounds
 pkgver=2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Wallpapers for Packarch (all of them, also those of the XFCE theme switcher)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

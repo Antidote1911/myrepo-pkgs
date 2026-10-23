@@ -3,6 +3,8 @@
 /*/pkg/
 /aur/*/src/
 /aur/*/pkg/
+/apps/*/src/
+/apps/*/pkg/
 *.pkg.tar.zst
 *.pkg.tar.zst.sig
 # Sources downloaded by makepkg (AUR packages)
@@ -10,6 +12,8 @@ aur/*/*.tar.*
 aur/*/*/
 !aur/*/keys/
 !aur/*/LICENSES/
-packarch-rmatrix/packarch-rmatrix/
+# Sources downloaded by makepkg (our applications: tarballs, git clones)
+apps/*/*.tar.*
+apps/*/*/
 # Rust build directory of packarch-skin
 packarch-skin/skin/target/

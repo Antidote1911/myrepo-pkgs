@@ -12,10 +12,12 @@
 #   (the pacman call printed warnings in every terminal of the live ISO,
 #   which has no sync databases)
 # - expac dependency (used by the "rip" alias)
+# - files in /usr/share/packarch-zsh-config (packarch-config.zsh instead of
+#   /usr/share/cachyos-zsh-config/cachyos-config.zsh, since 1.0.3-3)
 
 pkgname=packarch-zsh-config
 pkgver=1.0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Zsh configuration of CachyOS, without vim"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

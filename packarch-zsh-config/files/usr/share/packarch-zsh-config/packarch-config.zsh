@@ -104,7 +104,7 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 if [[ -f ~/.p10k.zsh ]]; then
   source ~/.p10k.zsh
 else
-  source /usr/share/cachyos-zsh-config/p10k.zsh
+  source /usr/share/packarch-zsh-config/p10k.zsh
 fi
 
 export FZF_BASE=/usr/share/fzf
