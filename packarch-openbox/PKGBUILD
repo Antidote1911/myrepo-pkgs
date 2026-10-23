@@ -4,8 +4,11 @@
 # picom, kitty and 15 themes, switched with packarch-skin. Based on the
 # Openbox configuration of Aditya Shakya (adi1090x), GPL3, with the skeleton
 # files it relies on (dunst, picom, rofi, GTK, xfconf, Thunar) and the Geany
-# color schemes. Everything goes to /etc/skel (copied to the home of new
-# users); the theme is applied at the first login (autostart).
+# color schemes. The configuration goes to /etc/skel (copied to the home of
+# new users); the theme is applied at the first login (autostart). Menus,
+# pipemenus, dunst icons and the packarch-tcma (Thunar actions) and
+# packarch-reload-theme commands go to /usr (packarch-openbox-extras before
+# 7.0-16).
 #
 # Our changes: French translation, 24-hour clock, numlock on, first-login theme
 # application, no second xfce-polkit, Packarch names and paths
@@ -15,7 +18,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=15
+pkgrel=16
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -34,10 +37,14 @@ depends=(
   alsa-utils bluez-utils playerctl imagemagick ranger htop xfce-polkit
   xdg-user-dirs python-pyxdg dconf
   # Packarch repository: theme chooser, GTK/Openbox themes, icons, cursors,
-  # fonts, wallpapers, scripts and dunst icons
+  # fonts and wallpapers
   packarch-skin packarch-themes packarch-icons packarch-cursors
-  packarch-fonts packarch-backgrounds packarch-openbox-extras
+  packarch-fonts packarch-backgrounds
 )
+# Merged into this package (7.0-16)
+replaces=(packarch-openbox-extras)
+conflicts=(packarch-openbox-extras)
+provides=(packarch-openbox-extras)
 options=(!strip !emptydirs)
 
 package() {
