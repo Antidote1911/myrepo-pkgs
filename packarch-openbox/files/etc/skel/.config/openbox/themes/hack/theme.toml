@@ -71,7 +71,7 @@ border = 1
 separator = 1
 
 [plank]
-hide_mode = "auto"
+hide_mode = "intelligent"
 offset = 0
 position = "right"
 theme = "Transparent"

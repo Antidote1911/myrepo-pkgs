@@ -14,11 +14,12 @@
 # application, no second xfce-polkit, Packarch names and paths
 # (/usr/share/packarch, packarch-* commands, pa-* pipemenus), themes
 # described in theme.toml and applied by packarch-skin (no apply.sh), kitty
-# as the only terminal, no tint2, nano instead of vim, no ranger.
+# as the only terminal, no tint2, nano instead of vim, no ranger, plank in
+# "intelligent" mode in every theme (visible unless a window covers it).
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=17
+pkgrel=18
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
