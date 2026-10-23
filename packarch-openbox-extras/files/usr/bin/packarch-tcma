@@ -12,7 +12,7 @@ openbox_dir="$HOME/.config/openbox"
 notify_cmd="notify-send -i /usr/share/packarch/icons/dunst/desktop.png"
 
 open_terminal() {
-	alacritty
+	kitty
 }
 
 open_asroot() {

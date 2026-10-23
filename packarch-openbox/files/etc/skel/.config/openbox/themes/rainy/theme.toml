@@ -49,7 +49,7 @@ geany_colors = "beach.conf"
 [openbox]
 theme = "OB-Arc-Carbon"
 layout = "MLC"
-menu = "menu-minimal.xml"
+menu = "menu-glyphs.xml"
 # top, bottom, left, right
 margins = [58, 20, 20, 20]
 

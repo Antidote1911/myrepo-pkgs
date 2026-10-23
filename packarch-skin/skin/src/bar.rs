@@ -1,8 +1,7 @@
-//! Bar of the current theme: polybar or tint2 (what launch-bar.sh,
-//! polybar.sh, tint2.sh and the polybar/launch.sh of each theme did).
+//! Polybar of the current theme (what launch-bar.sh, polybar.sh and the
+//! polybar/launch.sh of each theme did).
 //!
-//! themes/.panel holds the bar in use (polybar by default). Before the first
-//! polybar launch, themes/system.ini receives the battery, adapter, backlight
+//! Before the first launch, themes/system.ini receives the battery, adapter, backlight
 //! and network interface of the computer; before the first launch of a theme,
 //! its config.ini gets the modules matching the hardware (no backlight or
 //! battery module without one, "brightness" for non-Intel backlights,
@@ -15,29 +14,6 @@ use std::path::Path;
 use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum Panel {
-    Polybar,
-    Tint2,
-}
-
-impl Panel {
-    pub fn parse(s: &str) -> Option<Panel> {
-        match s.trim() {
-            "polybar" => Some(Panel::Polybar),
-            "tint2" => Some(Panel::Tint2),
-            _ => None,
-        }
-    }
-
-    fn name(self) -> &'static str {
-        match self {
-            Panel::Polybar => "polybar",
-            Panel::Tint2 => "tint2",
-        }
-    }
-}
 
 /// Stops every instance of PROC and waits for them to exit (5 s at most)
 fn stop(proc: &str) {
@@ -164,40 +140,23 @@ fn monitors() -> Vec<String> {
         .unwrap_or_default()
 }
 
-/// Launches the bar of the current theme; PANEL changes the bar in use
-pub fn launch(dirs: &Dirs, panel: Option<Panel>) -> Result<(), String> {
-    let pfile = dirs.themes.join(".panel");
-    if let Some(p) = panel {
-        fs::write(&pfile, format!("{}\n", p.name())).map_err(|e| format!("{} : {e}", pfile.display()))?;
-    }
-    let panel = fs::read_to_string(&pfile)
-        .ok()
-        .and_then(|s| Panel::parse(&s))
-        .unwrap_or(Panel::Polybar);
+/// Launches the polybar of the current theme on each monitor
+pub fn launch(dirs: &Dirs) -> Result<(), String> {
     let id = current(dirs);
     let entry = theme::list(&dirs.themes)
         .into_iter()
         .find(|e| e.id == id)
         .ok_or_else(|| format!("thème courant introuvable : {id}"))?;
 
-    match panel {
-        Panel::Polybar => {
-            system_values(&dirs.themes);
-            let pbar = entry.dir.join("polybar");
-            fix_modules(&pbar);
-            let bars = entry.load().map(|t| t.polybar.bars).unwrap_or_else(|_| vec!["main".into()]);
-            stop("polybar");
-            let config = pbar.join("config.ini").to_string_lossy().into_owned();
-            for mon in monitors() {
-                for bar in &bars {
-                    spawn("polybar", &["-q", bar, "-c", &config], &[("MONITOR", &mon)]);
-                }
-            }
-        }
-        Panel::Tint2 => {
-            stop("tint2");
-            let rc = entry.dir.join("tint2/tint2rc").to_string_lossy().into_owned();
-            spawn("tint2", &["-c", &rc], &[]);
+    system_values(&dirs.themes);
+    let pbar = entry.dir.join("polybar");
+    fix_modules(&pbar);
+    let bars = entry.load().map(|t| t.polybar.bars).unwrap_or_else(|_| vec!["main".into()]);
+    stop("polybar");
+    let config = pbar.join("config.ini").to_string_lossy().into_owned();
+    for mon in monitors() {
+        for bar in &bars {
+            spawn("polybar", &["-q", bar, "-c", &config], &[("MONITOR", &mon)]);
         }
     }
     Ok(())

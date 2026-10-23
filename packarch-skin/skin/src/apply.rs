@@ -205,27 +205,8 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         );
     });
 
-    // Terminals
+    // Terminal (kitty)
     let f = &theme.fonts;
-    let alacritty = conf.join("alacritty");
-    if alacritty.join("fonts.toml").is_file() && alacritty.join("colors.toml").is_file() {
-        edit_file(&alacritty.join("fonts.toml"), |t| {
-            set_line(t, "family = ", &format!("family = \"{}\"", f.terminal));
-            set_line(t, "size = ", &format!("size = {}", f.terminal_size));
-        });
-        let p = &c.palette;
-        let mut t = format!(
-            "## Colors configuration\n[colors.primary]\nbackground = \"{}\"\nforeground = \"{}\"\n",
-            c.term_bg.text, c.term_fg.text
-        );
-        for (section, base) in [("normal", 0), ("bright", 8)] {
-            t += &format!("\n[colors.{section}]\n");
-            for (i, n) in ["black  ", "red    ", "green  ", "yellow ", "blue   ", "magenta", "cyan   ", "white  "].iter().enumerate() {
-                t += &format!("{n} = \"{}\"\n", p[base + i].text);
-            }
-        }
-        write_file(&alacritty.join("colors.toml"), &t);
-    }
     let kitty = conf.join("kitty");
     if kitty.join("fonts.conf").is_file() && kitty.join("colors.conf").is_file() {
         edit_file(&kitty.join("fonts.conf"), |t| {
@@ -249,12 +230,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         write_file(&kitty.join("colors.conf"), &t);
         run("pkill", &["-USR1", "-x", "kitty"]);
     }
-    xfconf("xfce4-terminal", "/font-name", &format!("{} {}", f.terminal, f.terminal_size));
-    xfconf("xfce4-terminal", "/color-background", &c.term_bg.text);
-    xfconf("xfce4-terminal", "/color-foreground", &c.term_fg.text);
-    xfconf("xfce4-terminal", "/color-cursor", &c.term_fg.text);
-    let pal: Vec<&str> = c.palette.iter().map(|x| x.text.as_str()).collect();
-    xfconf("xfce4-terminal", "/color-palette", &pal.join(";"));
 
     // Geany
     let a = &theme.appearance;
@@ -327,7 +302,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
     let pk = &theme.plank;
     let plank = format!(
         "[dock1]\nalignment='center'\nauto-pinning=true\ncurrent-workspace-only=false\n\
-         dock-items=['xfce-settings-manager.dockitem', 'Alacritty.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'geany.dockitem']\n\
+         dock-items=['xfce-settings-manager.dockitem', 'kitty.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'geany.dockitem']\n\
          hide-delay=0\nhide-mode='{}'\nicon-size={}\nitems-alignment='center'\nlock-items=false\nmonitor=''\noffset={}\n\
          pinned-only=false\nposition='{}'\npressure-reveal=false\nshow-dock-item=false\ntheme='{}'\ntooltips-enabled=true\n\
          unhide-delay=0\nzoom-enabled=true\nzoom-percent={}\n",
@@ -348,7 +323,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         set_line(t, "strength = ", &format!("strength = {};", pc.blur_strength));
     });
 
-    bar::launch(dirs, None)?;
+    bar::launch(dirs)?;
     run("xsetroot", &["-cursor_name", "left_ptr"]);
     Ok(())
 }

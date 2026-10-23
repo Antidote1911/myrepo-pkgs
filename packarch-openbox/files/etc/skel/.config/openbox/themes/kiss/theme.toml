@@ -64,7 +64,7 @@ geany_colors = "metallic-bottle.conf"
 [openbox]
 theme = "OB-White"
 layout = "LC"
-menu = "menu-minimal.xml"
+menu = "menu-glyphs.xml"
 # top, bottom, left, right
 margins = [50, 10, 10, 10]
 

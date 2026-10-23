@@ -58,7 +58,7 @@ geany_colors = "hack.conf"
 [openbox]
 theme = "OB-Hack"
 layout = "LC"
-menu = "menu-simple.xml"
+menu = "menu-glyphs.xml"
 # top, bottom, left, right
 margins = [36, 36, 10, 10]
 

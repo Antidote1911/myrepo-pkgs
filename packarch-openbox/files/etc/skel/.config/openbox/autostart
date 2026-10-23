@@ -46,7 +46,7 @@ restart() {
 # Restore wallpaper
 nitrogen --restore
 
-# Launch Polybar or Tint2
+# Launch Polybar
 run_bg packarch-skin bar
 
 # Compositor
@@ -92,8 +92,8 @@ run ksuperkey -e 'Super_R=Alt_L|F1'
 
 # Optional Applets ------------------------------------------
 
-# These applets are specifically for tint2 panel.
-# If you're using tint2 as panel, Uncomment these applets.
+# Polybar has its own network and bluetooth modules: uncomment these applets
+# to have them in the system tray instead.
 
 # Network Manager
 # run nm-applet --indicator

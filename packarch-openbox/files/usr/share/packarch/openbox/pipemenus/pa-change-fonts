@@ -17,7 +17,7 @@ ctheme="`cat $themedir/.current`"
 
 # Dir
 confdir="$HOME/.config"
-termdir="$confdir/alacritty"
+termdir="$confdir/kitty"
 dunstdir="$confdir/dunst"
 oboxdir="$confdir/openbox"
 polydir="$themedir/$ctheme/polybar"
@@ -50,8 +50,9 @@ font_rofi () {
 
 font_term () {
 	if [[ "$FONT" ]]; then
-		sed -i -e "s/family = .*/family = \"$FNAME\"/g" ${termdir}/fonts.toml
-		sed -i -e "s/size = .*/size = $FSIZE/g" ${termdir}/fonts.toml
+		sed -i -e "/^#-fn-start/,/^#-fn-end/s/^\(font_family\|bold_font\|italic_font\|bold_italic_font\) .*/\1 $FNAME/" \
+			-e "s/^font_size .*/font_size $FSIZE/" ${termdir}/fonts.conf
+		pkill -USR1 -x kitty
 	else
 		exit 0
 	fi
@@ -152,7 +153,7 @@ else
     menuStart
         menuItem 'Barre d’état (polybar)' "$0 --bar"
         menuItem 'Lanceurs (rofi)' "$0 --rofi"
-        menuItem 'Terminal (alacritty)' "$0 --terminal"
+        menuItem 'Terminal (kitty)' "$0 --terminal"
         menuItem 'Bureau (openbox)' "$0 --openbox"
         menuItem 'Notifications (dunst)' "$0 --dunst"
         menuItem 'Applications (gtk)' "$0 --gtk"

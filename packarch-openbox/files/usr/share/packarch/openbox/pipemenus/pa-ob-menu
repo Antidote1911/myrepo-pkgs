@@ -51,8 +51,6 @@ if [[ `cat $config | grep 'menu-icons.xml'` ]]; then
 	menuSubmenuEnd
 	menuSeparator
 fi
-menuItem 'Simple' "$0 --menu menu-simple.xml"
 menuItem 'Icônes' "$0 --menu menu-icons.xml"
 menuItem 'Glyphes' "$0 --menu menu-glyphs.xml"
-menuItem 'Minimal' "$0 --menu menu-minimal.xml"
 menuEnd

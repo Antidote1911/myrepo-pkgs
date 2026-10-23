@@ -17,7 +17,7 @@ installer.
 | `packarch-cursors` | les curseurs : Bibata, Fluentt, Future, Lyra, Pear, Qogirr, Sweet, Vimix |
 | `packarch-fonts` | toutes les polices (`/usr/share/fonts/packarch`), dont la police d'icônes `packarch` |
 | `packarch-openbox-extras` | `packarch-reload-theme`, `packarch-tcma` (actions de Thunar), icônes de dunst et illustrations (`/usr/share/packarch`) utilisés par la configuration Openbox |
-| `packarch-openbox` | bureau Openbox : polybar ou tint2, menus rofi, dunst, plank, picom, 15 thèmes (`~/.config/openbox/themes/*/theme.toml`), menus et scripts (`/usr/share/packarch/openbox`), en français. Tout va dans `/etc/skel` |
+| `packarch-openbox` | bureau Openbox : polybar, menus rofi, dunst, plank, picom, kitty, 15 thèmes (`~/.config/openbox/themes/*/theme.toml`), menus et scripts (`/usr/share/packarch/openbox`), en français. Tout va dans `/etc/skel` |
 | `packarch-skin` | sélecteur de thèmes du bureau Openbox (Rust, sources dans `packarch-skin/skin`) : `packarch-skin apply THÈME`, `bar`, `list`, `check`, `openbox-menu`… |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
 | `packarch-rmatrix` | effet « Matrix » en console |
