@@ -46,6 +46,10 @@ restart() {
 # Restore wallpaper
 nitrogen --restore
 
+# Show the StatusNotifierItem icons (cachy-update...) in the tray of polybar
+# and tint2, which only know XEmbed
+run snixembed
+
 # Launch Polybar or Tint2
 run_bg packarch-skin bar
 

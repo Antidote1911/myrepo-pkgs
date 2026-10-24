@@ -11,15 +11,19 @@
 # - pacman hooks, also run when this package is installed: Geany opens a new
 #   instance each time (geany -i), useless entries hidden from the
 #   application menus (packarch-hide-desktop-entries)
+# - cachy-update: its systray applet starts with every session
+#   (/etc/xdg/autostart of cachy-update) and the daily update check
+#   (arch-update.timer) is enabled for every user
+#   (/usr/lib/systemd/user/timers.target.wants)
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=1
-pkgdesc="System settings of Packarch (LightDM, X server, menu entries)"
+pkgrel=2
+pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
-depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons)
+depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons cachy-update)
 optdepends=(
   'lightdm-gtk-greeter: login screen using these settings'
 )
