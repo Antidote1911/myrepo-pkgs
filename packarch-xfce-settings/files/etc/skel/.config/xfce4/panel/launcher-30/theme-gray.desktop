@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Gris
+Comment=Appliquer le thème Gris
+Exec=/usr/share/xfcethemes/theme-switcher.sh --gray
+Icon=/usr/share/xfcethemes/icons/gray.png
+Terminal=false
+Type=Application
+Categories=Utility;

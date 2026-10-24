@@ -1,0 +1,4 @@
+# Sourced by LightDM (/etc/lightdm/Xsession) before the session starts.
+# Creates the xfdesktop wallpaper settings of the connected screens if they
+# are missing (theme switcher, /usr/share/xfcethemes).
+[ -x /usr/share/xfcethemes/init-backdrop.sh ] && /usr/share/xfcethemes/init-backdrop.sh

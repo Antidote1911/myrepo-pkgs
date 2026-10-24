@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Violet
+Comment=Appliquer le thème Violet
+Exec=/usr/share/xfcethemes/theme-switcher.sh --purple
+Icon=/usr/share/xfcethemes/icons/purple.png
+Terminal=false
+Type=Application
+Categories=Utility;

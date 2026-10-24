@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Rouge
+Comment=Appliquer le thème Rouge
+Exec=/usr/share/xfcethemes/theme-switcher.sh --red
+Icon=/usr/share/xfcethemes/icons/red.png
+Terminal=false
+Type=Application
+Categories=Utility;

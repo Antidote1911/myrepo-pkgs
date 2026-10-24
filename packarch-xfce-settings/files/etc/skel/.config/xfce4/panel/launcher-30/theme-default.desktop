@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Défaut
+Comment=Appliquer le thème Défaut
+Exec=/usr/share/xfcethemes/theme-switcher.sh --default
+Icon=/usr/share/xfcethemes/icons/default.png
+Terminal=false
+Type=Application
+Categories=Utility;

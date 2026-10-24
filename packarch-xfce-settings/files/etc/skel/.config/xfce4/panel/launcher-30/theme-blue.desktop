@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Bleu
+Comment=Appliquer le thème Bleu
+Exec=/usr/share/xfcethemes/theme-switcher.sh --blue
+Icon=/usr/share/xfcethemes/icons/blue.png
+Terminal=false
+Type=Application
+Categories=Utility;

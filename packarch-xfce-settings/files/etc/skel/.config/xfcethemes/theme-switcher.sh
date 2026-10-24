@@ -1,0 +1,1 @@
+/usr/share/xfcethemes/theme-switcher.sh

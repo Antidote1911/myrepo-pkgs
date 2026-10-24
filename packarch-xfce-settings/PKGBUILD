@@ -1,0 +1,58 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# XFCE configuration of Packarch: cachyos-xfce-settings 1.0.9
+# (https://github.com/CachyOS/cachyos-xfce-settings) with the changes that
+# the ISO used to make with a pacman hook, and the theme switcher
+# (/usr/share/xfcethemes). Everything goes to /etc/skel (copied to the home of
+# new users), except the theme switcher and the GSettings defaults.
+#
+# Our changes:
+# - "default" theme of the switcher from the start: Arc-Dark (GTK and xfwm4),
+#   Luna-Purple-Dark icons, Qogir-Dark cursor, xfce-default.png wallpaper,
+#   matching terminal colors (terminalrc, imported into xfconf by
+#   xfce4-terminal at first start); same values in the GTK 2/3/4 files,
+#   .icons/default and the GSettings override
+# - theme switcher: panel launcher plugin-30 (launcher-30/),
+#   ~/.config/xfcethemes, .xprofile (init-backdrop.sh)
+# - no screen blanking, sleep or locking (xfce4-power-manager,
+#   xfce4-screensaver, xfce4-session)
+# - Firefox instead of Cachy Browser (panel launcher, helpers.rc, .profile,
+#   whisker menu), Geany instead of mousepad (mimeapps.list), LilouCalc
+#   instead of galculator (whisker menu, calculator key); no Parole and
+#   epdfview in the whisker menu favorites
+# - numeric keypad on (keyboards.xml)
+# - Thunar: sudo instead of pkexec in the custom actions ("Terminal root"),
+#   no "Set as desktop background" action, menu bar hidden, "Delete" in the
+#   context menu, no automount (thunar-volman.xml); org.xfce.thunar icon for
+#   the panel launcher
+# - removed: qt5ct and Kvantum settings, Octopi notifier autostart (none of
+#   them installed), and the dependencies only they or the CachyOS theme used
+#
+# Conflicts with packarch-openbox: both ship some files of /etc/skel (GTK,
+# Thunar, xfconf), the ISO installs one desktop or the other.
+
+pkgname=packarch-xfce-settings
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="XFCE configuration of Packarch"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL-1.0-only')
+depends=(
+  xfce4-panel xfce4-whiskermenu-plugin xfdesktop xfconf thunar
+  noto-fonts qogir-icon-theme packarch-themes packarch-icons
+  packarch-backgrounds
+)
+optdepends=(
+  'firefox: web browser of the panel and the whisker menu'
+  'geany: default text editor'
+  'liloucalc: calculator of the whisker menu and the calculator key'
+  'xfce4-terminal: terminal with the colors of the theme'
+)
+conflicts=(cachyos-xfce-settings packarch-openbox)
+replaces=(cachyos-xfce-settings)
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

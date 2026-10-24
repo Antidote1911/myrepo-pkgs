@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Jaune
+Comment=Appliquer le thème Jaune
+Exec=/usr/share/xfcethemes/theme-switcher.sh --yellow
+Icon=/usr/share/xfcethemes/icons/yellow.png
+Terminal=false
+Type=Application
+Categories=Utility;

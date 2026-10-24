@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Thème Vert
+Comment=Appliquer le thème Vert
+Exec=/usr/share/xfcethemes/theme-switcher.sh --green
+Icon=/usr/share/xfcethemes/icons/green.png
+Terminal=false
+Type=Application
+Categories=Utility;
