@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# packarch-hide-desktop-entries [ROOT] — hides from the application menus
+# (XFCE, Openbox/rofi) entries that are useless on their own: NoDisplay=true
+# keeps them usable as default applications (MIME types, xfce4 helpers).
+# Run by 90-packarch-hide-desktop-entries.hook after each install/upgrade of
+# the packages owning them (and of packarch-system-settings).
+
+root="${1:-}"
+entries=(
+    xfce4-about.desktop             # libxfce4ui: About Xfce
+    xfce4-terminal-emulator.desktop # xfce4-settings: Terminal Emulator
+    xfce4-mail-reader.desktop       # xfce4-settings: Mail Reader
+    xfce4-web-browser.desktop       # xfce4-settings: Web Browser
+    plank.desktop                   # plank
+    mpv.desktop                     # mpv (SMPlayer is the video player)
+    qv4l2.desktop                   # v4l-utils: Qt V4L2 test Utility
+    qvidcap.desktop                 # v4l-utils: Qt V4L2 video capture
+    rofi.desktop                    # rofi
+    rofi-theme-selector.desktop     # rofi
+    yad-icon-browser.desktop        # yad: Icon Browser (yad is needed by the Openbox menus)
+)
+
+for entry in "${entries[@]}"; do
+    f="$root/usr/share/applications/$entry"
+    [[ -f $f ]] || continue
+    # Only in the [Desktop Entry] group, not in the [Desktop Action ...] ones
+    sed -i -e '/^\[Desktop Entry\]/,/^\[/{/^NoDisplay=/d}' \
+        -e '0,/^\[Desktop Entry\]/{/^\[Desktop Entry\]/a NoDisplay=true
+}' "$f"
+done
+exit 0

@@ -1,0 +1,30 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# System settings of Packarch, common to the XFCE and Openbox desktops (they
+# used to be copied by the ISO to the installed system):
+# - no screen blanking from the X server, also on the login screen
+#   (/usr/share/X11/xorg.conf.d)
+# - numeric keypad on at the LightDM login screen (numlockx)
+# - dark LightDM greeter: Greybird-dark, Luna-Red-Dark icons, Qogir-Dark
+#   cursor (lightdm-gtk-greeter.conf.d, read before
+#   /etc/lightdm/lightdm-gtk-greeter.conf, whose settings are commented out)
+# - pacman hooks, also run when this package is installed: Geany opens a new
+#   instance each time (geany -i), useless entries hidden from the
+#   application menus (packarch-hide-desktop-entries)
+
+pkgname=packarch-system-settings
+pkgver=1.0
+pkgrel=1
+pkgdesc="System settings of Packarch (LightDM, X server, menu entries)"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons)
+optdepends=(
+  'lightdm-gtk-greeter: login screen using these settings'
+)
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

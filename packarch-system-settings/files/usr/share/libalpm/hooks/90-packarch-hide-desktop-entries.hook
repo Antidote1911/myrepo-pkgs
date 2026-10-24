@@ -1,0 +1,20 @@
+# Hides useless entries from the application menus (list in
+# packarch-hide-desktop-entries), reapplied after each upgrade.
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = libxfce4ui
+Target = xfce4-settings
+Target = plank
+Target = mpv
+Target = v4l-utils
+Target = rofi
+Target = yad
+Target = packarch-system-settings
+
+[Action]
+Description = Hiding useless entries from the application menus...
+When = PostTransaction
+Depends = sed
+Exec = /usr/bin/packarch-hide-desktop-entries

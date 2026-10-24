@@ -1,0 +1,14 @@
+# Geany always opens in a new instance (-i), reapplied after each upgrade of
+# geany.
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = geany
+Target = packarch-system-settings
+
+[Action]
+Description = Making Geany open a new instance each time...
+When = PostTransaction
+Depends = sed
+Exec = /bin/sh -c '[ ! -f /usr/share/applications/geany.desktop ] || sed -i "s|Exec=geany %F|Exec=geany -i %F|g" /usr/share/applications/geany.desktop'

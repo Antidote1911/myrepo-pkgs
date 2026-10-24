@@ -8,7 +8,8 @@
 # new users); the theme is applied at the first login (autostart). Menus,
 # pipemenus, dunst icons and the packarch-tcma (Thunar actions) and
 # packarch-reload-theme commands go to /usr (packarch-openbox-extras before
-# 7.0-16).
+# 7.0-16). /etc/lightdm/lightdm.conf.d/60-packarch-openbox.conf makes Openbox
+# the default LightDM session (written by the ISO before 7.0-22).
 #
 # Our changes: French translation, 24-hour clock, numlock on, first-login theme
 # application, no second xfce-polkit, Packarch names and paths
@@ -21,7 +22,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=21
+pkgrel=22
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
