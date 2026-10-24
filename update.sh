@@ -5,8 +5,8 @@
 #     the AUR as is (their pkgver/pkgrel are kept)
 #   - apps/*/ (--apps): our applications. pkgver is set to the latest vX.Y.Z
 #     tag of the GitHub repository of url= (pkgrel back to 1 when it
-#     changes); the packages without tags (pkgver() function, e.g. rmatrix)
-#     get the version of their last commit
+#     changes); the packages without tags (pkgver() function) get the
+#     version of their last commit
 #
 # Usage: ./update.sh [PACKAGE...]          (default: all of aur/)
 #        ./update.sh --apps [PACKAGE...]   (default: all of apps/)

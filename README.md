@@ -22,7 +22,7 @@ installer.
 | `packarch-xfce-settings` | réglages XFCE de l'ISO (`cachyos-xfce-settings` 1.0.9 avec nos modifications : thème Arc-Dark/Luna-Purple-Dark/Qogir-Dark, Firefox, Geany, LilouCalc, Thunar, pas de veille ni de verrouillage, pavé numérique) et sélecteur de thèmes XFCE (`/usr/share/xfcethemes`) ; remplace `cachyos-xfce-settings`, en conflit avec `packarch-openbox` (fichiers communs de `/etc/skel`) |
 | `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
-| `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `deadpool`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console, sans tag : version du dernier commit) |
+| `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `deadpool`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console) |
 | `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light` |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
