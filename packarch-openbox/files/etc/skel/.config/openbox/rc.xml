@@ -1087,7 +1087,7 @@
       <focus>yes</focus>
       <decor>yes</decor>
     </application>
-    <application name="obconf">
+    <application class="obconf-qt">
       <position force="yes">
         <x>center</x>
         <y>center</y>

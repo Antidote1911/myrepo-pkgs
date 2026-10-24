@@ -54,7 +54,7 @@
 				<menu id="pa-ob-menu" execute="&pipes;/pa-ob-menu" label="Style du menu"/>
 				<item label="Paramètres">
 					<action name="Execute">
-						<command>obconf</command>
+						<command>obconf-qt</command>
 					</action>
 				</item>
 				<separator/>
