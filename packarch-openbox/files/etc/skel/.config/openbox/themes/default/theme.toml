@@ -2,7 +2,7 @@
 # Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
 # gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
 
-wallpaper = "/usr/share/backgrounds/default.jpg"
+wallpaper = "/usr/share/backgrounds/wallpaper-alt.png"
 
 [colors]
 background = "#1E2128"
@@ -40,14 +40,14 @@ dunst = "JetBrains Mono 10"
 
 [appearance]
 gtk_theme = "Arc-Dark"
-icon_theme = "Zafiro"
-cursor_theme = "Qogirr"
+icon_theme = "Luna-Antidote-Dark"
+cursor_theme = "Pear-Dark"
 color_scheme = "prefer-dark"
-rofi_icons = "Zafiro"
+rofi_icons = "Luna-Antidote-Dark"
 geany_colors = "arc.conf"
 
 [openbox]
-theme = "OB-Arc-Dark"
+theme = "OB-Nordic"
 layout = "DLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
