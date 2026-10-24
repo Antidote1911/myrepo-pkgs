@@ -327,7 +327,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         set_line(t, "strength = ", &format!("strength = {};", pc.blur_strength));
     });
 
-    bar::launch(dirs)?;
+    bar::launch(dirs, None)?;
     run("xsetroot", &["-cursor_name", "left_ptr"]);
     Ok(())
 }

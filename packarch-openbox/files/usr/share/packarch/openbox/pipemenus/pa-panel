@@ -2,7 +2,7 @@
 
 ## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
 ##
-## Openbox Pipemenu to start/stop the bar (polybar)
+## Openbox Pipemenu to change panel/bar
 
 # Variables and functions
 MENUS_LIBDIR='/usr/share/packarch/openbox/menulib'
@@ -11,17 +11,78 @@ if ! . "$MENUS_LIBDIR/packarch.cfg" 2> /dev/null; then
 	exit 1
 fi
 
+# Dir and Files
+DIR="$HOME/.config/openbox/themes"
+CPANEL="$DIR/.panel"
+
+# Create file if it doesn't exist
+create_file () {
+	if [[ ! -e "$CPANEL" ]]; then
+		touch ${CPANEL}
+	fi
+}
+create_file
+
+# Check which bar is running
+check_bar () {
+	if [[ `pidof polybar` && `pidof tint2` ]]; then
+		BAR='Both'
+	elif [[ `pidof polybar` ]]; then
+		BAR='Polybar'
+	elif [[ `pidof tint2` ]]; then
+		BAR='Tint2'
+	else
+		BAR='None'	
+	fi
+}
+check_bar
+
+# Change bar/panel
+change_bar () {
+	if [[ "$1" == 'tint2' ]]; then
+		pkill polybar
+		sleep 1
+		packarch-skin bar tint2
+	elif [[ "$1" == 'polybar' ]]; then
+		pkill tint2
+		packarch-skin bar polybar
+	fi
+}
+
+# Execute accordingly
+if [[ "$1" == '--polybar' ]]; then
+	change_bar 'polybar'
+elif [[ "$1" == '--tint2' ]]; then
+	change_bar 'tint2'
+elif [[ "$1" == '--pb' ]]; then
+	packarch-skin bar polybar
+elif [[ "$1" == '--t2' ]]; then
+	packarch-skin bar tint2
+fi
+
 # Generate menu
 gen_menu () {
 	menuStart
-	if [[ `pidof polybar` ]]; then
-		menuSeparator "Polybar : lancée"
-		menuItem "Relancer Polybar" "packarch-skin bar"
+	case $BAR in
+		Both) bar_label='Les deux' ;;
+		None) bar_label='Aucune' ;;
+		*) bar_label=$BAR ;;
+	esac
+	menuSeparator "Barre actuelle : $bar_label"
+
+	# Change/Set Panel
+	if [[ "$BAR" = 'Polybar' ]]; then
+		menuItem "Utiliser Tint2 (panneau et barre des tâches)" "$0 --tint2"
+	elif [[ "$BAR" = 'Tint2' ]]; then
+		menuItem "Utiliser Polybar (barre d’état)" "$0 --polybar"
+	elif [[ "$BAR" = 'None' ]]; then
+		menuItem "Lancer Polybar" "$0 --pb"
+		menuItem "Lancer Tint2" "$0 --t2"
+	elif [[ "$BAR" = 'Both' ]]; then
 		menuItem "Arrêter Polybar" "pkill polybar"
-	else
-		menuSeparator "Polybar : arrêtée"
-		menuItem "Lancer Polybar" "packarch-skin bar"
+		menuItem "Arrêter Tint2" "pkill tint2"
 	fi
+	
 	menuEnd
 }
 

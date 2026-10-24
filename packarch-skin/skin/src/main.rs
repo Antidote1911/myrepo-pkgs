@@ -2,7 +2,7 @@
 //!
 //! The themes are the directories of ~/.config/openbox/themes that hold a
 //! theme.toml (colors, fonts, GTK/icon/cursor themes, Openbox, dunst, plank,
-//! picom settings) next to their polybar/ and rofi/ layouts. Applying
+//! picom settings) next to their polybar/, rofi/ and tint2/ layouts. Applying
 //! a theme writes these settings into the configuration of each program and
 //! relaunches the bar.
 
@@ -23,7 +23,7 @@ Usage : packarch-skin COMMANDE
   list                    thèmes disponibles (identifiant et nom)
   current                 thème courant
   apply [THÈME]           applique THÈME (par défaut le thème courant)
-  bar                     relance la barre (polybar) du thème courant
+  bar [polybar|tint2]     relance la barre du thème courant (et change de barre)
   wallpaper [THÈME]       chemin du fond d'écran de THÈME
   check [THÈME...]        vérifie les fichiers theme.toml
   openbox-menu            menu Openbox (pipemenu) des thèmes";
@@ -161,7 +161,13 @@ fn main() {
             let id = arg(1).map(str::to_string).unwrap_or_else(|| current(&dirs));
             find(&dirs, &id).and_then(|e| apply::apply(&dirs, &e))
         }
-        Some("bar") => bar::launch(&dirs),
+        Some("bar") => match arg(1) {
+            None => bar::launch(&dirs, None),
+            Some(p) => match bar::Panel::parse(p) {
+                Some(p) => bar::launch(&dirs, Some(p)),
+                None => Err(format!("barre inconnue : {p} (polybar ou tint2)")),
+            },
+        },
         Some("wallpaper") => {
             let id = arg(1).map(str::to_string).unwrap_or_else(|| current(&dirs));
             find(&dirs, &id).and_then(|e| {
