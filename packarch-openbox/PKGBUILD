@@ -11,7 +11,9 @@
 # 7.0-16). /etc/lightdm/lightdm.conf.d/60-packarch-openbox.conf makes Openbox
 # the default LightDM session (written by the ISO before 7.0-22). snixembed
 # shows the StatusNotifierItem icons (cachy-update, nm-applet...) in the
-# XEmbed tray of polybar and tint2.
+# XEmbed tray of polybar and tint2. xdg-terminal-exec and
+# /etc/xdg/xdg-terminals.list open kitty for the applications launched with
+# Terminal=true (GLib does not know kitty: "Launch Cachy-Update" did nothing).
 #
 # Our changes: French translation, 24-hour clock, numlock on, first-login theme
 # application, no second xfce-polkit, Packarch names and paths
@@ -24,7 +26,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=23
+pkgrel=24
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -32,7 +34,8 @@ license=('GPL3')
 depends=(
   # Openbox and the tools of the configuration
   openbox obconf-qt obmenu-generator perl-linux-desktopfiles pulsemixer light
-  polybar tint2 snixembed rofi dunst nitrogen plank xfce4-settings xmlstarlet
+  polybar tint2 snixembed xdg-terminal-exec rofi dunst nitrogen plank
+  xfce4-settings xmlstarlet
   python-lxml lead-git skippy-xd-git
   # optional dependencies used by the configuration (keys, menus, scripts)
   kitty thunar geany firefox viewnior betterlockscreen
