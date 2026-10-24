@@ -2,7 +2,7 @@
 # Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
 # gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
 
-wallpaper = "wallpaper"
+wallpaper = "/usr/share/backgrounds/gray.png"
 
 [colors]
 background = "#131519"
