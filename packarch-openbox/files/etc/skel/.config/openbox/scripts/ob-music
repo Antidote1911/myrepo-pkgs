@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
-##
-## Run ncmpcpp with album art
-
-kitty --class Music -o remember_window_size=no \
-	  -o initial_window_width=105c -o initial_window_height=22c \
-	  -e ~/.ncmpcpp/scripts/ncmpcpp-art

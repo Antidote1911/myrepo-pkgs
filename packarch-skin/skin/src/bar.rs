@@ -123,6 +123,32 @@ fn system_values(themes: &Path) {
     let _ = fs::write(marker, "");
 }
 
+/// Separators between modules, removed with the module next to them
+const SEPARATORS: [&str; 5] = ["sep", "sep2", "dot", "dot-alt", "space"];
+
+/// Removes the modules REMOVE from the "modules-* = ..." line LINE, with the
+/// LD/RD decoration around them and the separator before them (after them
+/// when there is none before). The powerline transitions (2RD, 3LD...) stay:
+/// each one goes from the background of the previous module to the next.
+fn remove_modules(line: &str, remove: &[&str]) -> String {
+    let Some((key, value)) = line.split_once('=') else { return line.to_string() };
+    let mut m: Vec<&str> = value.split_whitespace().collect();
+    while let Some(i) = m.iter().position(|x| remove.contains(x)) {
+        let (mut a, mut b) = (i, i + 1);
+        if a > 0 && b < m.len() && m[a - 1] == "LD" && m[b] == "RD" {
+            a -= 1;
+            b += 1;
+        }
+        if a > 0 && SEPARATORS.contains(&m[a - 1]) {
+            a -= 1;
+        } else if b < m.len() && SEPARATORS.contains(&m[b]) {
+            b += 1;
+        }
+        m.drain(a..b);
+    }
+    format!("{key}= {}", m.join(" ")).trim_end().to_string()
+}
+
 /// Modules of the polybar config.ini of a theme matching the hardware, once
 fn fix_modules(pbar: &Path) {
     let marker = pbar.join(".module");
@@ -131,16 +157,24 @@ fn fix_modules(pbar: &Path) {
     }
     let file = pbar.join("config.ini");
     if let Ok(mut t) = fs::read_to_string(&file) {
+        let mut remove = Vec::new();
         match backlight() {
-            None => t = t.replace("backlight", "bna"),
+            None => remove.extend(["backlight", "backlight-bar"]),
             Some(card) if !card.contains("intel_") => t = t.replace("backlight", "brightness"),
             _ => {}
         }
         if power_supply("Battery").is_none() {
-            t = t.replace("battery", "btna");
+            remove.extend(["battery", "battery_bar"]);
         }
         if interface().is_some_and(|i| i.starts_with('e')) {
             t = t.replace("network", "ethernet");
+        }
+        if !remove.is_empty() {
+            t = t
+                .split('\n')
+                .map(|l| if l.starts_with("modules-") { remove_modules(l, &remove) } else { l.to_string() })
+                .collect::<Vec<_>>()
+                .join("\n");
         }
         let _ = fs::write(&file, t);
     }
@@ -201,4 +235,45 @@ pub fn launch(dirs: &Dirs, panel: Option<Panel>) -> Result<(), String> {
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const NONE: [&str; 4] = ["backlight", "backlight-bar", "battery", "battery_bar"];
+
+    #[test]
+    fn modules_removed() {
+        // default: dots, battery in LD/RD
+        assert_eq!(
+            remove_modules(
+                "modules-right = volume dot backlight dot bluetooth dot network dot LD battery RD dot LD date RD",
+                &NONE
+            ),
+            "modules-right = volume dot bluetooth dot network dot LD date RD"
+        );
+        // easy: battery last inside a LD/RD group
+        assert_eq!(
+            remove_modules("modules-right = LD tray RD space LD volume dot backlight dot network dot battery RD space date", &NONE),
+            "modules-right = LD tray RD space LD volume dot network RD space date"
+        );
+        // forest: first module, no separator
+        assert_eq!(
+            remove_modules("modules-right = battery bluetooth network sep volume-bar backlight-bar tray", &NONE),
+            "modules-right = bluetooth network sep volume-bar tray"
+        );
+        // hack: second bar
+        assert_eq!(remove_modules("modules-right = volume-bar sep backlight-bar", &NONE), "modules-right = volume-bar");
+        // adaptive: the powerline transitions stay
+        assert_eq!(
+            remove_modules("modules-right = 2RD volume 3RD backlight 4RD battery 5RD bluetooth", &NONE),
+            "modules-right = 2RD volume 3RD 4RD 5RD bluetooth"
+        );
+        // only the battery
+        assert_eq!(
+            remove_modules("modules-right = volume sep backlight sep battery sep date", &["battery"]),
+            "modules-right = volume sep backlight sep date"
+        );
+    }
 }

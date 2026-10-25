@@ -681,22 +681,22 @@
     <!-- Media Controls -->
     <keybind key="XF86AudioStop">
       <action name="Execute">
-        <command>mpc stop</command>
+        <command>playerctl stop</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPlay">
       <action name="Execute">
-        <command>mpc toggle</command>
+        <command>playerctl play-pause</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPrev">
       <action name="Execute">
-        <command>mpc prev</command>
+        <command>playerctl previous</command>
       </action>
     </keybind>
     <keybind key="XF86AudioNext">
       <action name="Execute">
-        <command>mpc next</command>
+        <command>playerctl next</command>
       </action>
     </keybind>
     <!-- ################################ Launch Applications ################################ -->
@@ -735,12 +735,6 @@
     <keybind key="W-b">
       <action name="Execute">
         <command>rofi-bluetooth</command>
-      </action>
-    </keybind>
-    <keybind key="W-m">
-      <action name="Execute">
-        <command>rofi-music</command>
-<!-- <command>rofi-spotify</command> -->
       </action>
     </keybind>
     <keybind key="W-x">
@@ -788,11 +782,6 @@
     <keybind key="W-p">
       <action name="Execute">
         <command>ob-colorpicker</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-m">
-      <action name="Execute">
-        <command>ob-music</command>
       </action>
     </keybind>
     <keybind key="W-Escape">

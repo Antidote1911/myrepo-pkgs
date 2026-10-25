@@ -178,7 +178,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
             set_line(t, "border=", &format!("border='{border}'"));
         });
     }
-    for s in ["rofi-askpass", "rofi-bluetooth", "rofi-launcher", "rofi-music", "rofi-powermenu", "rofi-runner", "rofi-screenshot"] {
+    for s in ["rofi-askpass", "rofi-bluetooth", "rofi-launcher", "rofi-powermenu", "rofi-runner", "rofi-screenshot"] {
         edit_file(&obox.join("scripts").join(s), |t| {
             set_line(t, "STYLE=", &format!("STYLE=\"{id}\""));
         });

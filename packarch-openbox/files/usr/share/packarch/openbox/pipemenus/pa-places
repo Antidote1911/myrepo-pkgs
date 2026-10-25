@@ -22,7 +22,7 @@ open_file() {
     fi
 }
 
-readonly shown_dotfiles=".config .gitconfig .icons .local .mpd .ncmpcpp .oh-my-zsh .themes .vim .vimrc .bashrc .zshrc .xinitrc .xprofile .xsessionrc"
+readonly shown_dotfiles=".config .gitconfig .icons .local .oh-my-zsh .themes .vim .vimrc .bashrc .zshrc .xinitrc .xprofile .xsessionrc"
 readonly HELP='
 al-places-pipemenu an Openbox Pipe Menu for showing a directory tree
 It should normally be called from an openbox menu.

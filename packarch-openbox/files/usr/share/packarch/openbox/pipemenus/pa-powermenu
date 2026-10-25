@@ -49,7 +49,7 @@ confirm_run () {
 if [[ "$1" == '--logout' ]]; then
 	confirm_run 'openbox --exit'
 elif [[ "$1" == '--suspend' ]]; then
-	confirm_run 'mpc -q pause' 'pulsemixer --mute' 'betterlockscreen --suspend'
+	confirm_run 'pulsemixer --mute' 'betterlockscreen --suspend'
 elif [[ "$1" == '--reboot' ]]; then
 	confirm_run 'systemctl reboot'
 elif [[ "$1" == '--shutdown' ]]; then
