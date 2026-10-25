@@ -6,7 +6,6 @@ Operation = Upgrade
 Type = Package
 Target = libxfce4ui
 Target = xfce4-settings
-Target = plank
 Target = mpv
 Target = v4l-utils
 Target = rofi

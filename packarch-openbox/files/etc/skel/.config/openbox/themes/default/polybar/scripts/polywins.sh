@@ -19,7 +19,7 @@ minimized_marks="[]" # opening and closing marks, empty for none
 
 separator="·"
 show="window_class" # options: window_title, window_class, window_classname
-forbidden_classes="Plank Polybar Conky Gmrun"
+forbidden_classes="Polybar Conky Gmrun"
 empty_desktop_message="Bureau"
 
 char_limit=12

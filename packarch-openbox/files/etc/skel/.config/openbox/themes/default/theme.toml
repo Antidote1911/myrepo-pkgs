@@ -61,14 +61,6 @@ origin = "top-right"
 border = 4
 separator = 4
 
-[plank]
-hide_mode = "intelligent"
-offset = 0
-position = "bottom"
-theme = "Transparent"
-icon_size = 32
-zoom_percent = 120
-
 [picom]
 backend = "glx"
 corner_radius = 6

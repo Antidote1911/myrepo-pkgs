@@ -12,7 +12,6 @@ entries=(
     xfce4-terminal-emulator.desktop # xfce4-settings: Terminal Emulator
     xfce4-mail-reader.desktop       # xfce4-settings: Mail Reader
     xfce4-web-browser.desktop       # xfce4-settings: Web Browser
-    plank.desktop                   # plank
     mpv.desktop                     # mpv (SMPlayer is the video player)
     qv4l2.desktop                   # v4l-utils: Qt V4L2 test Utility
     qvidcap.desktop                 # v4l-utils: Qt V4L2 video capture

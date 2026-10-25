@@ -56,9 +56,6 @@ run_bg packarch-skin bar
 # Compositor
 run_bg ~/.config/openbox/scripts/ob-picom
 
-# Dock
-run plank
-
 # Desktop Services ------------------------------------------
 
 # XFCE settings daemon (themes, fonts, icons, cursor, DPI...)
@@ -104,8 +101,8 @@ run ksuperkey -e 'Super_R=Alt_L|F1'
 
 # First Login (Packarch) ------------------------------------
 
-# Apply the current theme once (wallpaper, GTK theme, polybar, rofi, dunst,
-# plank...) and cache the lockscreen images of its wallpaper.
+# Apply the current theme once (wallpaper, GTK theme, polybar, rofi, dunst...)
+# and cache the lockscreen images of its wallpaper.
 if [[ ! -f ~/.config/openbox/themes/.applied ]]; then
 	run_bg sh -c '
 		sleep 2

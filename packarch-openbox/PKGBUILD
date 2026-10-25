@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 #
 # Openbox configuration of Packarch: polybar or tint2, rofi menus, dunst,
-# plank, picom, kitty and 15 themes, switched with packarch-skin. Based on the
+# picom, kitty and 15 themes, switched with packarch-skin. Based on the
 # Openbox configuration of Aditya Shakya (adi1090x), GPL3, with the skeleton
 # files it relies on (dunst, picom, rofi, GTK, xfconf, Thunar) and the Geany
 # color schemes. The configuration goes to /etc/skel (copied to the home of
@@ -15,22 +15,23 @@
 # /etc/xdg/xdg-terminals.list open kitty for the applications launched with
 # Terminal=true (GLib does not know kitty: "Launch Cachy-Update" did nothing).
 #
-# Our changes: French translation, 24-hour clock, numlock on, first-login theme
-# application, no second xfce-polkit, Packarch names and paths
-# (/usr/share/packarch, packarch-* commands, pa-* pipemenus), themes
-# described in theme.toml and applied by packarch-skin (no apply.sh), kitty
-# as the only terminal, nano instead of vim, no ranger, plank in
-# "intelligent" mode in every theme (visible unless a window covers it),
-# menu items in "<font>,feather" so that the glyphs of menu-glyphs.xml all
-# come from feather (same width), window list (polywins) in the middle of the
-# bar of the default theme, minimized windows dimmed and in brackets (default
-# and easy themes), no backlight or battery module without the hardware, no
-# mpd and Spotify scripts (music modules, rofi-music, ob-music, rofi-spotify;
-# media keys use playerctl).
+# Our changes: French translation, 24-hour clock, numlock on, first-login
+# theme application, no second xfce-polkit, Packarch names and paths
+# (/usr/share/packarch, packarch-* commands, pa-* pipemenus), themes described
+# in theme.toml and applied by packarch-skin (no apply.sh), kitty as the only
+# terminal, nano instead of vim, no ranger, no plank dock (7.0-29), menu items
+# in "<font>,feather" so that the glyphs of menu-glyphs.xml all come from
+# feather (same width), window list (polywins) in the middle of the bar of the
+# default and adaptive themes (adaptive: no cpu, memory and filesystem
+# modules), power button on the right in the adaptive, beach and nord themes
+# (added to nord), minimized windows dimmed and in brackets (default and easy
+# themes), no backlight or battery module without the hardware, no mpd and
+# Spotify scripts (music modules, rofi-music, ob-music, rofi-spotify; media
+# keys use playerctl).
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=28
+pkgrel=29
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -38,7 +39,7 @@ license=('GPL3')
 depends=(
   # Openbox and the tools of the configuration
   openbox obconf-qt obmenu-generator perl-linux-desktopfiles pulsemixer light
-  polybar tint2 snixembed xdg-terminal-exec rofi dunst nitrogen plank
+  polybar tint2 snixembed xdg-terminal-exec rofi dunst nitrogen
   xfce4-settings xmlstarlet
   python-lxml lead-git skippy-xd-git
   # optional dependencies used by the configuration (keys, menus, scripts)

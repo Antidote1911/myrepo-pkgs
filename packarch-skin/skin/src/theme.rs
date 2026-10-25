@@ -23,7 +23,9 @@ pub struct Theme {
     pub appearance: Appearance,
     pub openbox: Openbox,
     pub dunst: Dunst,
-    pub plank: Plank,
+    /// Ignored: plank was removed, old themes copied to ~/.config still have it
+    #[serde(default, rename = "plank")]
+    _plank: Option<toml::Table>,
     pub picom: Picom,
     #[serde(default)]
     pub polybar: Polybar,
@@ -131,17 +133,6 @@ pub struct Dunst {
     pub origin: String,
     pub border: u32,
     pub separator: u32,
-}
-
-#[derive(Deserialize, Debug)]
-#[serde(deny_unknown_fields)]
-pub struct Plank {
-    pub hide_mode: String,
-    pub offset: i32,
-    pub position: String,
-    pub theme: String,
-    pub icon_size: u32,
-    pub zoom_percent: u32,
 }
 
 #[derive(Deserialize, Debug)]

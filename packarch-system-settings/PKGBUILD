@@ -6,7 +6,7 @@
 #   (/usr/share/X11/xorg.conf.d)
 # - numeric keypad on at the LightDM login screen (numlockx)
 # - dark LightDM greeter: Greybird-dark, Luna-Red-Dark icons, Qogir-Dark
-#   cursor (lightdm-gtk-greeter.conf.d, read before
+#   cursor, wallpaper-alt.png background (lightdm-gtk-greeter.conf.d, read before
 #   /etc/lightdm/lightdm-gtk-greeter.conf, whose settings are commented out)
 # - pacman hooks, also run when this package is installed: Geany opens a new
 #   instance each time (geany -i), useless entries hidden from the
@@ -18,12 +18,13 @@
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
-depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons cachy-update)
+depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons
+         packarch-backgrounds cachy-update)
 optdepends=(
   'lightdm-gtk-greeter: login screen using these settings'
 )

@@ -3,7 +3,7 @@
 use crate::color::{Color, Palette};
 use crate::edit::{set_block, set_line, set_xml_text, truncate_at};
 use crate::theme::{Entry, Theme};
-use crate::{bar, run, run_input, spawn, Dirs};
+use crate::{bar, run, spawn, Dirs};
 use std::fs;
 use std::path::Path;
 
@@ -302,18 +302,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
     if run("pkill", &["-x", "dunst"]) {
         spawn("dunst", &[], &[]);
     }
-
-    // Plank
-    let pk = &theme.plank;
-    let plank = format!(
-        "[dock1]\nalignment='center'\nauto-pinning=true\ncurrent-workspace-only=false\n\
-         dock-items=['xfce-settings-manager.dockitem', 'kitty.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'geany.dockitem']\n\
-         hide-delay=0\nhide-mode='{}'\nicon-size={}\nitems-alignment='center'\nlock-items=false\nmonitor=''\noffset={}\n\
-         pinned-only=false\nposition='{}'\npressure-reveal=false\nshow-dock-item=false\ntheme='{}'\ntooltips-enabled=true\n\
-         unhide-delay=0\nzoom-enabled=true\nzoom-percent={}\n",
-        pk.hide_mode, pk.icon_size, pk.offset, pk.position, pk.theme, pk.zoom_percent
-    );
-    run_input("dconf", &["load", "/net/launchpad/plank/docks/"], Some(&plank));
 
     // Compositor
     let pc = &theme.picom;

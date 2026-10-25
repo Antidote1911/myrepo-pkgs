@@ -1,7 +1,7 @@
 //! packarch-skin — theme (skin) chooser of the Packarch Openbox desktop.
 //!
 //! The themes are the directories of ~/.config/openbox/themes that hold a
-//! theme.toml (colors, fonts, GTK/icon/cursor themes, Openbox, dunst, plank,
+//! theme.toml (colors, fonts, GTK/icon/cursor themes, Openbox, dunst,
 //! picom settings) next to their polybar/, rofi/ and tint2/ layouts. Applying
 //! a theme writes these settings into the configuration of each program and
 //! relaunches the bar.
