@@ -167,6 +167,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         edit_file(&pbar.join("scripts/polywins.sh"), |t| {
             set_line(t, "active_text_color=", &format!("active_text_color='{}'", c.bar_accent.text));
             set_line(t, "inactive_text_color=", &format!("inactive_text_color='{}'", c.bar_fg.text));
+            set_line(t, "minimized_text_color=", &format!("minimized_text_color='{}'", c.bar_alt_fg.text));
         });
     }
 

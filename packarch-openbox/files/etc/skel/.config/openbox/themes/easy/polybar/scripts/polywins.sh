@@ -11,10 +11,16 @@ inactive_text_color='#FFFFFF'
 inactive_bg=
 inactive_underline=
 
+# Minimized windows (_NET_WM_STATE_HIDDEN)
+minimized_text_color='#8c8c8c'
+minimized_bg=
+minimized_underline=
+minimized_marks="[]" # opening and closing marks, empty for none
+
 separator="·"
 show="window_class" # options: window_title, window_class, window_classname
 forbidden_classes="Plank Polybar Conky Gmrun"
-empty_desktop_message="Desktop"
+empty_desktop_message="Bureau"
 
 char_limit=10
 max_windows=5
@@ -31,6 +37,7 @@ main() {
 		# ...print new window list every time
 		# the active window changes or
 		# a window is opened or closed
+		# (minimizing or restoring a window changes the active window)
 		xprop -root -spy _NET_CLIENT_LIST _NET_ACTIVE_WINDOW |
 			while IFS= read -r _; do
 				generate_window_list
@@ -97,6 +104,8 @@ active_left="%{F$active_text_color}"
 active_right="%{F-}"
 inactive_left="%{F$inactive_text_color}"
 inactive_right="%{F-}"
+minimized_left="%{F$minimized_text_color}"
+minimized_right="%{F-}"
 separator="%{F$inactive_text_color}$separator%{F-}"
 
 if [ -n "$active_underline" ]; then
@@ -119,6 +128,16 @@ if [ -n "$inactive_bg" ]; then
 	inactive_right="%{B-}${inactive_right}"
 fi
 
+if [ -n "$minimized_underline" ]; then
+	minimized_left="${minimized_left}%{+u}%{u$minimized_underline}"
+	minimized_right="%{-u}${minimized_right}"
+fi
+
+if [ -n "$minimized_bg" ]; then
+	minimized_left="${minimized_left}%{B$minimized_bg}"
+	minimized_right="%{B-}${minimized_right}"
+fi
+
 get_active_wid() {
 	active_wid=$(xprop -root _NET_ACTIVE_WINDOW)
 	active_wid="${active_wid#*\# }"
@@ -134,6 +153,13 @@ get_active_workspace() {
 		while IFS="[ .]" read -r number active_status _; do
 			test "$active_status" = "*" && echo "$number" && break
 		done
+}
+
+is_minimized() {
+	case "$(xprop -id "$1" _NET_WM_STATE 2>/dev/null)" in
+		*_NET_WM_STATE_HIDDEN*) return 0 ;;
+	esac
+	return 1
 }
 
 generate_window_list() {
@@ -162,14 +188,14 @@ generate_window_list() {
 			window_count=$(( window_count + 1 ))
 			continue
 		fi
-		
+
 		# Show the user-selected window property
 		case "$show" in
 			"window_class") w_name="$cls" ;;
 			"window_classname") w_name="$cname" ;;
 			"window_title") w_name="$title" ;;
 		esac
-		
+
 		# Use user-selected character case
 		case "$char_case" in
 			"lower") w_name=$(
@@ -185,6 +211,14 @@ generate_window_list() {
 			w_name="$(echo "$w_name" | cut -c1-$((char_limit-1)))…"
 		fi
 
+		minimized=false
+		if [ "$wid" != "$active_wid" ] && is_minimized "$wid"; then
+			minimized=true
+			if [ -n "$minimized_marks" ]; then
+				w_name="${minimized_marks%?}${w_name}${minimized_marks#?}"
+			fi
+		fi
+
 		# Apply add-spaces setting
 		if [ "$add_spaces" = "true" ]; then
 			w_name=" $w_name "
@@ -193,6 +227,8 @@ generate_window_list() {
 		# Add left and right formatting to displayed name
 		if [ "$wid" = "$active_wid" ]; then
 			w_name="${active_left}${w_name}${active_right}"
+		elif [ "$minimized" = "true" ]; then
+			w_name="${minimized_left}${w_name}${minimized_right}"
 		else
 			w_name="${inactive_left}${w_name}${inactive_right}"
 		fi
@@ -227,7 +263,7 @@ generate_window_list() {
 	if [ "$window_count" = 0 ]; then
 		printf "%s" "$empty_desktop_message"
 	fi
-	
+
 	# Print newline
 	echo ""
 }

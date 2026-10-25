@@ -22,11 +22,13 @@
 # as the only terminal, nano instead of vim, no ranger, plank in
 # "intelligent" mode in every theme (visible unless a window covers it),
 # menu items in "<font>,feather" so that the glyphs of menu-glyphs.xml all
-# come from feather (same width).
+# come from feather (same width), window list (polywins) in the middle of the
+# bar of the default theme, minimized windows dimmed and in brackets (default
+# and easy themes).
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=26
+pkgrel=27
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -42,7 +44,7 @@ depends=(
   ksuperkey networkmanager-dmenu-git mpd mpc ffmpeg maim xclip xcolor
   xfce4-power-manager xorg-xsetroot yad picom
   # commands of the scripts and polybar/tint2 modules
-  xdotool wmctrl xorg-xprop xorg-xrandr xorg-xkill xorg-xbacklight acpi bc
+  xdotool wmctrl slop xorg-xprop xorg-xrandr xorg-xkill xorg-xbacklight acpi bc
   alsa-utils bluez-utils playerctl imagemagick htop nano xfce-polkit
   xdg-user-dirs python-pyxdg dconf
   # Packarch repository: theme chooser, GTK/Openbox themes, icons, cursors,
