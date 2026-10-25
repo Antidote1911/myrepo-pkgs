@@ -1,0 +1,79 @@
+# Red Satanic theme of packarch-skin (see "packarch-skin --help"): black and
+# blood red of satanic.jpg, Satanic GTK theme, OB-Kripton, two bars (from the
+# default theme).
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+name = "Red Satanic"
+wallpaper = "/usr/share/backgrounds/satanic.jpg"
+
+[colors]
+background = "#0f0f12"
+foreground = "#d0d0d0"
+color0 = "#1c1c20"
+color1 = "#d7263d"
+color2 = "#8c9440"
+color3 = "#e0a030"
+color4 = "#7a8a99"
+color5 = "#b0305a"
+color6 = "#6f8f8f"
+color7 = "#c5c5c5"
+color8 = "#3a3a40"
+color9 = "#f0384f"
+color10 = "#a5ad55"
+color11 = "#f2b84a"
+color12 = "#93a3b2"
+color13 = "#c94572"
+color14 = "#88a8a8"
+color15 = "#e8e8e8"
+accent = "#e01b24"
+alt_background = "lighten(background, 0.06)"
+alt_foreground = "darken(foreground, 0.35)"
+
+[fonts]
+polybar = "JetBrains Mono:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "JetBrains Mono 10"
+
+[appearance]
+gtk_theme = "Satanic"
+icon_theme = "Luna-Red-Dark"
+cursor_theme = "Pear-Dark"
+color_scheme = "prefer-dark"
+rofi_icons = "Luna-Red-Dark"
+geany_colors = "red-satanic.conf"
+
+[openbox]
+theme = "OB-Kripton"
+layout = "DLIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [48, 48, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x48"
+origin = "top-right"
+border = 4
+separator = 4
+
+[picom]
+backend = "glx"
+corner_radius = 6
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+bars = ["main", "bottom"]
+polywins = true

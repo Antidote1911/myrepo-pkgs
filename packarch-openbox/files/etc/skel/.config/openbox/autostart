@@ -46,11 +46,11 @@ restart() {
 # Restore wallpaper
 nitrogen --restore
 
-# Show the StatusNotifierItem icons (cachy-update...) in the tray of polybar
-# and tint2, which only know XEmbed
+# Show the StatusNotifierItem icons (cachy-update...) in the tray of polybar,
+# which only knows XEmbed
 run snixembed
 
-# Launch Polybar or Tint2
+# Launch Polybar
 run_bg packarch-skin bar
 
 # Compositor
@@ -87,17 +87,6 @@ run skippy-xd --start-daemon
 # Enable Super key to open the application menu
 run ksuperkey -e 'Super_L=Alt_L|F1'
 run ksuperkey -e 'Super_R=Alt_L|F1'
-
-# Optional Applets ------------------------------------------
-
-# These applets are specifically for tint2 panel.
-# If you're using tint2 as panel, Uncomment these applets.
-
-# Network Manager
-# run nm-applet --indicator
-
-# Bluetooth
-# run blueman-applet
 
 # First Login (Packarch) ------------------------------------
 

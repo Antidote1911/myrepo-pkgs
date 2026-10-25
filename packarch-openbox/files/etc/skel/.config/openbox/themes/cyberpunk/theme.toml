@@ -1,0 +1,79 @@
+# Cyberpunk theme of packarch-skin (see "packarch-skin --help"): Sweet-Dark
+# GTK theme, OB-Sweet-Dark, BeautyLine icons, dark Sweet palette,
+# cyberpunk1.jpg wallpaper, two bars (from the default theme).
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+name = "Cyberpunk"
+wallpaper = "/usr/share/backgrounds/cyberpunk1.jpg"
+
+[colors]
+background = "#161925"
+foreground = "#c3c7d1"
+color0 = "#1b1e2b"
+color1 = "#ed254e"
+color2 = "#71f79f"
+color3 = "#f9dc5c"
+color4 = "#7cb7ff"
+color5 = "#c74ded"
+color6 = "#00c1e4"
+color7 = "#c3c7d1"
+color8 = "#3c3f52"
+color9 = "#f05a7a"
+color10 = "#8ff9b4"
+color11 = "#fbe57f"
+color12 = "#9ecbff"
+color13 = "#d47bf2"
+color14 = "#33d1ec"
+color15 = "#e6e9f0"
+accent = "#c74ded"
+alt_background = "lighten(background, 0.06)"
+alt_foreground = "darken(foreground, 0.35)"
+
+[fonts]
+polybar = "JetBrains Mono:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "JetBrains Mono 10"
+
+[appearance]
+gtk_theme = "Sweet-Dark"
+icon_theme = "BeautyLine"
+cursor_theme = "Pear-Dark"
+color_scheme = "prefer-dark"
+rofi_icons = "BeautyLine"
+geany_colors = "dracula.conf"
+
+[openbox]
+theme = "OB-Sweet-Dark"
+layout = "DLIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [48, 48, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x48"
+origin = "top-right"
+border = 4
+separator = 4
+
+[picom]
+backend = "glx"
+corner_radius = 6
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+bars = ["main", "bottom"]
+polywins = true

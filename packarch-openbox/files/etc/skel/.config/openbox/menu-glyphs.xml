@@ -68,7 +68,6 @@
 				</item>
 			</menu>
 			<menu id="CompositingPipeMenu" execute="&pipes;/pa-compositor" label="Compositeur"/>
-			<menu id="PanelPipeMenu" execute="&pipes;/pa-panel" label="Panneau / Barre"/>
 			<menu id="XrandrPipeMenu" execute="&pipes;/pa-randr" label="Affichage / Écrans"/>
 			<separator/>
 			<menu id="StylePipeMenu" execute="packarch-skin openbox-menu" label="Changer de style"/>

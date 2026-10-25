@@ -51,7 +51,7 @@ geany_colors = "adapta.conf"
 
 [openbox]
 theme = "OB-Adapta-Nokto"
-layout = "MLC"
+layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
 margins = [44, 10, 10, 10]

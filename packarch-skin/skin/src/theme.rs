@@ -1,5 +1,5 @@
 //! theme.toml: description of a theme (one per theme directory of
-//! ~/.config/openbox/themes, next to its polybar/, rofi/ and tint2/ layouts).
+//! ~/.config/openbox/themes, next to its polybar/ and rofi/ layouts).
 
 use serde::Deserialize;
 use std::collections::BTreeMap;

@@ -86,3 +86,8 @@ shadow_offset_x = -20
 shadow_offset_y = -20
 blur_method = "none"
 blur_strength = 0
+
+[polybar]
+# Colors of polybar/scripts/polywins.sh set in the script: the alternate
+# foreground of the bar (light gray) is unreadable on its light background
+polywins = false

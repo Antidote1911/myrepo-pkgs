@@ -6,7 +6,7 @@
 
 pkgname=packarch-skin
 pkgver=1.0.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
 arch=('x86_64')
 url="https://github.com/Antidote1911/myrepo-pkgs"

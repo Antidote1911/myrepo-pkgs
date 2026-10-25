@@ -1,0 +1,79 @@
+# Pink Sylvanas theme of packarch-skin (see "packarch-skin --help"): colors of the
+# sylvanas.jpg wallpaper (violet black, silver, mauve, red eyes), Catppuccin
+# Mocha GTK and Openbox themes, two bars (from the default theme).
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+name = "Pink Sylvanas"
+wallpaper = "/usr/share/backgrounds/sylvanas.jpg"
+
+[colors]
+background = "#1a161c"
+foreground = "#c3c5cd"
+color0 = "#2a2430"
+color1 = "#d0283c"
+color2 = "#5a9a8a"
+color3 = "#c8a070"
+color4 = "#7a8ab0"
+color5 = "#9a6a9a"
+color6 = "#6aa8a8"
+color7 = "#c3c5cd"
+color8 = "#4a4250"
+color9 = "#e8404f"
+color10 = "#78b8a8"
+color11 = "#e0bc8a"
+color12 = "#98a8cc"
+color13 = "#b88ab8"
+color14 = "#88c4c4"
+color15 = "#e4e6ec"
+accent = "#d0283c"
+alt_background = "lighten(background, 0.06)"
+alt_foreground = "#877e89"
+
+[fonts]
+polybar = "JetBrains Mono:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "JetBrains Mono 10"
+
+[appearance]
+gtk_theme = "Catppuccin-Mocha"
+icon_theme = "Luna-Purple-Dark"
+cursor_theme = "Qogirr-Dark"
+color_scheme = "prefer-dark"
+rofi_icons = "Luna-Purple-Dark"
+geany_colors = "catppuccin-mocha.conf"
+
+[openbox]
+theme = "OB-Catppuccin-Mocha"
+layout = "DLIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [48, 48, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x48"
+origin = "top-right"
+border = 4
+separator = 4
+
+[picom]
+backend = "glx"
+corner_radius = 6
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+bars = ["main", "bottom"]
+polywins = true

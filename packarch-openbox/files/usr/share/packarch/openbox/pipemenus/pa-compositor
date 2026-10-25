@@ -23,7 +23,7 @@ It should normally be called from an openbox menu.
 
 Options (passed from the menu):
     -h --help   show this message
-    --start     start the compositor and restart tint2, if running
+    --start     start the compositor
     --restart   restart the compositor, if running
     --stop      stop the compositor
     --edit      open the picom config file in a text editor

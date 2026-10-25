@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 #
-# Openbox configuration of Packarch: polybar or tint2, rofi menus, dunst,
-# picom, kitty and 15 themes, switched with packarch-skin. Based on the
+# Openbox configuration of Packarch: polybar, rofi menus, dunst,
+# picom, kitty and 10 themes, switched with packarch-skin. Based on the
 # Openbox configuration of Aditya Shakya (adi1090x), GPL3, with the skeleton
 # files it relies on (dunst, picom, rofi, GTK, xfconf, Thunar) and the Geany
 # color schemes. The configuration goes to /etc/skel (copied to the home of
@@ -11,7 +11,7 @@
 # 7.0-16). /etc/lightdm/lightdm.conf.d/60-packarch-openbox.conf makes Openbox
 # the default LightDM session (written by the ISO before 7.0-22). snixembed
 # shows the StatusNotifierItem icons (cachy-update, nm-applet...) in the
-# XEmbed tray of polybar and tint2. xdg-terminal-exec and
+# XEmbed tray of polybar. xdg-terminal-exec and
 # /etc/xdg/xdg-terminals.list open kitty for the applications launched with
 # Terminal=true (GLib does not know kitty: "Launch Cachy-Update" did nothing).
 #
@@ -19,19 +19,24 @@
 # theme application, no second xfce-polkit, Packarch names and paths
 # (/usr/share/packarch, packarch-* commands, pa-* pipemenus), themes described
 # in theme.toml and applied by packarch-skin (no apply.sh), kitty as the only
-# terminal, nano instead of vim, no ranger, no plank dock (7.0-29), menu items
-# in "<font>,feather" so that the glyphs of menu-glyphs.xml all come from
-# feather (same width), window list (polywins) in the middle of the bar of the
-# default and adaptive themes (adaptive: no cpu, memory and filesystem
-# modules), power button on the right in the adaptive, beach and nord themes
-# (added to nord), minimized windows dimmed and in brackets (default and easy
-# themes), no backlight or battery module without the hardware, no mpd and
-# Spotify scripts (music modules, rofi-music, ob-music, rofi-spotify; media
-# keys use playerctl).
+# terminal, nano instead of vim, no ranger, no plank dock (7.0-29), no tint2
+# (7.0-30), menu items in "<font>,feather" so that the glyphs of
+# menu-glyphs.xml all come from feather (same width), window list (polywins)
+# in the default, adaptive, pink-city and yellow-flower themes, a second bar
+# at the bottom in default and yellow-flower (application menu,
+# Firefox/Thunar/kitty launchers), yellow-flower (formerly slime: Juno-Mirage,
+# Ayu Mirage colors), pink-city (formerly red: Qogir-Pink-Dark icons),
+# packarch (formerly manhattan: colors of packarch-default.jpg, two bars),
+# hacking (formerly hack), no wave, gray, forest, kiss, easy, rainy, nord and
+# beach themes, new red-satanic, pink-sylvanas and cyberpunk themes, 4
+# desktops instead of 5 (7.0-30), minimized windows dimmed and in brackets in
+# the window list, no backlight or battery module without the hardware, no mpd
+# and Spotify scripts (music modules, rofi-music, ob-music, rofi-spotify;
+# media keys use playerctl).
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=29
+pkgrel=30
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -39,14 +44,14 @@ license=('GPL3')
 depends=(
   # Openbox and the tools of the configuration
   openbox obconf-qt obmenu-generator perl-linux-desktopfiles pulsemixer light
-  polybar tint2 snixembed xdg-terminal-exec rofi dunst nitrogen
+  polybar snixembed xdg-terminal-exec rofi dunst nitrogen
   xfce4-settings xmlstarlet
   python-lxml lead-git skippy-xd-git
   # optional dependencies used by the configuration (keys, menus, scripts)
   kitty thunar geany firefox viewnior betterlockscreen
   ksuperkey networkmanager-dmenu-git ffmpeg maim xclip xcolor
   xfce4-power-manager xorg-xsetroot yad picom
-  # commands of the scripts and polybar/tint2 modules
+  # commands of the scripts and polybar modules
   xdotool wmctrl slop xorg-xprop xorg-xrandr xorg-xkill xorg-xbacklight acpi bc
   alsa-utils bluez-utils playerctl imagemagick htop nano xfce-polkit
   xdg-user-dirs python-pyxdg dconf

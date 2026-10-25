@@ -26,7 +26,8 @@ conf="${top}/makepkg.conf"
 
 # AUR packages, dependencies first
 aur_order=(gtkmm nitrogen xfce-polkit lead-git skippy-xd-git
-    ksuperkey betterlockscreen networkmanager-dmenu-git light)
+    ksuperkey betterlockscreen networkmanager-dmenu-git light beautyline
+    sweet-gtk-theme)
 
 force=false
 [[ ${1:-} == -f ]] && { force=true; shift; }

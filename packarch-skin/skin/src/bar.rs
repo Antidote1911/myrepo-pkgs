@@ -1,8 +1,7 @@
-//! Bar of the current theme: polybar or tint2 (what launch-bar.sh,
-//! polybar.sh, tint2.sh and the polybar/launch.sh of each theme did).
+//! Bar of the current theme: polybar (what launch-bar.sh, polybar.sh and the
+//! polybar/launch.sh of each theme did; no tint2 since 1.0.0-8).
 //!
-//! themes/.panel holds the bar in use (polybar by default). Before the first
-//! polybar launch, themes/system.ini receives the battery, adapter, backlight
+//! Before the first polybar launch, themes/system.ini receives the battery, adapter, backlight
 //! and network interface of the computer; before the first launch of a theme,
 //! its config.ini gets the modules matching the hardware (no backlight or
 //! battery module without one, "brightness" for non-Intel backlights,
@@ -15,29 +14,6 @@ use std::path::Path;
 use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum Panel {
-    Polybar,
-    Tint2,
-}
-
-impl Panel {
-    pub fn parse(s: &str) -> Option<Panel> {
-        match s.trim() {
-            "polybar" => Some(Panel::Polybar),
-            "tint2" => Some(Panel::Tint2),
-            _ => None,
-        }
-    }
-
-    fn name(self) -> &'static str {
-        match self {
-            Panel::Polybar => "polybar",
-            Panel::Tint2 => "tint2",
-        }
-    }
-}
 
 /// Stops every instance of PROC and waits for them to exit (5 s at most)
 fn stop(proc: &str) {
@@ -123,6 +99,16 @@ fn system_values(themes: &Path) {
     let _ = fs::write(marker, "");
 }
 
+/// Renames the modules of the "modules-* = ..." line LINE (whole names)
+fn rename_modules(line: &str, rename: &[(&str, &str)]) -> String {
+    let Some((key, value)) = line.split_once('=') else { return line.to_string() };
+    let m: Vec<&str> = value
+        .split_whitespace()
+        .map(|x| rename.iter().find(|(from, _)| *from == x).map_or(x, |(_, to)| *to))
+        .collect();
+    format!("{key}= {}", m.join(" ")).trim_end().to_string()
+}
+
 /// Separators between modules, removed with the module next to them
 const SEPARATORS: [&str; 5] = ["sep", "sep2", "dot", "dot-alt", "space"];
 
@@ -158,24 +144,32 @@ fn fix_modules(pbar: &Path) {
     let file = pbar.join("config.ini");
     if let Ok(mut t) = fs::read_to_string(&file) {
         let mut remove = Vec::new();
+        let mut rename = Vec::new();
         match backlight() {
             None => remove.extend(["backlight", "backlight-bar"]),
-            Some(card) if !card.contains("intel_") => t = t.replace("backlight", "brightness"),
+            Some(card) if !card.contains("intel_") => rename.push(("backlight", "brightness")),
             _ => {}
         }
         if power_supply("Battery").is_none() {
             remove.extend(["battery", "battery_bar"]);
         }
         if interface().is_some_and(|i| i.starts_with('e')) {
-            t = t.replace("network", "ethernet");
+            rename.extend([("network", "ethernet"), ("network_ext", "ethernet_ext")]);
         }
-        if !remove.is_empty() {
-            t = t
-                .split('\n')
-                .map(|l| if l.starts_with("modules-") { remove_modules(l, &remove) } else { l.to_string() })
-                .collect::<Vec<_>>()
-                .join("\n");
-        }
+        // Only the "modules-* = ..." lines, whole module names: replacing
+        // everywhere also changed comments, and backlight-bar became
+        // brightness-bar, defined by no theme (the bar did not start)
+        t = t
+            .split('\n')
+            .map(|l| {
+                if l.starts_with("modules-") {
+                    remove_modules(&rename_modules(l, &rename), &remove)
+                } else {
+                    l.to_string()
+                }
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
         let _ = fs::write(&file, t);
     }
     let _ = fs::write(marker, "");
@@ -198,40 +192,23 @@ fn monitors() -> Vec<String> {
         .unwrap_or_default()
 }
 
-/// Launches the bar of the current theme; PANEL changes the bar in use
-pub fn launch(dirs: &Dirs, panel: Option<Panel>) -> Result<(), String> {
-    let pfile = dirs.themes.join(".panel");
-    if let Some(p) = panel {
-        fs::write(&pfile, format!("{}\n", p.name())).map_err(|e| format!("{} : {e}", pfile.display()))?;
-    }
-    let panel = fs::read_to_string(&pfile)
-        .ok()
-        .and_then(|s| Panel::parse(&s))
-        .unwrap_or(Panel::Polybar);
+/// Launches the bars of the current theme
+pub fn launch(dirs: &Dirs) -> Result<(), String> {
     let id = current(dirs);
     let entry = theme::list(&dirs.themes)
         .into_iter()
         .find(|e| e.id == id)
         .ok_or_else(|| format!("thème courant introuvable : {id}"))?;
 
-    match panel {
-        Panel::Polybar => {
-            system_values(&dirs.themes);
-            let pbar = entry.dir.join("polybar");
-            fix_modules(&pbar);
-            let bars = entry.load().map(|t| t.polybar.bars).unwrap_or_else(|_| vec!["main".into()]);
-            stop("polybar");
-            let config = pbar.join("config.ini").to_string_lossy().into_owned();
-            for mon in monitors() {
-                for bar in &bars {
-                    spawn("polybar", &["-q", bar, "-c", &config], &[("MONITOR", &mon)]);
-                }
-            }
-        }
-        Panel::Tint2 => {
-            stop("tint2");
-            let rc = entry.dir.join("tint2/tint2rc").to_string_lossy().into_owned();
-            spawn("tint2", &["-c", &rc], &[]);
+    system_values(&dirs.themes);
+    let pbar = entry.dir.join("polybar");
+    fix_modules(&pbar);
+    let bars = entry.load().map(|t| t.polybar.bars).unwrap_or_else(|_| vec!["main".into()]);
+    stop("polybar");
+    let config = pbar.join("config.ini").to_string_lossy().into_owned();
+    for mon in monitors() {
+        for bar in &bars {
+            spawn("polybar", &["-q", bar, "-c", &config], &[("MONITOR", &mon)]);
         }
     }
     Ok(())
@@ -275,5 +252,16 @@ mod tests {
             remove_modules("modules-right = volume sep backlight sep battery sep date", &["battery"]),
             "modules-right = volume sep backlight sep date"
         );
+    }
+
+    #[test]
+    fn modules_renamed() {
+        let rename = [("backlight", "brightness"), ("network", "ethernet"), ("network_ext", "ethernet_ext")];
+        // whole names only: backlight-bar has no brightness counterpart
+        assert_eq!(
+            rename_modules("modules-right = network sep volume-bar backlight-bar backlight", &rename),
+            "modules-right = ethernet sep volume-bar backlight-bar brightness"
+        );
+        assert_eq!(rename_modules("modules-center = network_ext sep bluetooth", &rename), "modules-center = ethernet_ext sep bluetooth");
     }
 }

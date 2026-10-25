@@ -1,0 +1,79 @@
+# Yellow Flower theme of packarch-skin (see "packarch-skin --help"), formerly
+# slime: Juno-Mirage, Ayu Mirage colors, bouquet.jpg wallpaper.
+# Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
+# gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
+
+name = "Yellow Flower"
+wallpaper = "/usr/share/backgrounds/bouquet.jpg"
+
+[colors]
+# Ayu Mirage, the palette of the Juno-Mirage GTK theme
+background = "#1f2430"
+foreground = "#cbccc6"
+color0 = "#191e2a"
+color1 = "#ed8274"
+color2 = "#a6cc70"
+color3 = "#fad07b"
+color4 = "#6dcbfa"
+color5 = "#cfbafa"
+color6 = "#90e1c6"
+color7 = "#c7c7c7"
+color8 = "#686868"
+color9 = "#f28779"
+color10 = "#bae67e"
+color11 = "#ffd580"
+color12 = "#73d0ff"
+color13 = "#d4bfff"
+color14 = "#95e6cb"
+color15 = "#ffffff"
+accent = "#ffcc66"
+alt_background = "lighten(background, 0.05)"
+alt_foreground = "#707a8c"
+
+[fonts]
+polybar = "Iosevka:size=10;3"
+rofi = "Iosevka 10"
+terminal = "JetBrainsMono Nerd Font"
+terminal_size = 10
+geany = "JetBrainsMono Nerd Font 10"
+gtk = "Noto Sans 9"
+openbox = "JetBrains Mono"
+openbox_size = 9
+dunst = "Iosevka Custom 9"
+
+[appearance]
+gtk_theme = "Juno-Mirage"
+icon_theme = "Luna-Dark"
+cursor_theme = "Qogirr-Dark"
+color_scheme = "prefer-dark"
+rofi_icons = "Luna-Dark"
+geany_colors = "bouquet.conf"
+
+[openbox]
+theme = "OB-Juno-Mirage"
+layout = "LIMC"
+menu = "menu-icons.xml"
+# top, bottom, left, right
+margins = [40, 40, 10, 10]
+
+[dunst]
+width = 300
+height = 80
+offset = "10x40"
+origin = "top-right"
+border = 0
+separator = 2
+
+[picom]
+backend = "glx"
+corner_radius = 0
+shadow_radius = 20
+shadow_opacity = "0.60"
+shadow_offset_x = -20
+shadow_offset_y = -20
+blur_method = "none"
+blur_strength = 0
+
+[polybar]
+bars = ["main", "bottom"]
+polywins = true
