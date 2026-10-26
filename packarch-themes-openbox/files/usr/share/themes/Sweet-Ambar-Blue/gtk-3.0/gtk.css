@@ -6315,3 +6315,10 @@ ConversationListView {
     box-shadow: none; }
 
 /*# sourceMappingURL=gtk.css.map */
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #020202;
+}

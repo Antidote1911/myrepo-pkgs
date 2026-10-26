@@ -6388,3 +6388,10 @@ window.thunar toolbar#location-toolbar > toolitem > widget > widget.linked.path-
     text-shadow: none; }
 
 /*# sourceMappingURL=gtk-dark.css.map */
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #0a0b0d;
+}

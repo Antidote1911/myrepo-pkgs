@@ -37,7 +37,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=32
+pkgrel=33
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

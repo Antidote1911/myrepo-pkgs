@@ -6274,3 +6274,10 @@ FIXME this is really an API */
 @define-color placeholder_text_color #bdc1c1;
 
 @import url('custom.css');
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid transparent;
+}

@@ -1,1 +1,8 @@
 @import url("resource:///org/adapta-project/gtk-3.20-eta/gtk-contained.css");
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid transparent;
+}

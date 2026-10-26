@@ -31,37 +31,37 @@
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>JetBrains Mono</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Bold</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveWindow">
       <name>JetBrains Mono</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuHeader">
       <name>JetBrains Mono</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Bold</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuItem">
       <name>JetBrains Mono,feather</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="ActiveOnScreenDisplay">
       <name>JetBrains Mono</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Bold</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveOnScreenDisplay">
       <name>JetBrains Mono</name>
-      <size>9</size>
+      <size>12</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>

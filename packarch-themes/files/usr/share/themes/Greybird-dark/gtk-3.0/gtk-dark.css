@@ -2051,3 +2051,10 @@ headerbar entry .vertical.pan button image { min-height: 12px; padding: 0; }
 
 /****************** Gnome Software * */
 headerbar viewswitcher button stack box { padding-top: 0px; padding-bottom: 0px; }
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #1d1f1f;
+}

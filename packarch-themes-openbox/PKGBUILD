@@ -11,7 +11,7 @@
 
 pkgname=packarch-themes-openbox
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK and Openbox themes of the Openbox desktop of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

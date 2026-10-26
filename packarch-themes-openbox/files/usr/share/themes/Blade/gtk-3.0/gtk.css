@@ -6246,3 +6246,10 @@ read if you used those and something break with a version upgrade you're on your
 @define-color text_view_bg #0c1018;
 /* placeholder for entries */
 @define-color placeholder_text_color #ac8e8e;
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid transparent;
+}

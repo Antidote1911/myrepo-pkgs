@@ -105,3 +105,10 @@
 @import url("apps/nemo.css");
 @import url("apps/synaptic.css");
 @import url("apps/lightdm-gtk-greeter.css");
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid transparent;
+}

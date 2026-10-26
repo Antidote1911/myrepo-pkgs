@@ -6272,3 +6272,10 @@ read if you used those and something break with a version upgrade you're on your
 FIXME this is really an API */
 @define-color content_view_bg #20262C;
 @define-color placeholder_text_color #b2bcbc;
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid transparent;
+}

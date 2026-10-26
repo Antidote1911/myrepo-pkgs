@@ -6311,3 +6311,10 @@ window.thunar toolbar#location-toolbar > toolitem > widget > widget.linked.path-
     border-bottom: 1px solid #00A9A5; }
 
 /*# sourceMappingURL=gtk.css.map */
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #050509;
+}

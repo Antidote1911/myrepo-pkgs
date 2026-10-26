@@ -2226,3 +2226,10 @@ UnityPanelWidget.menuitem:hover, UnityPanelWidget.menuitem *:hover, UnityPanelWi
 window.background.chromium { background-color: #3b3e3f; }
 
 window.background.chromium button:not(.titlebutton) { border-color: #1d1f1f; }
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #1d1f1f;
+}

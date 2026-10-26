@@ -6325,3 +6325,10 @@ window.thunar toolbar#location-toolbar > toolitem > widget > widget.linked.path-
     color: rgba(164, 171, 182, 0.8); }
 
 /*# sourceMappingURL=gtk.css.map */
+
+
+/* Packarch : bordure CSD uniforme */
+.solid-csd decoration {
+  padding: 2px;
+  border: 1px solid #14171f;
+}
