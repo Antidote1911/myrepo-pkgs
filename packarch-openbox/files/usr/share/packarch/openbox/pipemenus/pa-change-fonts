@@ -31,9 +31,19 @@ getfonts () {
 	FSIZE=$(echo $FONT | cut -d'|' -f3)
 }
 
+# Stores KEY = VALUE in the [fonts] section of the current theme.toml:
+# packarch-skin applies it again on each theme change
+set_theme_font () {
+	local file="$themedir/$ctheme/theme.toml" value="$2"
+	[[ -f "$file" ]] || return 0
+	value="${value//\\/\\\\}"; value="${value//&/\\&}"; value="${value//|/\\|}"
+	sed -i -e "/^\[fonts\]/,/^\[/s|^$1 = .*|$1 = $value|" "$file"
+}
+
 font_bar () {
 	if [[ "$FONT" ]]; then
 		sed -i -e "s/font-0 = .*/font-0 = $FNAME:$FSTYLE:size=$FSIZE;2/g" ${polydir}/config.ini
+		set_theme_font polybar "\"$FNAME:$FSTYLE:size=$FSIZE;2\""
 		polybar-msg cmd restart
 	else
 		exit 0
@@ -43,6 +53,7 @@ font_bar () {
 font_rofi () {
 	if [[ "$FONT" ]]; then
 		sed -i -e "s/font:.*/font: \"$FNAME $FSTYLE $FSIZE\";/g" ${rofidir}/shared/fonts.rasi
+		set_theme_font rofi "\"$FNAME $FSTYLE $FSIZE\""
 	else
 		exit 0
 	fi
@@ -52,6 +63,8 @@ font_term () {
 	if [[ "$FONT" ]]; then
 		sed -i -e "/^#-fn-start/,/^#-fn-end/s/^\(font_family\|bold_font\|italic_font\|bold_italic_font\) .*/\1 $FNAME/" \
 			-e "s/^font_size .*/font_size $FSIZE/" ${termdir}/fonts.conf
+		set_theme_font terminal "\"$FNAME\""
+		set_theme_font terminal_size "${FSIZE%%.*}"
 		pkill -USR1 -x kitty
 	else
 		exit 0
@@ -93,6 +106,8 @@ font_ob () {
 		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:weight' -v Normal "$config"
 		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:slant' -v Normal "$config"
 
+		set_theme_font openbox "\"$FNAME\""
+		set_theme_font openbox_size "${FSIZE%%.*}"
 		openbox --reconfigure
 	else
 		exit 0
@@ -102,6 +117,7 @@ font_ob () {
 font_dunst () {
 	if [[ "$FONT" ]]; then
 		sed -i -e "s/font = .*/font = $FNAME $FSTYLE $FSIZE/g" ${dunstdir}/dunstrc
+		set_theme_font dunst "\"$FNAME $FSTYLE $FSIZE\""
 		pkill dunst && dunst &
 	else
 		exit 0
@@ -111,6 +127,7 @@ font_dunst () {
 font_gtk () {
 	if [[ "$FONT" ]]; then
 		xfconf-query -c xsettings -p /Gtk/FontName -s "$FNAME $FSTYLE $FSIZE"
+		set_theme_font gtk "\"$FNAME $FSTYLE $FSIZE\""
 	else
 		exit 0
 	fi

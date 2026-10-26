@@ -67,7 +67,7 @@ theme = "OB-Manhattan"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
-margins = [48, 48, 10, 10]
+margins = [10, 10, 10, 10]
 
 [dunst]
 width = 300
