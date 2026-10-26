@@ -12,7 +12,8 @@ installer.
 | Paquet | Contenu |
 |---|---|
 | `packarch-backgrounds` | tous les fonds d'écran (`/usr/share/backgrounds`), dont les nôtres (`pastelmount`, `satanic`, `packarch-default`) et ceux du sélecteur de thèmes XFCE (même dossier, sans sous-dossier ; liste par thème dans `theme-switcher.sh` de l'ISO) |
-| `packarch-icons` | tous les thèmes d'icônes : Packarch, Packarch-Dark, Arc-Circle, Hack, Luna (et nos variantes `Luna-Antidote-Dark`, `Luna-Green-Dark`, `Luna-Purple-Dark`, `Luna-Red-Dark`), Luv, Nordic, Numix, Papirus, Vimix, White, Win11, `Qogir-Pink-Dark` (dossiers roses). Qogir vient de `qogir-icon-theme` (dépendance, avec ses curseurs), BeautyLine de `aur/beautyline` (dépendance) ; Zafiro retiré en 2.0-4 (utilisé par aucun thème) |
+| `packarch-icons` | les thèmes d'icônes des thèmes Packarch : Packarch, Packarch-Dark, Papirus-Apps, Hack, Luna (et nos variantes `Luna-Antidote-Dark`, `Luna-Green-Dark`, `Luna-Purple-Dark`, `Luna-Red-Dark`), Luna-Dark, Luv-Folders(-Dark), Vimix-Black(-Dark), `Qogir-Pink-Dark` (dossiers roses). Qogir vient de `qogir-icon-theme` (dépendance, avec ses curseurs), BeautyLine de `aur/beautyline` (dépendance) ; Zafiro retiré en 2.0-4 (utilisé par aucun thème) |
+| `packarch-icons-extra` | les thèmes d'icônes utilisés par aucun thème (sortis de `packarch-icons` en 2.0-5 pour alléger l'ISO, qui ne l'installe pas) : Arc-Circle, Luna-Light, Nordic-Folders(-Bluish, -Green), Numix-Apps(-White), Vimix-White(-Dark), White-Folders, Win11(-Dark) ; dépend de `packarch-icons` (héritage et liens) |
 | `packarch-themes` | tous les thèmes GTK (Adapta, Arc, Blade, Catppuccin, Cyberpunk, Dracula, Everforest, Groot, Gruvbox, Hack, Juno, Kripton, Manhattan, Nordic, Rick, Slime, Spark, Sweet, Wave, White, Windows-10, et les nôtres : Satanic, Greybird-dark, Orchis-Red-Dark, Adapta-Bitmap, Arc-Bitmap) et les thèmes de fenêtres Openbox (`OB-*`) |
 | `packarch-cursors` | les curseurs : Bibata, Fluentt, Future, Lyra, Pear, Qogirr, Sweet, Vimix |
 | `packarch-fonts` | toutes les polices (`/usr/share/fonts/packarch`), dont la police d'icônes `packarch` |
@@ -26,7 +27,7 @@ installer.
 | `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light`, `beautyline` (thème d’icônes BeautyLine, dépendance de `packarch-icons`), `sweet-gtk-theme` (thème GTK Sweet, dépendance de `packarch-themes`) |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
-(`packarch-icons-*`, `packarch-gtk-theme-*` : `replaces`).
+(`packarch-icons-arc`, `packarch-icons-luna`…, `packarch-gtk-theme-*` : `replaces`).
 
 **Crédits** : la plupart des thèmes, icônes, curseurs, polices, fonds d'écran
 et scripts ont été rassemblés ou créés par Aditya Shakya (adi1090x), sous

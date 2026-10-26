@@ -1,0 +1,23 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Icon themes used by no Packarch theme (moved out of packarch-icons in
+# 2.0-5, so that the ISO does not ship them): Arc-Circle, Luna-Light,
+# Nordic-Folders(-Bluish, -Green), Numix-Apps(-White), Vimix-White(-Dark),
+# White-Folders, Win11(-Dark). They inherit from and link to the themes of
+# packarch-icons (Packarch, Packarch-Dark, Luna).
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3.
+
+pkgname=packarch-icons-extra
+pkgver=2.0
+pkgrel=1
+pkgdesc="Extra icon themes for Packarch (used by no Packarch theme)"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=('packarch-icons>=2.0-5')
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

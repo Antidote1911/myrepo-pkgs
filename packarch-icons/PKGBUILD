@@ -2,7 +2,8 @@
 #
 # Icon themes for Packarch (all of them; Qogir and Papirus from the official
 # packages, BeautyLine from aur/beautyline; no Zafiro since 2.0-4, used by
-# no theme)
+# no theme; the themes used by no Packarch theme are in packarch-icons-extra
+# since 2.0-5, so that the ISO does not ship them)
 # Files: files/ (installed as is). Most of the content was collected or made
 # by Aditya Shakya (adi1090x), GPL3. Qogir-Pink-Dark: the folder icons
 # (places) of Qogir-Dark (Vinceliuice, GPL3) recolored in the pink of the
@@ -11,8 +12,8 @@
 
 pkgname=packarch-icons
 pkgver=2.0
-pkgrel=4
-pkgdesc="Icon themes for Packarch (all of them; Qogir and Papirus from the official packages)"
+pkgrel=5
+pkgdesc="Icon themes of the Packarch themes (Qogir and Papirus from the official packages)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
