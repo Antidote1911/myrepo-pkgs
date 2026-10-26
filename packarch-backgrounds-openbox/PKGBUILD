@@ -1,0 +1,22 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Wallpapers not used by the XFCE desktop (moved out of packarch-backgrounds
+# in 2.0-5, so that the XFCE live ISO does not ship them): those of the
+# Openbox themes and the other ones.
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3. sylvanas.jpg (packarch-backgrounds
+# 2.0-4): Sylvanas Windrunner, World of Warcraft artwork (Blizzard
+# Entertainment).
+
+pkgname=packarch-backgrounds-openbox
+pkgver=2.0
+pkgrel=1
+pkgdesc="Wallpapers of the Openbox desktop of Packarch"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

@@ -36,7 +36,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=30
+pkgrel=31
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -56,9 +56,11 @@ depends=(
   alsa-utils bluez-utils playerctl imagemagick htop nano xfce-polkit
   xdg-user-dirs python-pyxdg dconf
   # Packarch repository: theme chooser, GTK/Openbox themes, icons, cursors,
-  # fonts and wallpapers
+  # fonts and wallpapers (the -openbox packages hold what the XFCE desktop
+  # does not use, 7.0-31)
   packarch-skin packarch-themes packarch-icons packarch-cursors
-  packarch-fonts packarch-backgrounds
+  packarch-fonts packarch-backgrounds packarch-themes-openbox
+  packarch-icons-openbox packarch-backgrounds-openbox
 )
 # Merged into this package (7.0-16)
 replaces=(packarch-openbox-extras)

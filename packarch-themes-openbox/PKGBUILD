@@ -1,0 +1,24 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# GTK and Openbox themes not used by the XFCE desktop (moved out of
+# packarch-themes in 2.0-5, so that the XFCE live ISO does not ship them):
+# all the Openbox themes (OB-*) and the other GTK themes.
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3. Manhattan (Materia, GPL2): orange
+# selections and check boxes (#f7901e) instead of lilac (#b4a1db), CSS and
+# GTK2 images (packarch-themes 2.0-4). Sweet (EliverLara, GPL3) from
+# aur/sweet-gtk-theme.
+
+pkgname=packarch-themes-openbox
+pkgver=2.0
+pkgrel=1
+pkgdesc="GTK and Openbox themes of the Openbox desktop of Packarch"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=('sweet-gtk-theme')
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}

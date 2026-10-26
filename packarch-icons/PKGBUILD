@@ -1,23 +1,22 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 #
-# Icon themes for Packarch (all of them; Qogir and Papirus from the official
-# packages, BeautyLine from aur/beautyline; no Zafiro since 2.0-4, used by
-# no theme; the themes used by no Packarch theme are in packarch-icons-extra
-# since 2.0-5, so that the ISO does not ship them)
+# Icon themes of the XFCE desktop (theme switcher, LightDM greeter): Luna,
+# Luna-*-Dark, Vimix-Black(-Dark) and the themes they inherit from (Packarch,
+# Packarch-Dark, Papirus-Apps; Papirus from the official package). Since
+# 2.0-6, the icon themes used only by the Openbox themes are in
+# packarch-icons-openbox and the ones used by no theme in packarch-icons-extra
+# (2.0-5), so that the XFCE live ISO does not ship them. No Zafiro since 2.0-4.
 # Files: files/ (installed as is). Most of the content was collected or made
-# by Aditya Shakya (adi1090x), GPL3. Qogir-Pink-Dark: the folder icons
-# (places) of Qogir-Dark (Vinceliuice, GPL3) recolored in the pink of the
-# tokyo.png wallpaper (#6ba4e7 -> #da6e89, #5294e2 -> #d0607f, #003579 ->
-# #5c1530), the rest inherited from Qogir-Dark.
+# by Aditya Shakya (adi1090x), GPL3.
 
 pkgname=packarch-icons
 pkgver=2.0
-pkgrel=5
-pkgdesc="Icon themes of the Packarch themes (Qogir and Papirus from the official packages)"
+pkgrel=6
+pkgdesc="Icon themes of the XFCE desktop of Packarch (Papirus from the official package)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
-depends=('qogir-icon-theme' 'papirus-icon-theme' 'beautyline')
+depends=('qogir-icon-theme' 'papirus-icon-theme')
 conflicts=(packarch-icons-arc packarch-icons-breeze packarch-icons-hack packarch-icons-luna packarch-icons-luv packarch-icons-nordic packarch-icons-numix packarch-icons-papirus packarch-icons-qogir packarch-icons-white packarch-icons-win11 packarch-icons-zafiro)
 replaces=(packarch-icons-arc packarch-icons-breeze packarch-icons-hack packarch-icons-luna packarch-icons-luv packarch-icons-nordic packarch-icons-numix packarch-icons-papirus packarch-icons-qogir packarch-icons-white packarch-icons-win11 packarch-icons-zafiro)
 options=(!strip !emptydirs)

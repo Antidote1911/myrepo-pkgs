@@ -1,0 +1,26 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+#
+# Icon themes used only by the Openbox themes (moved out of packarch-icons in
+# 2.0-6, so that the XFCE live ISO does not ship them): Hack (hacking),
+# Luv-Folders (spark), Luv-Folders-Dark (adaptive), Qogir-Pink-Dark
+# (pink-city); BeautyLine (cyberpunk) from aur/beautyline. They inherit from
+# packarch-icons (Packarch, Packarch-Dark) and qogir-icon-theme (Qogir-Dark).
+# Files: files/ (installed as is). Most of the content was collected or made
+# by Aditya Shakya (adi1090x), GPL3. Qogir-Pink-Dark: the folder icons
+# (places) of Qogir-Dark (Vinceliuice, GPL3) recolored in the pink of the
+# tokyo.png wallpaper (#6ba4e7 -> #da6e89, #5294e2 -> #d0607f, #003579 ->
+# #5c1530), the rest inherited from Qogir-Dark.
+
+pkgname=packarch-icons-openbox
+pkgver=2.0
+pkgrel=1
+pkgdesc="Icon themes of the Openbox themes of Packarch"
+arch=('any')
+url="https://github.com/Antidote1911/myrepo-pkgs"
+license=('GPL3')
+depends=('packarch-icons>=2.0-6' 'qogir-icon-theme' 'beautyline')
+options=(!strip !emptydirs)
+
+package() {
+	cp -a "$startdir"/files/. "$pkgdir"/
+}
