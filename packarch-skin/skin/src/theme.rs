@@ -151,7 +151,8 @@ pub struct Picom {
 #[derive(Deserialize, Debug)]
 #[serde(deny_unknown_fields, default)]
 pub struct Polybar {
-    /// Bars of config.ini to launch on each monitor
+    /// Bars of config.ini to launch on the primary monitor (on each one
+    /// when none is primary)
     pub bars: Vec<String>,
     /// BACKGROUND1..BACKGROUND6 in colors.ini (and gradient1..6 colors): a
     /// gradient from bar_background to bar_alt_background

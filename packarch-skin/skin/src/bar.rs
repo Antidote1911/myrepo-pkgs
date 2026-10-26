@@ -175,6 +175,18 @@ fn fix_modules(pbar: &Path) {
     let _ = fs::write(marker, "");
 }
 
+/// Monitors of "polybar --list-monitors" that get the bars: the primary one,
+/// or all of them when none is primary
+fn bar_monitors(list: &str) -> Vec<String> {
+    let mons: Vec<(&str, bool)> = list
+        .lines()
+        .filter_map(|l| l.split_once(':').map(|(m, rest)| (m.trim(), rest.contains("(primary)"))))
+        .filter(|(m, _)| !m.is_empty())
+        .collect();
+    let primary = mons.iter().any(|&(_, p)| p);
+    mons.into_iter().filter(|&(_, p)| p || !primary).map(|(m, _)| m.to_string()).collect()
+}
+
 fn monitors() -> Vec<String> {
     if crate::dry() {
         return vec!["MONITOR-1".into()];
@@ -182,13 +194,7 @@ fn monitors() -> Vec<String> {
     Command::new("polybar")
         .arg("--list-monitors")
         .output()
-        .map(|o| {
-            String::from_utf8_lossy(&o.stdout)
-                .lines()
-                .filter_map(|l| l.split(':').next().map(str::to_string))
-                .filter(|m| !m.is_empty())
-                .collect()
-        })
+        .map(|o| bar_monitors(&String::from_utf8_lossy(&o.stdout)))
         .unwrap_or_default()
 }
 
@@ -263,5 +269,20 @@ mod tests {
             "modules-right = ethernet sep volume-bar backlight-bar brightness"
         );
         assert_eq!(rename_modules("modules-center = network_ext sep bluetooth", &rename), "modules-center = ethernet_ext sep bluetooth");
+    }
+
+    #[test]
+    fn bar_monitors_primary() {
+        // two monitors: the primary one only
+        assert_eq!(
+            bar_monitors("DP-1: 1920x1080+1920+0 (primary)\nHDMI-0: 1920x1080+0+0\n"),
+            ["DP-1"]
+        );
+        // no primary monitor: all of them
+        assert_eq!(bar_monitors("DP-1: 1920x1080+1920+0\nHDMI-0: 1920x1080+0+0\n"), ["DP-1", "HDMI-0"]);
+        // a single monitor
+        assert_eq!(bar_monitors("eDP-1: 1920x1080+0+0 (primary)\n"), ["eDP-1"]);
+        assert_eq!(bar_monitors("Virtual-1: 1600x900+0+0\n"), ["Virtual-1"]);
+        assert!(bar_monitors("").is_empty());
     }
 }
