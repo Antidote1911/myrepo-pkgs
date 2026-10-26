@@ -12,8 +12,10 @@
 # A package already in the binary repository with the same version is skipped
 # (-f: rebuild). Packages without build() (themes, configuration) are built
 # with --nodeps. Packages built here that an AUR package needs to be built
-# (gtkmm for nitrogen) are installed on this system as dependencies, then
-# removed at the end. Run as a normal user.
+# (gtkmm for nitrogen), or that a package without build() needs in
+# makedepends (packarch-skin for packarch-openbox, built first), are installed
+# on this system as dependencies, then removed at the end. Run as a normal
+# user.
 #
 # Usage: ./build.sh [-f] [PACKAGE...]   (default: all of them)
 
@@ -44,7 +46,11 @@ if (( $# )); then
         fi
     done
 else
-    for d in */ apps/*/; do [[ -f $d/PKGBUILD ]] && dirs+=("${d%/}"); done
+    # packarch-skin first: makedepends of packarch-openbox
+    dirs+=(packarch-skin)
+    for d in */ apps/*/; do
+        [[ -f $d/PKGBUILD && $d != packarch-skin/ ]] && dirs+=("${d%/}")
+    done
     for p in "${aur_order[@]}"; do dirs+=("aur/$p"); done
     for d in aur/*/; do
         [[ " ${aur_order[*]} " == *" $(basename "$d") "* ]] ||
@@ -87,9 +93,11 @@ add_pkg() {
 }
 
 # Installs the packages of the binary repository that the PKGBUILD of the
-# current directory needs, and that this system lacks
+# current directory needs, and that this system lacks (makedepends: only the
+# build dependencies)
 install_local_deps() {
-    local dep file
+    local dep file kinds='\(make\)\?depends'
+    [[ ${1:-} == makedepends ]] && kinds=makedepends
     while read -r dep; do
         dep="${dep%%[<>=]*}"
         pacman -Qq "${dep}" &>/dev/null && continue
@@ -97,7 +105,7 @@ install_local_deps() {
         [[ -n ${file} ]] || continue
         sudo pacman -U --asdeps --noconfirm "${file}"
         installed_deps+=("${dep}")
-    done < <(makepkg --printsrcinfo | sed -n 's/^\s*\(make\)\?depends = //p' | sort -u)
+    done < <(makepkg --printsrcinfo | sed -n "s/^\s*${kinds} = //p" | sort -u)
 }
 
 # PGP keys of the sources: keys/pgp/*.asc of the AUR repository, or keyserver
@@ -127,7 +135,9 @@ for d in "${dirs[@]}"; do
         import_pgp_keys
         deps=(--syncdeps --rmdeps)
     else
-        # Files only: the dependencies are only needed at installation
+        # Files only: the dependencies are only needed at installation, the
+        # build dependencies of this repository are installed
+        install_local_deps makedepends
         deps=(--nodeps)
     fi
     makepkg --config "${conf}" "${deps[@]}" --cleanbuild --clean --force --noconfirm

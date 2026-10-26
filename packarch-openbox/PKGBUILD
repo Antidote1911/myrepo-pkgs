@@ -5,7 +5,8 @@
 # Openbox configuration of Aditya Shakya (adi1090x), GPL3, with the skeleton
 # files it relies on (dunst, picom, rofi, GTK, xfconf, Thunar) and the Geany
 # color schemes. The configuration goes to /etc/skel (copied to the home of
-# new users); the theme is applied at the first login (autostart). Menus,
+# new users), with the default theme already applied to it at build time
+# (packarch-skin render, 7.0-32; before, at the first login). Menus,
 # pipemenus, dunst icons and the packarch-tcma (Thunar actions) and
 # packarch-reload-theme commands go to /usr (packarch-openbox-extras before
 # 7.0-16). /etc/lightdm/lightdm.conf.d/60-packarch-openbox.conf makes Openbox
@@ -36,7 +37,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=31
+pkgrel=32
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -62,6 +63,8 @@ depends=(
   packarch-fonts packarch-backgrounds packarch-themes-openbox
   packarch-icons-openbox packarch-backgrounds-openbox
 )
+# Writes the default theme into /etc/skel (render, packarch-skin 1.0.0-9)
+makedepends=('packarch-skin>=1.0.0-9')
 # Merged into this package (7.0-16)
 replaces=(packarch-openbox-extras)
 conflicts=(packarch-openbox-extras)
@@ -70,4 +73,8 @@ options=(!strip !emptydirs)
 
 package() {
 	cp -a "$startdir"/files/. "$pkgdir"/
+	# The first session starts with the default theme: no packarch-skin apply
+	# at the first login. Also writes the GSettings override of its color
+	# scheme (usr/share/glib-2.0/schemas).
+	packarch-skin render "$pkgdir" default
 }

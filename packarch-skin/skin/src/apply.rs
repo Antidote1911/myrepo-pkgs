@@ -1,11 +1,25 @@
-//! Application of a theme (what the apply.sh script of each theme did).
+//! Application of a theme (what the apply.sh script of each theme did), to
+//! the running session or, at package build time, to the files of /etc/skel.
 
 use crate::color::{Color, Palette};
 use crate::edit::{set_block, set_line, set_xml_text, truncate_at};
 use crate::theme::{Entry, Theme};
-use crate::{bar, run, spawn, Dirs};
+use crate::{bar, run, spawn, xml_escape, Dirs};
 use std::fs;
 use std::path::Path;
+
+/// Where a theme is applied
+#[derive(Clone, Copy)]
+pub enum Target<'a> {
+    /// The running session: the files, then xfconf, gsettings, nitrogen and
+    /// the reload of Openbox, dunst, kitty and the bar
+    Session,
+    /// The files only, under the package root ROOT (packarch-openbox build):
+    /// HOME is ROOT/etc/skel, the xfconf settings go to xsettings.xml, the
+    /// wallpaper to nitrogen/bg-saved.cfg and the color scheme to a GSettings
+    /// override in ROOT/usr/share/glib-2.0/schemas. Nothing is run.
+    Package(&'a Path),
+}
 
 /// Colors of the roles, resolved
 struct Colors {
@@ -110,30 +124,55 @@ fn xfconf(channel: &str, prop: &str, value: &str) {
     run("xfconf-query", &["-c", channel, "-p", prop, "-s", value]);
 }
 
-pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
+/// Sets the value of the xfconf property NAME (string) in the channel file
+/// TEXT (xfce-perchannel-xml)
+fn set_xfconf_file(text: &mut String, name: &str, value: &str) {
+    set_line(
+        text,
+        &format!("<property name=\"{name}\" "),
+        &format!("<property name=\"{name}\" type=\"string\" value=\"{}\"/>", xml_escape(value)),
+    );
+}
+
+pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     let theme = entry.load()?;
     let c = resolve(&theme)?;
     let id = &entry.id;
     let tdir = &entry.dir;
     let conf = &dirs.config;
     let obox = conf.join("openbox");
+    let session = matches!(target, Target::Session);
 
-    run(
-        "dunstify",
-        &[
-            "-u", "normal", "-h", "string:x-dunst-stack-tag:applytheme",
-            "-i", "/usr/share/packarch/icons/dunst/themes.png",
-            &format!("Application du style : {}", entry.display_name(Some(&theme))),
-        ],
-    );
+    if session {
+        run(
+            "dunstify",
+            &[
+                "-u", "normal", "-h", "string:x-dunst-stack-tag:applytheme",
+                "-i", "/usr/share/packarch/icons/dunst/themes.png",
+                &format!("Application du style : {}", entry.display_name(Some(&theme))),
+            ],
+        );
+    }
     write_file(&dirs.themes.join(".current"), &format!("{id}\n"));
 
     // Wallpaper
     let wallpaper = tdir.join(&theme.wallpaper);
     let wallpaper = wallpaper.to_string_lossy();
-    for head in 0..=10 {
-        let h = format!("--head={head}");
-        run("nitrogen", &[h.as_str(), "--save", "--set-zoom-fill", &wallpaper]);
+    if session {
+        for head in 0..=10 {
+            let h = format!("--head={head}");
+            run("nitrogen", &[h.as_str(), "--save", "--set-zoom-fill", &wallpaper]);
+        }
+    } else {
+        // The theme directory of the package is not the one of the user
+        if !Path::new(&theme.wallpaper).is_absolute() {
+            return Err(format!("{id} : le fond d'écran doit être un chemin absolu : {}", theme.wallpaper));
+        }
+        let mut cfg = String::new();
+        for head in 0..=10 {
+            cfg += &format!("[xin_{head}]\nfile={wallpaper}\nmode=5\nbgcolor=#000000\n\n");
+        }
+        write_file(&conf.join("nitrogen/bg-saved.cfg"), &cfg);
     }
 
     // Polybar
@@ -198,12 +237,15 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
     edit_file(&conf.join("rofi/config.rasi"), |t| {
         set_line(t, "icon-theme:", &format!("icon-theme: \"{}\";", theme.appearance.rofi_icons));
     });
+    // Package: ~/... (the home of the package is not the one of the user;
+    // rofi expands ~ in -theme)
+    let nm_theme = rofi.join("networkmenu.rasi");
+    let nm_theme = match (target, nm_theme.strip_prefix(&dirs.home)) {
+        (Target::Package(_), Ok(rel)) => format!("~/{}", rel.display()),
+        _ => nm_theme.display().to_string(),
+    };
     edit_file(&conf.join("networkmanager-dmenu/config.ini"), |t| {
-        set_line(
-            t,
-            "dmenu_command = ",
-            &format!("dmenu_command = rofi -dmenu -theme {}", rofi.join("networkmenu.rasi").display()),
-        );
+        set_line(t, "dmenu_command = ", &format!("dmenu_command = rofi -dmenu -theme {nm_theme}"));
     });
 
     // Terminal (kitty)
@@ -229,7 +271,9 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
             t += &format!("color{i} {}\ncolor{} {}\n", c.palette[i].text, i + 8, c.palette[i + 8].text);
         }
         write_file(&kitty.join("colors.conf"), &t);
-        run("pkill", &["-USR1", "-x", "kitty"]);
+        if session {
+            run("pkill", &["-USR1", "-x", "kitty"]);
+        }
     }
 
     // Geany
@@ -240,16 +284,50 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
     });
 
     // GTK theme, icons, cursor and fonts
-    xfconf("xsettings", "/Gtk/FontName", &f.gtk);
-    xfconf("xsettings", "/Net/ThemeName", &a.gtk_theme);
-    xfconf("xsettings", "/Net/IconThemeName", &a.icon_theme);
-    xfconf("xsettings", "/Gtk/CursorThemeName", &a.cursor_theme);
+    let scheme = format!("'{}'", a.color_scheme);
+    match target {
+        Target::Session => {
+            xfconf("xsettings", "/Gtk/FontName", &f.gtk);
+            xfconf("xsettings", "/Net/ThemeName", &a.gtk_theme);
+            xfconf("xsettings", "/Net/IconThemeName", &a.icon_theme);
+            xfconf("xsettings", "/Gtk/CursorThemeName", &a.cursor_theme);
+            run("gsettings", &["set", "org.gnome.desktop.interface", "color-scheme", &scheme]);
+            run("gsettings", &["set", "org.x.apps.portal", "color-scheme", &scheme]);
+        }
+        Target::Package(root) => {
+            edit_file(&conf.join("xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"), |t| {
+                set_xfconf_file(t, "FontName", &f.gtk);
+                set_xfconf_file(t, "ThemeName", &a.gtk_theme);
+                set_xfconf_file(t, "IconThemeName", &a.icon_theme);
+                set_xfconf_file(t, "CursorThemeName", &a.cursor_theme);
+            });
+            // A schema that is not installed (org.x.apps.portal without
+            // xapp) is ignored by glib-compile-schemas
+            write_file(
+                &root.join("usr/share/glib-2.0/schemas/25_packarch-openbox.gschema.override"),
+                &format!(
+                    "# Color scheme of the default theme ({id}), written by packarch-skin render\n\
+                     [org.gnome.desktop.interface]\ncolor-scheme={scheme}\n\n[org.x.apps.portal]\ncolor-scheme={scheme}\n"
+                ),
+            );
+        }
+    }
+    // Read by the GTK applications started without xfsettingsd
+    edit_file(&conf.join("gtk-3.0/settings.ini"), |t| {
+        set_line(t, "gtk-theme-name=", &format!("gtk-theme-name={}", a.gtk_theme));
+        set_line(t, "gtk-icon-theme-name=", &format!("gtk-icon-theme-name={}", a.icon_theme));
+        set_line(t, "gtk-cursor-theme-name=", &format!("gtk-cursor-theme-name={}", a.cursor_theme));
+        set_line(t, "gtk-font-name=", &format!("gtk-font-name={}", f.gtk));
+    });
+    edit_file(&dirs.home.join(".gtkrc-2.0"), |t| {
+        set_line(t, "gtk-theme-name=", &format!("gtk-theme-name=\"{}\"", a.gtk_theme));
+        set_line(t, "gtk-icon-theme-name=", &format!("gtk-icon-theme-name=\"{}\"", a.icon_theme));
+        set_line(t, "gtk-cursor-theme-name=", &format!("gtk-cursor-theme-name=\"{}\"", a.cursor_theme));
+        set_line(t, "gtk-font-name=", &format!("gtk-font-name=\"{}\"", f.gtk));
+    });
     edit_file(&dirs.home.join(".icons/default/index.theme"), |t| {
         set_line(t, "Inherits=", &format!("Inherits={}", a.cursor_theme));
     });
-    let scheme = format!("'{}'", a.color_scheme);
-    run("gsettings", &["set", "org.gnome.desktop.interface", "color-scheme", &scheme]);
-    run("gsettings", &["set", "org.x.apps.portal", "color-scheme", &scheme]);
 
     // Openbox
     let o = &theme.openbox;
@@ -273,7 +351,9 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
             set_xml_text(x, &[("margins", None), (side, None)], &v.to_string());
         }
     });
-    run("openbox", &["--reconfigure"]);
+    if session {
+        run("openbox", &["--reconfigure"]);
+    }
 
     // Dunst
     let d = &theme.dunst;
@@ -299,7 +379,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
             bg = bg.text, fg = fg.text, frame = frame.text, urgent = urgent.text
         ));
     });
-    if run("pkill", &["-x", "dunst"]) {
+    if session && run("pkill", &["-x", "dunst"]) {
         spawn("dunst", &[], &[]);
     }
 
@@ -316,7 +396,9 @@ pub fn apply(dirs: &Dirs, entry: &Entry) -> Result<(), String> {
         set_line(t, "strength = ", &format!("strength = {};", pc.blur_strength));
     });
 
-    bar::launch(dirs)?;
-    run("xsetroot", &["-cursor_name", "left_ptr"]);
+    if session {
+        bar::launch(dirs)?;
+        run("xsetroot", &["-cursor_name", "left_ptr"]);
+    }
     Ok(())
 }

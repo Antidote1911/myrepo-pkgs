@@ -2,11 +2,12 @@
 #
 # Theme (skin) chooser of the Packarch Openbox desktop: applies the themes
 # described by the theme.toml files of ~/.config/openbox/themes (see
-# packarch-openbox). Source: skin/ (Rust).
+# packarch-openbox). Source: skin/ (Rust). "render" (1.0.0-9) writes the
+# default theme into the /etc/skel of packarch-openbox when it is built.
 
 pkgname=packarch-skin
 pkgver=1.0.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
 arch=('x86_64')
 url="https://github.com/Antidote1911/myrepo-pkgs"

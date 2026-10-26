@@ -90,13 +90,13 @@ run ksuperkey -e 'Super_R=Alt_L|F1'
 
 # First Login (Packarch) ------------------------------------
 
-# Apply the current theme once (wallpaper, GTK theme, polybar, rofi, dunst...)
-# and cache the lockscreen images of its wallpaper.
+# The default theme is already written in /etc/skel (packarch-skin render,
+# at package build time): only the lockscreen images of its wallpaper are
+# cached, once, in the background.
 if [[ ! -f ~/.config/openbox/themes/.applied ]]; then
 	run_bg sh -c '
-		sleep 2
-		packarch-skin apply && touch ~/.config/openbox/themes/.applied
-		betterlockscreen -u "$(packarch-skin wallpaper)"
+		betterlockscreen -u "$(packarch-skin wallpaper)" &&
+			touch ~/.config/openbox/themes/.applied
 	'
 fi
 

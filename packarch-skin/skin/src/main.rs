@@ -4,7 +4,8 @@
 //! theme.toml (colors, fonts, GTK/icon/cursor themes, Openbox, dunst,
 //! picom settings) next to their polybar/ and rofi/ layouts. Applying
 //! a theme writes these settings into the configuration of each program and
-//! relaunches the bar.
+//! relaunches the bar. "render" writes the default theme into the /etc/skel
+//! of the packarch-openbox package, so that the first session starts with it.
 
 mod apply;
 mod bar;
@@ -23,6 +24,9 @@ Usage : packarch-skin COMMANDE
   list                    thèmes disponibles (identifiant et nom)
   current                 thème courant
   apply [THÈME]           applique THÈME (par défaut le thème courant)
+  render RACINE [THÈME]   écrit THÈME (par défaut « default ») dans les
+                          fichiers de RACINE/etc/skel, sans rien lancer
+                          (construction du paquet packarch-openbox)
   bar                     relance la barre du thème courant
   wallpaper [THÈME]       chemin du fond d'écran de THÈME
   check [THÈME...]        vérifie les fichiers theme.toml
@@ -41,6 +45,16 @@ impl Dirs {
             .map(PathBuf::from)
             .filter(|p| p.is_absolute())
             .unwrap_or_else(|| home.join(".config"));
+        Dirs::with(home, config)
+    }
+
+    /// Directories of the home HOME (render: ROOT/etc/skel)
+    fn at(home: PathBuf) -> Dirs {
+        let config = home.join(".config");
+        Dirs::with(home, config)
+    }
+
+    fn with(home: PathBuf, config: PathBuf) -> Dirs {
         let themes = config.join("openbox/themes");
         Dirs { home, config, themes }
     }
@@ -117,7 +131,7 @@ fn find(dirs: &Dirs, id: &str) -> Result<theme::Entry, String> {
         .ok_or_else(|| format!("thème inconnu : {id} (voir « packarch-skin list »)"))
 }
 
-fn xml_escape(s: &str) -> String {
+pub fn xml_escape(s: &str) -> String {
     s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('"', "&quot;")
 }
 
@@ -159,8 +173,20 @@ fn main() {
         }
         Some("apply") => {
             let id = arg(1).map(str::to_string).unwrap_or_else(|| current(&dirs));
-            find(&dirs, &id).and_then(|e| apply::apply(&dirs, &e))
+            find(&dirs, &id).and_then(|e| apply::apply(&dirs, &e, apply::Target::Session))
         }
+        Some("render") => match arg(1) {
+            Some(root) => {
+                let root = PathBuf::from(root);
+                let skel = Dirs::at(root.join("etc/skel"));
+                let id = arg(2).unwrap_or("default");
+                find(&skel, id).and_then(|e| apply::apply(&skel, &e, apply::Target::Package(&root)))
+            }
+            None => {
+                eprintln!("{USAGE}");
+                exit(2);
+            }
+        },
         Some("bar") => bar::launch(&dirs),
         Some("wallpaper") => {
             let id = arg(1).map(str::to_string).unwrap_or_else(|| current(&dirs));
