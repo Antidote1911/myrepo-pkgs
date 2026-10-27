@@ -6,12 +6,14 @@
 # Files: files/ (installed as is). Most of the content was collected or made
 # by Aditya Shakya (adi1090x), GPL3. Manhattan (Materia, GPL2): orange
 # selections and check boxes (#f7901e) instead of lilac (#b4a1db), CSS and
-# GTK2 images (packarch-themes 2.0-4). Sweet (EliverLara, GPL3) from
+# GTK2 images (packarch-themes 2.0-4). Satanic: orange accent (#f7901e,
+# shades #e38418 and #c97414) instead of grey-blue (#9bbfbf), GTK 2/3/4
+# (2.0-3). Sweet (EliverLara, GPL3) from
 # aur/sweet-gtk-theme.
 
 pkgname=packarch-themes-openbox
 pkgver=2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK and Openbox themes of the Openbox desktop of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
