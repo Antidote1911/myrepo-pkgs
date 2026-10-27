@@ -56,7 +56,7 @@ window.active.button.unpressed.image.color: #98bbbb
 
 window.active.button.pressed.bg: Flat Solid
 window.active.button.pressed.bg.color: #131519
-window.active.button.pressed.image.color: #9BBFBF
+window.active.button.pressed.image.color: #d7263d
 
 window.active.button.disabled.bg: Flat Solid
 window.active.button.disabled.bg.color: #131519
@@ -64,7 +64,7 @@ window.active.button.disabled.image.color: #1D1F23
 
 window.active.button.hover.bg: Flat Solid
 window.active.button.hover.bg.color: #131519
-window.active.button.hover.image.color: #9BBFBF
+window.active.button.hover.image.color: #d7263d
 
 window.active.button.toggled.unpressed.bg: Flat Solid
 window.active.button.toggled.unpressed.bg.color: #131519
@@ -72,11 +72,11 @@ window.active.button.toggled.unpressed.image.color: #98bbbb
 
 window.active.button.toggled.pressed.bg: Flat Solid
 window.active.button.toggled.pressed.bg.color: #131519
-window.active.button.toggled.pressed.image.color: #9BBFBF
+window.active.button.toggled.pressed.image.color: #d7263d
 
 window.active.button.toggled.hover.bg: Flat Solid
 window.active.button.toggled.hover.bg.color: #131519
-window.active.button.toggled.hover.image.color: #9BBFBF
+window.active.button.toggled.hover.image.color: #d7263d
 
 #-- Inactive windows -----------------------------------------------
 window.inactive.title.bg: Flat Solid
@@ -96,7 +96,7 @@ window.inactive.button.unpressed.image.color: #3c484b
 
 window.inactive.button.pressed.bg: Flat Solid
 window.inactive.button.pressed.bg.color: #131519
-window.inactive.button.pressed.image.color: #9BBFBF
+window.inactive.button.pressed.image.color: #d7263d
 
 window.inactive.button.disabled.bg: Flat Solid
 window.inactive.button.disabled.bg.color: #131519
@@ -104,7 +104,7 @@ window.inactive.button.disabled.image.color: #1D1F23
 
 window.inactive.button.hover.bg: Flat Solid
 window.inactive.button.hover.bg.color: #131519
-window.inactive.button.hover.image.color: #9BBFBF
+window.inactive.button.hover.image.color: #d7263d
 
 window.inactive.button.toggled.unpressed.bg: Flat Solid
 window.inactive.button.toggled.unpressed.bg.color: #131519
@@ -112,11 +112,11 @@ window.inactive.button.toggled.unpressed.image.color: #3c484b
 
 window.inactive.button.toggled.pressed.bg: Flat Solid
 window.inactive.button.toggled.pressed.bg.color: #131519
-window.inactive.button.toggled.pressed.image.color: #9BBFBF
+window.inactive.button.toggled.pressed.image.color: #d7263d
 
 window.inactive.button.toggled.hover.bg: Flat Solid
 window.inactive.button.toggled.hover.bg.color: #131519
-window.inactive.button.toggled.hover.image.color: #9BBFBF
+window.inactive.button.toggled.hover.image.color: #d7263d
 
 #-- Button -------------------------------------------------
 window.active.button.close.unpressed.image.color: #F24732
@@ -178,7 +178,7 @@ window.inactive.button.desk.toggled.hover.image.color: #488AAC
 #-- Menu ---------------------------------------------------------
 menu.title.bg: Flat Solid
 menu.title.bg.color: #131519
-menu.title.text.color: #9BBFBF
+menu.title.text.color: #d7263d
 
 menu.separator.color: #131519
 menu.border.color: #131519
@@ -189,8 +189,8 @@ menu.items.text.color: #e0e0e0
 menu.items.disabled.text.color: #3c484b
 
 menu.items.active.bg: Flat Solid
-menu.items.active.bg.color: #9BBFBF
-menu.items.active.text.color: #131519
+menu.items.active.bg.color: #d7263d
+menu.items.active.text.color: #e8e8e8
 menu.items.active.disabled.text.color: #3c484b
 
 #-- OSD Settings -------------------------------------------------
@@ -203,13 +203,13 @@ osd.label.text.color: #98bbbb
 
 osd.active.label.bg: Flat Solid
 osd.active.label.bg.color: #131519
-osd.active.label.text.color: #9BBFBF
+osd.active.label.text.color: #d7263d
 osd.inactive.label.bg: Flat Solid
 osd.inactive.label.bg.color: #131519
 osd.inactive.label.text.color: #98bbbb
 
 osd.hilight.bg: Flat Solid
-osd.hilight.bg.color: #9BBFBF
+osd.hilight.bg.color: #d7263d
 osd.unhilight.bg: Flat Solid
 osd.unhilight.bg.color: #131519
 
@@ -220,17 +220,17 @@ osd.button.unpressed.text.color: #98bbbb
 
 osd.button.hover.bg: Flat Solid Border
 osd.button.hover.bg.color: #1D1F23
-osd.button.hover.*.border.color: #9BBFBF
-osd.button.hover.text.color: #9BBFBF
+osd.button.hover.*.border.color: #d7263d
+osd.button.hover.text.color: #d7263d
 
 osd.button.pressed.bg: Flat Solid Border
-osd.button.pressed.bg.color: #9BBFBF
-osd.button.pressed.*.border.color: #9BBFBF
+osd.button.pressed.bg.color: #d7263d
+osd.button.pressed.*.border.color: #d7263d
 osd.button.pressed.text.color: #131519
-osd.button.pressed.box.color: #9BBFBF
+osd.button.pressed.box.color: #d7263d
 
 osd.button.focused.bg: Flat Solid Border
-osd.button.focused.bg.color: #9BBFBF
-osd.button.focused.*.border.color: #9BBFBF
+osd.button.focused.bg.color: #d7263d
+osd.button.focused.*.border.color: #d7263d
 osd.button.focused.text.color: #131519
-osd.button.focused.box.color: #9BBFBF
+osd.button.focused.box.color: #d7263d
