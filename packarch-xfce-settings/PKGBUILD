@@ -25,6 +25,8 @@
 #   no "Set as desktop background" action, menu bar hidden, "Delete" in the
 #   context menu, no automount (thunar-volman.xml); org.xfce.thunar icon for
 #   the panel launcher
+# - font DPI fixed to 96 (xsettings.xml /Xft/DPI, 1.0.9-2): xfsettingsd
+#   computes it from the screen otherwise, ~70 with NVIDIA ("UseEdidDpi")
 # - removed: qt5ct and Kvantum settings, Octopi notifier autostart (none of
 #   them installed), and the dependencies only they or the CachyOS theme used
 #
@@ -33,7 +35,7 @@
 
 pkgname=packarch-xfce-settings
 pkgver=1.0.9
-pkgrel=1
+pkgrel=2
 pkgdesc="XFCE configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
