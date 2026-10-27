@@ -1,17 +1,18 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 #
-# GTK and Openbox themes not used by the XFCE desktop (moved out of
-# packarch-themes in 2.0-5, so that the XFCE live ISO does not ship them):
-# all the Openbox themes (OB-*) and the other GTK themes.
-# Files: files/ (installed as is). Most of the content was collected or made
-# by Aditya Shakya (adi1090x), GPL3. Sweet (EliverLara, GPL3) from
-# aur/sweet-gtk-theme.
+# GTK and Openbox themes of the Openbox desktop, not used by the XFCE desktop
+# (moved out of packarch-themes in 2.0-5, so that the XFCE live ISO does not
+# ship them). Files: files/ (installed as is). Most of the content was
+# collected or made by Aditya Shakya (adi1090x), GPL3; Packarch-Cyberpunk
+# comes from Sweet-Dark (EliverLara, GPL3).
 #
 # Each theme of packarch-skin has its own GTK and Openbox themes,
 # Packarch-<Theme> and OB-Packarch-<Theme> (2.0-5), so that a change only
 # affects that theme. The originals they come from were renamed (removed);
 # Arc-Dark and Juno-Mirage, also used by the XFCE desktop, stay in
-# packarch-themes and were copied:
+# packarch-themes and were copied. Only these 20 themes are shipped: the
+# other GTK and Openbox themes, used by no theme, were removed with the
+# sweet-gtk-theme dependency (2.0-6). Origins:
 #   adaptive       Adapta-Nokto       OB-Adapta-Nokto
 #   cyberpunk      Sweet-Dark         OB-Sweet-Dark
 #   default        Arc-Dark (copy)    OB-Nordic
@@ -30,12 +31,11 @@
 
 pkgname=packarch-themes-openbox
 pkgver=2.0
-pkgrel=5
+pkgrel=6
 pkgdesc="GTK and Openbox themes of the Openbox desktop of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
-depends=('sweet-gtk-theme')
 options=(!strip !emptydirs)
 
 package() {

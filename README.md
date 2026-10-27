@@ -17,7 +17,7 @@ installer.
 | `packarch-icons-openbox` | les thèmes d'icônes utilisés seulement par les thèmes Openbox : Hack, Luv-Folders(-Dark), `Qogir-Pink-Dark` (dossiers roses), et BeautyLine par `aur/beautyline` (dépendance) ; sortis de `packarch-icons` en 2.0-6 pour que l'ISO XFCE ne les embarque pas ; dépendance de `packarch-openbox` |
 | `packarch-icons-extra` | les thèmes d'icônes utilisés par aucun thème (sortis de `packarch-icons` en 2.0-5 pour alléger l'ISO, qui ne l'installe pas) : Arc-Circle, Luna-Light, Nordic-Folders(-Bluish, -Green), Numix-Apps(-White), Vimix-White(-Dark), White-Folders, Win11(-Dark) ; dépend de `packarch-icons` (héritage et liens) |
 | `packarch-themes` | les thèmes GTK du bureau XFCE (sélecteur de thèmes et écran de connexion) : Arc-Dark, Dracula, Greybird-dark, Gruvbox, Juno-Mirage, Nordic, Orchis-Red-Dark |
-| `packarch-themes-openbox` | les thèmes GTK et Openbox de chaque thème de packarch-skin (`Packarch-<Thème>` et `OB-Packarch-<Thème>`, 2.0-5), les autres thèmes GTK (Adapta, Arc, Blade, Catppuccin, Cyberpunk, Everforest, Groot, Juno, Kripton, Rick, Slime, Wave, White, Windows-10, Adapta-Bitmap, Arc-Bitmap ; Sweet par `aur/sweet-gtk-theme`, dépendance) et les autres thèmes de fenêtres Openbox (`OB-*`), sortis de `packarch-themes` en 2.0-5 pour que l'ISO XFCE ne les embarque pas ; dépendance de `packarch-openbox` |
+| `packarch-themes-openbox` | les thèmes GTK et Openbox du bureau Openbox, un de chaque par thème de packarch-skin (`Packarch-<Thème>` et `OB-Packarch-<Thème>`, 2.0-5 ; les thèmes inutilisés ont été retirés en 2.0-6), absents de l'ISO XFCE ; dépendance de `packarch-openbox` |
 | `packarch-cursors` | les curseurs : Bibata, Fluentt, Future, Lyra, Pear, Qogirr, Sweet, Vimix |
 | `packarch-fonts` | toutes les polices (`/usr/share/fonts/packarch`), dont la police d'icônes `packarch` |
 | `packarch-openbox` | bureau Openbox : polybar, menus rofi, dunst, picom, kitty, 10 thèmes (`~/.config/openbox/themes/*/theme.toml`), menus et scripts (`/usr/share/packarch/openbox`), icônes de dunst, `packarch-tcma` (actions de Thunar) et `packarch-reload-theme`, en français. La configuration va dans `/etc/skel` |
@@ -27,7 +27,7 @@ installer.
 | `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
 | `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `deadpool`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console) |
-| `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light`, `beautyline` (thème d’icônes BeautyLine, dépendance de `packarch-icons-openbox`), `sweet-gtk-theme` (thème GTK Sweet, dépendance de `packarch-themes-openbox`) |
+| `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light`, `beautyline` (thème d’icônes BeautyLine, dépendance de `packarch-icons-openbox`) |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
 (`packarch-icons-arc`, `packarch-icons-luna`…, `packarch-gtk-theme-*` : `replaces`).
