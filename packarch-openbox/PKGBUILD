@@ -37,7 +37,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=43
+pkgrel=44
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -61,9 +61,10 @@ depends=(
   # Packarch repository: theme chooser, GTK/Openbox themes, icons, cursors,
   # fonts and wallpapers (the -openbox packages hold what the XFCE desktop
   # does not use, 7.0-31); global fonts of pa-change-fonts: packarch-skin
-  # font (1.0.0-11, 7.0-38); role fastfetch of red-satanic (1.0.0-12, 7.0-42)
+  # font (1.0.0-11, 7.0-38); role fastfetch of red-satanic (1.0.0-12, 7.0-42);
+  # GTK and Openbox themes Packarch-<Theme> of each theme (2.0-5, 7.0-44)
   'packarch-skin>=1.0.0-12' packarch-themes packarch-icons packarch-cursors
-  packarch-fonts packarch-backgrounds packarch-themes-openbox
+  packarch-fonts packarch-backgrounds 'packarch-themes-openbox>=2.0-5'
   packarch-icons-openbox packarch-backgrounds-openbox
 )
 # Writes the default theme into /etc/skel (render, packarch-skin 1.0.0-9)

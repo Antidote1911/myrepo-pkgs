@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Packarch-Yellow-Flower
+Comment=GTK themes inspired by epic vscode themes
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Packarch-Yellow-Flower
+MetacityTheme=Packarch-Yellow-Flower
+IconTheme=Zafiro-icons
+ButtonLayout=:minimize,maximize,close

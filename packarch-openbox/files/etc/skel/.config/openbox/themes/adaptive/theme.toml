@@ -42,7 +42,7 @@ openbox_size = 10
 dunst = "Iosevka Custom 9"
 
 [appearance]
-gtk_theme = "Adapta-Nokto"
+gtk_theme = "Packarch-Adaptive"
 icon_theme = "Luv-Folders-Dark"
 cursor_theme = "Vimix"
 color_scheme = "prefer-dark"
@@ -50,7 +50,7 @@ rofi_icons = "Luv-Folders-Dark"
 geany_colors = "adapta.conf"
 
 [openbox]
-theme = "OB-Adapta-Nokto"
+theme = "OB-Packarch-Adaptive"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

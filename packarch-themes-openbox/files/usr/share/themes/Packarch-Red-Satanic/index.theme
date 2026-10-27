@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Packarch-Red-Satanic
+Comment=A dark theme with flat style for GNOME
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Packarch-Red-Satanic
+MetacityTheme=Packarch-Red-Satanic
+IconTheme=Mint-Y
+ButtonLayout=:minimize,maximize,close

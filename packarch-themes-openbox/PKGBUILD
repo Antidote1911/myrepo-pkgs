@@ -4,17 +4,33 @@
 # packarch-themes in 2.0-5, so that the XFCE live ISO does not ship them):
 # all the Openbox themes (OB-*) and the other GTK themes.
 # Files: files/ (installed as is). Most of the content was collected or made
-# by Aditya Shakya (adi1090x), GPL3. Manhattan (Materia, GPL2): orange
-# selections and check boxes (#f7901e) instead of lilac (#b4a1db), CSS and
-# GTK2 images (packarch-themes 2.0-4). Satanic: orange accent (#f7901e,
-# shades #e38418 and #c97414) instead of grey-blue (#9bbfbf), GTK 2/3/4
-# (2.0-3). OB-Kripton (Openbox, red-satanic): red accent (#d7263d) instead of
-# grey-blue (#9BBFBF), light text on the menu highlight (2.0-4). Sweet (EliverLara, GPL3) from
+# by Aditya Shakya (adi1090x), GPL3. Sweet (EliverLara, GPL3) from
 # aur/sweet-gtk-theme.
+#
+# Each theme of packarch-skin has its own GTK and Openbox themes,
+# Packarch-<Theme> and OB-Packarch-<Theme> (2.0-5), so that a change only
+# affects that theme. The originals they come from were renamed (removed);
+# Arc-Dark and Juno-Mirage, also used by the XFCE desktop, stay in
+# packarch-themes and were copied:
+#   adaptive       Adapta-Nokto       OB-Adapta-Nokto
+#   cyberpunk      Sweet-Dark         OB-Sweet-Dark
+#   default        Arc-Dark (copy)    OB-Nordic
+#   hacking        Hack               OB-Hack
+#   packarch       Manhattan          OB-Manhattan
+#   pink-city      Manhattan (copy)   OB-Manhattan (copy)
+#   pink-sylvanas  Catppuccin-Mocha   OB-Catppuccin-Mocha
+#   red-satanic    Satanic            OB-Kripton
+#   spark          Spark              OB-Spark
+#   yellow-flower  Juno-Mirage (copy) OB-Juno-Mirage
+# Our changes: Manhattan (Materia, GPL2): orange selections and check boxes
+# (#f7901e) instead of lilac (#b4a1db), CSS and GTK2 images (packarch-themes
+# 2.0-4). Packarch-Red-Satanic: orange accent (#f7901e, shades #e38418 and
+# #c97414) instead of grey-blue (#9bbfbf), GTK 2/3/4 (2.0-3); Openbox: red
+# accent (#d7263d), light text on the menu highlight (2.0-4).
 
 pkgname=packarch-themes-openbox
 pkgver=2.0
-pkgrel=4
+pkgrel=5
 pkgdesc="GTK and Openbox themes of the Openbox desktop of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

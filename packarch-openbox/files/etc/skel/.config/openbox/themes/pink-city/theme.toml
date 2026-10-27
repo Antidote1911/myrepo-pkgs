@@ -41,7 +41,7 @@ openbox_size = 10
 dunst = "JetBrainsMono Nerd Font 10"
 
 [appearance]
-gtk_theme = "Manhattan"
+gtk_theme = "Packarch-Pink-City"
 icon_theme = "Qogir-Pink-Dark"
 cursor_theme = "Qogirr-Dark"
 color_scheme = "prefer-dark"
@@ -49,7 +49,7 @@ rofi_icons = "Qogir-Pink-Dark"
 geany_colors = "manhattan.conf"
 
 [openbox]
-theme = "OB-Manhattan"
+theme = "OB-Packarch-Pink-City"
 layout = "NLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

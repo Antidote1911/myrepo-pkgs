@@ -55,7 +55,7 @@ openbox_size = 10
 dunst = "Iosevka Custom 9"
 
 [appearance]
-gtk_theme = "Spark"
+gtk_theme = "Packarch-Spark"
 icon_theme = "Luv-Folders"
 cursor_theme = "Vimix"
 color_scheme = "prefer-light"
@@ -63,7 +63,7 @@ rofi_icons = "Luv-Folders"
 geany_colors = "spark.conf"
 
 [openbox]
-theme = "OB-Spark"
+theme = "OB-Packarch-Spark"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

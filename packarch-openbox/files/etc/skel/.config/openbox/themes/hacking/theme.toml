@@ -49,7 +49,7 @@ openbox_size = 10
 dunst = "Iosevka 10"
 
 [appearance]
-gtk_theme = "Hack"
+gtk_theme = "Packarch-Hacking"
 icon_theme = "Hack"
 cursor_theme = "LyraB"
 color_scheme = "prefer-dark"
@@ -57,7 +57,7 @@ rofi_icons = "Hack"
 geany_colors = "hack.conf"
 
 [openbox]
-theme = "OB-Hack"
+theme = "OB-Packarch-Hacking"
 layout = "LIMC"
 menu = "menu-glyphs.xml"
 # top, bottom, left, right

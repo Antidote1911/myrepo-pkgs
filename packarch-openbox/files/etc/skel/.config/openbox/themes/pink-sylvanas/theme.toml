@@ -1,6 +1,7 @@
 # Pink Sylvanas theme of packarch-skin (see "packarch-skin --help"): colors of the
-# sylvanas.jpg wallpaper (violet black, silver, mauve, red eyes), Catppuccin
-# Mocha GTK and Openbox themes, two bars (from the default theme).
+# sylvanas.jpg wallpaper (violet black, silver, mauve, red eyes),
+# Packarch-Pink-Sylvanas GTK and Openbox themes (from Catppuccin Mocha), two
+# bars (from the default theme).
 # Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
 # gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
 
@@ -42,7 +43,7 @@ openbox_size = 10
 dunst = "JetBrains Mono 10"
 
 [appearance]
-gtk_theme = "Catppuccin-Mocha"
+gtk_theme = "Packarch-Pink-Sylvanas"
 icon_theme = "Luna-Purple-Dark"
 cursor_theme = "Qogirr-Dark"
 color_scheme = "prefer-dark"
@@ -50,7 +51,7 @@ rofi_icons = "Luna-Purple-Dark"
 geany_colors = "catppuccin-mocha.conf"
 
 [openbox]
-theme = "OB-Catppuccin-Mocha"
+theme = "OB-Packarch-Pink-Sylvanas"
 layout = "DLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

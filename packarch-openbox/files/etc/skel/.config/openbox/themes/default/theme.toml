@@ -39,7 +39,7 @@ openbox_size = 10
 dunst = "JetBrains Mono 10"
 
 [appearance]
-gtk_theme = "Arc-Dark"
+gtk_theme = "Packarch-Default"
 icon_theme = "Luna-Antidote-Dark"
 cursor_theme = "Pear-Dark"
 color_scheme = "prefer-dark"
@@ -47,7 +47,7 @@ rofi_icons = "Luna-Antidote-Dark"
 geany_colors = "arc.conf"
 
 [openbox]
-theme = "OB-Nordic"
+theme = "OB-Packarch-Default"
 layout = "DLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

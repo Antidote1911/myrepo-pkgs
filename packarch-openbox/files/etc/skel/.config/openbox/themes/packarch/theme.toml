@@ -55,7 +55,7 @@ openbox_size = 10
 dunst = "Iosevka Custom 9"
 
 [appearance]
-gtk_theme = "Manhattan"
+gtk_theme = "Packarch-Packarch"
 icon_theme = "Luna-Antidote-Dark"
 cursor_theme = "Vimix-Dark"
 color_scheme = "prefer-dark"
@@ -63,7 +63,7 @@ rofi_icons = "Luna-Antidote-Dark"
 geany_colors = "manhattan.conf"
 
 [openbox]
-theme = "OB-Manhattan"
+theme = "OB-Packarch-Packarch"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

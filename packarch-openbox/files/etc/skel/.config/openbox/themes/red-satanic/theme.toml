@@ -1,6 +1,6 @@
 # Red Satanic theme of packarch-skin (see "packarch-skin --help"): black and
-# blood red of satanic.jpg, Satanic GTK theme, OB-Kripton, two bars (from the
-# default theme).
+# blood red of satanic.jpg, Packarch-Red-Satanic GTK and Openbox themes (from
+# Satanic and OB-Kripton), two bars (from the default theme).
 # Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
 # gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
 
@@ -46,7 +46,7 @@ openbox_size = 10
 dunst = "JetBrains Mono 10"
 
 [appearance]
-gtk_theme = "Satanic"
+gtk_theme = "Packarch-Red-Satanic"
 icon_theme = "Luna-Red-Dark"
 cursor_theme = "Pear-Dark"
 color_scheme = "prefer-dark"
@@ -54,7 +54,7 @@ rofi_icons = "Luna-Red-Dark"
 geany_colors = "red-satanic.conf"
 
 [openbox]
-theme = "OB-Kripton"
+theme = "OB-Packarch-Red-Satanic"
 layout = "DLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right

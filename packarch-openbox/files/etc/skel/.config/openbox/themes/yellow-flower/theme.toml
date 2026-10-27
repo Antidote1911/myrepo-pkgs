@@ -1,5 +1,6 @@
 # Yellow Flower theme of packarch-skin (see "packarch-skin --help"), formerly
-# slime: Juno-Mirage, Ayu Mirage colors, bouquet.jpg wallpaper.
+# slime: Packarch-Yellow-Flower GTK and Openbox themes (from Juno-Mirage),
+# Ayu Mirage colors, bouquet.jpg wallpaper.
 # Colors: "#RRGGBB", another color of [colors], gradient1..6 ([polybar]
 # gradient), lighten(COLOR, AMOUNT) or darken(COLOR, AMOUNT) (HSL lightness).
 
@@ -42,7 +43,7 @@ openbox_size = 10
 dunst = "Iosevka Custom 9"
 
 [appearance]
-gtk_theme = "Juno-Mirage"
+gtk_theme = "Packarch-Yellow-Flower"
 icon_theme = "Luna-Dark"
 cursor_theme = "Qogirr-Dark"
 color_scheme = "prefer-dark"
@@ -50,7 +51,7 @@ rofi_icons = "Luna-Dark"
 geany_colors = "bouquet.conf"
 
 [openbox]
-theme = "OB-Juno-Mirage"
+theme = "OB-Packarch-Yellow-Flower"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
