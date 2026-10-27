@@ -37,8 +37,8 @@ terminal = "JetBrainsMono Nerd Font"
 terminal_size = 10
 geany = "JetBrainsMono Nerd Font 10"
 gtk = "Noto Sans 10"
-openbox = "JetBrains Mono"
-openbox_size = 12
+openbox = "Noto Sans"
+openbox_size = 13
 dunst = "JetBrains Mono 10"
 
 [appearance]

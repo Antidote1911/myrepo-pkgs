@@ -37,7 +37,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=38
+pkgrel=39
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -52,6 +52,8 @@ depends=(
   kitty thunar geany firefox viewnior betterlockscreen
   ksuperkey networkmanager-dmenu-git ffmpeg maim xclip xcolor
   xfce4-power-manager xorg-xsetroot yad picom
+  # Noto Sans: GTK and Openbox fonts of the themes (7.0-39)
+  noto-fonts
   # commands of the scripts and polybar modules
   xdotool wmctrl slop xorg-xprop xorg-xrandr xorg-xkill xorg-xbacklight acpi bc
   alsa-utils bluez-utils playerctl imagemagick htop nano xfce-polkit
