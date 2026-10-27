@@ -3,10 +3,12 @@
 
 use crate::color::{Color, Palette};
 use crate::edit::{set_block, set_line, set_xml_text, truncate_at};
-use crate::theme::{Entry, Theme};
-use crate::{bar, run, spawn, xml_escape, Dirs};
+use crate::fonts::{self, Global, Part};
+use crate::theme::{Entry, Fonts, Theme};
+use crate::{bar, dry, run, spawn, xml_escape, Dirs};
 use std::fs;
 use std::path::Path;
+use std::process::Command;
 
 /// Where a theme is applied
 #[derive(Clone, Copy)]
@@ -124,6 +126,98 @@ fn xfconf(channel: &str, prop: &str, value: &str) {
     run("xfconf-query", &["-c", channel, "-p", prop, "-s", value]);
 }
 
+fn xfconf_get(channel: &str, prop: &str) -> Option<String> {
+    if dry() {
+        return None;
+    }
+    let out = Command::new("xfconf-query").args(["-c", channel, "-p", prop]).output().ok()?;
+    out.status.success().then(|| String::from_utf8_lossy(&out.stdout).trim().to_string())
+}
+
+/// Writes the fonts F (of all the programs, or only of ONLY) into their
+/// configuration. The theme directory TDIR holds the polybar and rofi
+/// layouts. Nothing is reloaded but the Thunar daemon, which only reads the
+/// GTK font at startup.
+pub fn write_fonts(dirs: &Dirs, tdir: &Path, f: &Fonts, target: Target, only: Option<Part>) {
+    let want = |p: Part| only.is_none_or(|o| o == p);
+    let conf = &dirs.config;
+
+    if want(Part::Polybar) {
+        edit_file(&tdir.join("polybar/config.ini"), |t| {
+            set_line(t, "font-0 = ", &format!("font-0 = \"{}\"", f.polybar));
+        });
+    }
+    if want(Part::Rofi) {
+        edit_file(&tdir.join("rofi/shared/fonts.rasi"), |t| {
+            set_line(t, "font:", &format!("font: \"{}\";", f.rofi));
+        });
+    }
+    if want(Part::Terminal) {
+        edit_file(&conf.join("kitty/fonts.conf"), |t| {
+            let n = &f.terminal;
+            set_block(
+                t,
+                "#-fn-start",
+                "#-fn-end",
+                &format!("font_family {n}\nbold_font {n}\nitalic_font {n}\nbold_italic_font {n}"),
+            );
+            set_line(t, "font_size ", &format!("font_size {}", f.terminal_size));
+        });
+    }
+    if want(Part::Geany) {
+        edit_file(&conf.join("geany/geany.conf"), |t| {
+            set_line(t, "editor_font=", &format!("editor_font={}", f.geany));
+        });
+    }
+    if want(Part::Gtk) {
+        match target {
+            Target::Session => {
+                if xfconf_get("xsettings", "/Gtk/FontName").as_deref() != Some(f.gtk.as_str()) {
+                    xfconf("xsettings", "/Gtk/FontName", &f.gtk);
+                    // Its windows are closed
+                    if run("pgrep", &["-x", "thunar"]) {
+                        run("thunar", &["-q"]);
+                        spawn("thunar", &["--daemon"], &[]);
+                    }
+                }
+            }
+            Target::Package(_) => {
+                edit_file(&conf.join("xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"), |t| {
+                    set_xfconf_file(t, "FontName", &f.gtk);
+                });
+            }
+        }
+        // Read by the GTK applications started without xfsettingsd
+        edit_file(&conf.join("gtk-3.0/settings.ini"), |t| {
+            set_line(t, "gtk-font-name=", &format!("gtk-font-name={}", f.gtk));
+        });
+        edit_file(&dirs.home.join(".gtkrc-2.0"), |t| {
+            set_line(t, "gtk-font-name=", &format!("gtk-font-name=\"{}\"", f.gtk));
+        });
+    }
+    if want(Part::Openbox) {
+        edit_file(&conf.join("openbox/rc.xml"), |x| {
+            let th = ("theme", None);
+            // Menu items: feather first for the glyphs of menu-glyphs.xml (their
+            // codepoints are also in other icon fonts, with other widths)
+            let menu_font = format!("{},feather", f.openbox);
+            for (place, weight) in [("ActiveWindow", "Bold"), ("InactiveWindow", "Normal"), ("MenuHeader", "Bold"), ("MenuItem", "Normal"), ("ActiveOnScreenDisplay", "Bold"), ("InactiveOnScreenDisplay", "Normal")] {
+                let font = ("font", Some(("place", place)));
+                let name = if place == "MenuItem" { &menu_font } else { &f.openbox };
+                set_xml_text(x, &[th, font, ("name", None)], name);
+                set_xml_text(x, &[th, font, ("size", None)], &f.openbox_size.to_string());
+                set_xml_text(x, &[th, font, ("weight", None)], weight);
+                set_xml_text(x, &[th, font, ("slant", None)], "Normal");
+            }
+        });
+    }
+    if want(Part::Dunst) {
+        edit_file(&conf.join("dunst/dunstrc"), |t| {
+            set_line(t, "font = ", &format!("font = {}", f.dunst));
+        });
+    }
+}
+
 /// Sets the value of the xfconf property NAME (string) in the channel file
 /// TEXT (xfce-perchannel-xml)
 fn set_xfconf_file(text: &mut String, name: &str, value: &str) {
@@ -155,6 +249,10 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     }
     write_file(&dirs.themes.join(".current"), &format!("{id}\n"));
 
+    // Fonts: the global ones (fonts.toml) in place of the ones of the theme
+    let f = &Global::load(&fonts::file(dirs))?.over(&theme.fonts);
+    write_fonts(dirs, tdir, f, target, None);
+
     // Wallpaper
     let wallpaper = tdir.join(&theme.wallpaper);
     let wallpaper = wallpaper.to_string_lossy();
@@ -177,9 +275,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
 
     // Polybar
     let pbar = tdir.join("polybar");
-    edit_file(&pbar.join("config.ini"), |t| {
-        set_line(t, "font-0 = ", &format!("font-0 = \"{}\"", theme.fonts.polybar));
-    });
     let mut colors = format!(
         "[color]\n\nBACKGROUND = {}\nFOREGROUND = {}\nALTBACKGROUND = {}\nALTFOREGROUND = {}\nACCENT = {}\n\n",
         c.bar_bg.text, c.bar_fg.text, c.bar_alt_bg.text, c.bar_alt_fg.text, c.bar_accent.text
@@ -223,9 +318,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
         });
     }
     let rofi = tdir.join("rofi");
-    edit_file(&rofi.join("shared/fonts.rasi"), |t| {
-        set_line(t, "font:", &format!("font: \"{}\";", theme.fonts.rofi));
-    });
     let r = &c.rofi;
     write_file(
         &rofi.join("shared/colors.rasi"),
@@ -249,19 +341,8 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     });
 
     // Terminal (kitty)
-    let f = &theme.fonts;
     let kitty = conf.join("kitty");
     if kitty.join("fonts.conf").is_file() && kitty.join("colors.conf").is_file() {
-        edit_file(&kitty.join("fonts.conf"), |t| {
-            let n = &f.terminal;
-            set_block(
-                t,
-                "#-fn-start",
-                "#-fn-end",
-                &format!("font_family {n}\nbold_font {n}\nitalic_font {n}\nbold_italic_font {n}"),
-            );
-            set_line(t, "font_size ", &format!("font_size {}", f.terminal_size));
-        });
         let mut t = format!(
             "## Colors configuration\nbackground {bg}\nforeground {fg}\nselection_background {fg}\nselection_foreground {bg}\ncursor {fg}\n\n",
             bg = c.term_bg.text,
@@ -280,14 +361,12 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     let a = &theme.appearance;
     edit_file(&conf.join("geany/geany.conf"), |t| {
         set_line(t, "color_scheme=", &format!("color_scheme={}", a.geany_colors));
-        set_line(t, "editor_font=", &format!("editor_font={}", f.geany));
     });
 
-    // GTK theme, icons, cursor and fonts
+    // GTK theme, icons and cursor
     let scheme = format!("'{}'", a.color_scheme);
     match target {
         Target::Session => {
-            xfconf("xsettings", "/Gtk/FontName", &f.gtk);
             xfconf("xsettings", "/Net/ThemeName", &a.gtk_theme);
             xfconf("xsettings", "/Net/IconThemeName", &a.icon_theme);
             xfconf("xsettings", "/Gtk/CursorThemeName", &a.cursor_theme);
@@ -296,7 +375,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
         }
         Target::Package(root) => {
             edit_file(&conf.join("xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"), |t| {
-                set_xfconf_file(t, "FontName", &f.gtk);
                 set_xfconf_file(t, "ThemeName", &a.gtk_theme);
                 set_xfconf_file(t, "IconThemeName", &a.icon_theme);
                 set_xfconf_file(t, "CursorThemeName", &a.cursor_theme);
@@ -317,13 +395,11 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
         set_line(t, "gtk-theme-name=", &format!("gtk-theme-name={}", a.gtk_theme));
         set_line(t, "gtk-icon-theme-name=", &format!("gtk-icon-theme-name={}", a.icon_theme));
         set_line(t, "gtk-cursor-theme-name=", &format!("gtk-cursor-theme-name={}", a.cursor_theme));
-        set_line(t, "gtk-font-name=", &format!("gtk-font-name={}", f.gtk));
     });
     edit_file(&dirs.home.join(".gtkrc-2.0"), |t| {
         set_line(t, "gtk-theme-name=", &format!("gtk-theme-name=\"{}\"", a.gtk_theme));
         set_line(t, "gtk-icon-theme-name=", &format!("gtk-icon-theme-name=\"{}\"", a.icon_theme));
         set_line(t, "gtk-cursor-theme-name=", &format!("gtk-cursor-theme-name=\"{}\"", a.cursor_theme));
-        set_line(t, "gtk-font-name=", &format!("gtk-font-name=\"{}\"", f.gtk));
     });
     edit_file(&dirs.home.join(".icons/default/index.theme"), |t| {
         set_line(t, "Inherits=", &format!("Inherits={}", a.cursor_theme));
@@ -335,17 +411,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
         let th = ("theme", None);
         set_xml_text(x, &[th, ("name", None)], &o.theme);
         set_xml_text(x, &[th, ("titleLayout", None)], &o.layout);
-        // Menu items: feather first for the glyphs of menu-glyphs.xml (their
-        // codepoints are also in other icon fonts, with other widths)
-        let menu_font = format!("{},feather", f.openbox);
-        for (place, weight) in [("ActiveWindow", "Bold"), ("InactiveWindow", "Normal"), ("MenuHeader", "Bold"), ("MenuItem", "Normal"), ("ActiveOnScreenDisplay", "Bold"), ("InactiveOnScreenDisplay", "Normal")] {
-            let font = ("font", Some(("place", place)));
-            let name = if place == "MenuItem" { &menu_font } else { &f.openbox };
-            set_xml_text(x, &[th, font, ("name", None)], name);
-            set_xml_text(x, &[th, font, ("size", None)], &f.openbox_size.to_string());
-            set_xml_text(x, &[th, font, ("weight", None)], weight);
-            set_xml_text(x, &[th, font, ("slant", None)], "Normal");
-        }
         set_xml_text(x, &[("menu", None), ("file", None)], &o.menu);
         for (side, v) in ["top", "bottom", "left", "right"].iter().zip(o.margins) {
             set_xml_text(x, &[("margins", None), (side, None)], &v.to_string());
@@ -363,7 +428,6 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
             ("height", d.height.to_string()),
             ("offset", d.offset.clone()),
             ("origin", d.origin.clone()),
-            ("font", f.dunst.clone()),
             ("frame_width", d.border.to_string()),
             ("separator_height", d.separator.to_string()),
             ("line_height", d.separator.to_string()),

@@ -4,13 +4,16 @@
 //! theme.toml (colors, fonts, GTK/icon/cursor themes, Openbox, dunst,
 //! picom settings) next to their polybar/ and rofi/ layouts. Applying
 //! a theme writes these settings into the configuration of each program and
-//! relaunches the bar. "render" writes the default theme into the /etc/skel
-//! of the packarch-openbox package, so that the first session starts with it.
+//! relaunches the bar. The fonts of openbox/themes/fonts.toml, chosen with
+//! "font", replace the ones of every theme. "render" writes the default
+//! theme into the /etc/skel of the packarch-openbox package, so that the
+//! first session starts with it.
 
 mod apply;
 mod bar;
 mod color;
 mod edit;
+mod fonts;
 mod theme;
 
 use std::env;
@@ -28,6 +31,11 @@ Usage : packarch-skin COMMANDE
                           fichiers de RACINE/etc/skel, sans rien lancer
                           (construction du paquet packarch-openbox)
   bar                     relance la barre du thème courant
+  font [CIBLE]            police de chaque programme, ou de CIBLE (polybar,
+                          rofi, terminal, geany, gtk, openbox, dunst)
+  font CIBLE FAMILLE STYLE TAILLE
+                          choisit la police de CIBLE pour tous les thèmes
+                          (openbox/themes/fonts.toml) et l'applique
   wallpaper [THÈME]       chemin du fond d'écran de THÈME
   check [THÈME...]        vérifie les fichiers theme.toml
   openbox-menu            menu Openbox (pipemenu) des thèmes";
@@ -188,6 +196,7 @@ fn main() {
             }
         },
         Some("bar") => bar::launch(&dirs),
+        Some("font") => fonts::command(&dirs, &args[1..]),
         Some("wallpaper") => {
             let id = arg(1).map(str::to_string).unwrap_or_else(|| current(&dirs));
             find(&dirs, &id).and_then(|e| {

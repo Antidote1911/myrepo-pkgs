@@ -58,8 +58,9 @@ depends=(
   xdg-user-dirs python-pyxdg dconf
   # Packarch repository: theme chooser, GTK/Openbox themes, icons, cursors,
   # fonts and wallpapers (the -openbox packages hold what the XFCE desktop
-  # does not use, 7.0-31)
-  packarch-skin packarch-themes packarch-icons packarch-cursors
+  # does not use, 7.0-31); global fonts of pa-change-fonts: packarch-skin
+  # font (1.0.0-11, 7.0-38)
+  'packarch-skin>=1.0.0-11' packarch-themes packarch-icons packarch-cursors
   packarch-fonts packarch-backgrounds packarch-themes-openbox
   packarch-icons-openbox packarch-backgrounds-openbox
 )

@@ -4,10 +4,12 @@
 # described by the theme.toml files of ~/.config/openbox/themes (see
 # packarch-openbox). Source: skin/ (Rust). "render" (1.0.0-9) writes the
 # default theme into the /etc/skel of packarch-openbox when it is built.
+# "font" (1.0.0-11) stores the global fonts (themes/fonts.toml, the same for
+# every theme) chosen with the pa-change-fonts menu of packarch-openbox.
 
 pkgname=packarch-skin
 pkgver=1.0.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
 arch=('x86_64')
 url="https://github.com/Antidote1911/myrepo-pkgs"

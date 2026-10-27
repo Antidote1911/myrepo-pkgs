@@ -2,7 +2,9 @@
 
 ## Copyright (C) 2020-2026 Aditya Shakya <adi1090x@gmail.com>
 ##
-## Openbox Pipemenu to change fonts for various applications
+## Openbox Pipemenu to change fonts for various applications. The fonts are
+## global (~/.config/openbox/themes/fonts.toml, the same for every theme):
+## packarch-skin font stores and applies them.
 
 # Variables and functions
 MENUS_LIBDIR='/usr/share/packarch/openbox/menulib'
@@ -11,235 +13,48 @@ if ! . "$MENUS_LIBDIR/packarch.cfg" 2> /dev/null; then
 	exit 1
 fi
 
-# Theme
-themedir="$HOME/.config/openbox/themes"
-ctheme="`cat $themedir/.current`"
-
-# Dir
-confdir="$HOME/.config"
-termdir="$confdir/kitty"
-dunstdir="$confdir/dunst"
-oboxdir="$confdir/openbox"
-polydir="$themedir/$ctheme/polybar"
-rofidir="$themedir/$ctheme/rofi"
-
-# Reads KEY in the [fonts] section of the current theme.toml (without quotes)
-get_theme_font () {
-	local file="$themedir/$ctheme/theme.toml"
-	[[ -f "$file" ]] || return 0
-	sed -n -e "/^\[fonts\]/,/^\[/s|^$1 = \"\{0,1\}\([^\"]*\)\"\{0,1\}$|\1|p" "$file"
-}
-
-# Prints the font currently used by TARGET, as "NAME STYLE SIZE",
-# so that the selector opens on it
-current_font () {
-	local value
-	case "$1" in
-		--bar)
-			# "NAME:STYLE:size=SIZE;OFFSET" or "NAME:size=SIZE;OFFSET"
-			value="$(get_theme_font polybar)"
-			[[ "$value" ]] || return 0
-			local name="${value%%:*}" style="" size
-			size="$(sed -n 's/.*size=\([0-9.]*\).*/\1/p' <<< "$value")"
-			[[ "$value" == "$name":size=* ]] || style="$(cut -d: -f2 <<< "$value")"
-			echo "$name${style:+ $style}${size:+ $size}"
-			;;
-		--rofi) get_theme_font rofi ;;
-		--terminal)
-			value="$(get_theme_font terminal)"
-			[[ "$value" ]] && echo "$value $(get_theme_font terminal_size)"
-			;;
-		--openbox)
-			value="$(xmlstarlet sel -N a="http://openbox.org/3.4/rc" \
-				-t -v '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:name' -o ' ' \
-				-v '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:size' \
-				"$oboxdir/rc.xml" 2> /dev/null)"
-			echo "${value/,feather/}"
-			;;
-		--dunst) get_theme_font dunst ;;
-		--gtk|--all)
-			xfconf-query -c xsettings -p /Gtk/FontName 2> /dev/null || get_theme_font gtk
-			;;
-	esac
-}
-
-# Font
+# Font selector, opened on the font currently used by TARGET
 getfonts () {
 	local current
-	current="$(current_font "$1")"
+	current="$(packarch-skin font "$1" 2> /dev/null)"
 	FONT=$(yad --title='Choisir une police' --font --separate-output ${current:+--fontname="$current"} --button=Annuler:1 --button=Choisir:0)
+	[[ "$FONT" ]] || exit 0
 	FNAME=$(echo $FONT | cut -d'|' -f1)
 	FSTYLE=$(echo $FONT | cut -d'|' -f2)
 	FSIZE=$(echo $FONT | cut -d'|' -f3)
 }
 
-# Stores KEY = VALUE in the [fonts] section of the current theme.toml:
-# packarch-skin applies it again on each theme change
-set_theme_font () {
-	local file="$themedir/$ctheme/theme.toml" value="$2"
-	[[ -f "$file" ]] || return 0
-	value="${value//\\/\\\\}"; value="${value//&/\\&}"; value="${value//|/\\|}"
-	sed -i -e "/^\[fonts\]/,/^\[/s|^$1 = .*|$1 = $value|" "$file"
+# Stores and applies the chosen font for each TARGET
+setfonts () {
+	local target
+	for target in "$@"; do
+		packarch-skin font "$target" "$FNAME" "$FSTYLE" "$FSIZE"
+	done
 }
 
-# Replaces the line KEY=... of FILE by KEY=VALUE (appended if missing).
-# A missing file is skipped, as packarch-skin does
-set_key_line () {
-	local file="$1" key="$2" value="$3"
-	[[ -f "$file" ]] || return 0
-	if grep -q "^$key=" "$file"; then
-		value="${value//\\/\\\\}"; value="${value//&/\\&}"; value="${value//|/\\|}"
-		sed -i -e "s|^$key=.*|$key=$value|" "$file"
-	else
-		printf '%s=%s\n' "$key" "$value" >> "$file"
-	fi
-}
-
-font_bar () {
-	if [[ "$FONT" ]]; then
-		sed -i -e "s/font-0 = .*/font-0 = $FNAME:$FSTYLE:size=$FSIZE;2/g" ${polydir}/config.ini
-		set_theme_font polybar "\"$FNAME:$FSTYLE:size=$FSIZE;2\""
-		polybar-msg cmd restart
-	else
-		exit 0
-	fi
-}
-
-font_rofi () {
-	if [[ "$FONT" ]]; then
-		sed -i -e "s/font:.*/font: \"$FNAME $FSTYLE $FSIZE\";/g" ${rofidir}/shared/fonts.rasi
-		set_theme_font rofi "\"$FNAME $FSTYLE $FSIZE\""
-	else
-		exit 0
-	fi
-}
-
-font_term () {
-	if [[ "$FONT" ]]; then
-		sed -i -e "/^#-fn-start/,/^#-fn-end/s/^\(font_family\|bold_font\|italic_font\|bold_italic_font\) .*/\1 $FNAME/" \
-			-e "s/^font_size .*/font_size $FSIZE/" ${termdir}/fonts.conf
-		set_theme_font terminal "\"$FNAME\""
-		set_theme_font terminal_size "${FSIZE%%.*}"
-		pkill -USR1 -x kitty
-	else
-		exit 0
-	fi
-}
-
-font_ob () {
-	if [[ "$FONT" ]]; then
-		namespace="http://openbox.org/3.4/rc"
-		config="$oboxdir/rc.xml"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:name' -v "$FNAME" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:weight' -v Bold "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:slant' -v Normal "$config"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:name' -v "$FNAME" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:weight' -v Normal "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:slant' -v Normal "$config"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:name' -v "$FNAME" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:weight' -v Bold "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:slant' -v Normal "$config"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:name' -v "$FNAME,feather" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:weight' -v Normal "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:slant' -v Normal "$config"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:name' -v "$FNAME" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:weight' -v Bold "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:slant' -v Normal "$config"
-
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:name' -v "$FNAME" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:size' -v "$FSIZE" "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:weight' -v Normal "$config"
-		xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:slant' -v Normal "$config"
-
-		set_theme_font openbox "\"$FNAME\""
-		set_theme_font openbox_size "${FSIZE%%.*}"
-		openbox --reconfigure
-	else
-		exit 0
-	fi
-}
-
-font_dunst () {
-	if [[ "$FONT" ]]; then
-		sed -i -e "s/font = .*/font = $FNAME $FSTYLE $FSIZE/g" ${dunstdir}/dunstrc
-		set_theme_font dunst "\"$FNAME $FSTYLE $FSIZE\""
-		pkill dunst && dunst &
-	else
-		exit 0
-	fi
-}
-
-font_gtk () {
-	if [[ "$FONT" ]]; then
-		xfconf-query -c xsettings -p /Gtk/FontName -s "$FNAME $FSTYLE $FSIZE"
-		set_theme_font gtk "\"$FNAME $FSTYLE $FSIZE\""
-		# Read by the GTK applications started without xfsettingsd
-		set_key_line "$confdir/gtk-3.0/settings.ini" gtk-font-name "$FNAME $FSTYLE $FSIZE"
-		set_key_line "$HOME/.gtkrc-2.0" gtk-font-name "\"$FNAME $FSTYLE $FSIZE\""
-		# The Thunar daemon only reads the font at startup
-		if pgrep -x thunar > /dev/null; then
-			thunar -q
-			setsid thunar --daemon > /dev/null 2>&1 &
-		fi
-	else
-		exit 0
-	fi
-}
-
-if [[ "$1" == "--bar" ]]; then
-	getfonts "$1"
-	font_bar
-
-elif [[ "$1" == "--rofi" ]]; then
-	getfonts "$1"
-	font_rofi
-
-elif [[ "$1" == "--terminal" ]]; then
-	getfonts "$1"
-	font_term
-
-elif [[ "$1" == "--openbox" ]]; then
-	getfonts "$1"
-	font_ob
-
-elif [[ "$1" == "--dunst" ]]; then
-	getfonts "$1"
-	font_dunst
-
-elif [[ "$1" == "--gtk" ]]; then
-	getfonts "$1"
-	font_gtk
-
-elif [[ "$1" == "--all" ]]; then
-	getfonts "$1"
-	font_bar
-	font_rofi
-	font_term
-	font_ob
-	font_dunst
-	font_gtk
-
-else
-    menuStart
-        menuItem 'Barre d’état (polybar)' "$0 --bar"
-        menuItem 'Lanceurs (rofi)' "$0 --rofi"
-        menuItem 'Terminal (kitty)' "$0 --terminal"
-        menuItem 'Bureau (openbox)' "$0 --openbox"
-        menuItem 'Notifications (dunst)' "$0 --dunst"
-        menuItem 'Applications (gtk)' "$0 --gtk"
-        menuSeparator
-        menuItem 'Changer partout' "$0 --all"
-    menuEnd
-fi
+case "$1" in
+	--bar)      getfonts polybar;  setfonts polybar ;;
+	--rofi)     getfonts rofi;     setfonts rofi ;;
+	--terminal) getfonts terminal; setfonts terminal ;;
+	--openbox)  getfonts openbox;  setfonts openbox ;;
+	--dunst)    getfonts dunst;    setfonts dunst ;;
+	--gtk)      getfonts gtk;      setfonts gtk ;;
+	--all)
+		getfonts gtk
+		setfonts polybar rofi terminal openbox dunst gtk
+		;;
+	*)
+		menuStart
+		menuItem 'Barre d’état (polybar)' "$0 --bar"
+		menuItem 'Lanceurs (rofi)' "$0 --rofi"
+		menuItem 'Terminal (kitty)' "$0 --terminal"
+		menuItem 'Bureau (openbox)' "$0 --openbox"
+		menuItem 'Notifications (dunst)' "$0 --dunst"
+		menuItem 'Applications (gtk)' "$0 --gtk"
+		menuSeparator
+		menuItem 'Changer partout' "$0 --all"
+		menuEnd
+		;;
+esac
 
 exit 0
