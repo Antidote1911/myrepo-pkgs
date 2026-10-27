@@ -23,9 +23,51 @@ oboxdir="$confdir/openbox"
 polydir="$themedir/$ctheme/polybar"
 rofidir="$themedir/$ctheme/rofi"
 
+# Reads KEY in the [fonts] section of the current theme.toml (without quotes)
+get_theme_font () {
+	local file="$themedir/$ctheme/theme.toml"
+	[[ -f "$file" ]] || return 0
+	sed -n -e "/^\[fonts\]/,/^\[/s|^$1 = \"\{0,1\}\([^\"]*\)\"\{0,1\}$|\1|p" "$file"
+}
+
+# Prints the font currently used by TARGET, as "NAME STYLE SIZE",
+# so that the selector opens on it
+current_font () {
+	local value
+	case "$1" in
+		--bar)
+			# "NAME:STYLE:size=SIZE;OFFSET" or "NAME:size=SIZE;OFFSET"
+			value="$(get_theme_font polybar)"
+			[[ "$value" ]] || return 0
+			local name="${value%%:*}" style="" size
+			size="$(sed -n 's/.*size=\([0-9.]*\).*/\1/p' <<< "$value")"
+			[[ "$value" == "$name":size=* ]] || style="$(cut -d: -f2 <<< "$value")"
+			echo "$name${style:+ $style}${size:+ $size}"
+			;;
+		--rofi) get_theme_font rofi ;;
+		--terminal)
+			value="$(get_theme_font terminal)"
+			[[ "$value" ]] && echo "$value $(get_theme_font terminal_size)"
+			;;
+		--openbox)
+			value="$(xmlstarlet sel -N a="http://openbox.org/3.4/rc" \
+				-t -v '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:name' -o ' ' \
+				-v '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:size' \
+				"$oboxdir/rc.xml" 2> /dev/null)"
+			echo "${value/,feather/}"
+			;;
+		--dunst) get_theme_font dunst ;;
+		--gtk|--all)
+			xfconf-query -c xsettings -p /Gtk/FontName 2> /dev/null || get_theme_font gtk
+			;;
+	esac
+}
+
 # Font
 getfonts () {
-	FONT=$(yad --title='Choisir une police' --font --separate-output --button=Annuler:1 --button=Choisir:0)
+	local current
+	current="$(current_font "$1")"
+	FONT=$(yad --title='Choisir une police' --font --separate-output ${current:+--fontname="$current"} --button=Annuler:1 --button=Choisir:0)
 	FNAME=$(echo $FONT | cut -d'|' -f1)
 	FSTYLE=$(echo $FONT | cut -d'|' -f2)
 	FSIZE=$(echo $FONT | cut -d'|' -f3)
@@ -38,6 +80,19 @@ set_theme_font () {
 	[[ -f "$file" ]] || return 0
 	value="${value//\\/\\\\}"; value="${value//&/\\&}"; value="${value//|/\\|}"
 	sed -i -e "/^\[fonts\]/,/^\[/s|^$1 = .*|$1 = $value|" "$file"
+}
+
+# Replaces the line KEY=... of FILE by KEY=VALUE (appended if missing).
+# A missing file is skipped, as packarch-skin does
+set_key_line () {
+	local file="$1" key="$2" value="$3"
+	[[ -f "$file" ]] || return 0
+	if grep -q "^$key=" "$file"; then
+		value="${value//\\/\\\\}"; value="${value//&/\\&}"; value="${value//|/\\|}"
+		sed -i -e "s|^$key=.*|$key=$value|" "$file"
+	else
+		printf '%s=%s\n' "$key" "$value" >> "$file"
+	fi
 }
 
 font_bar () {
@@ -128,37 +183,45 @@ font_gtk () {
 	if [[ "$FONT" ]]; then
 		xfconf-query -c xsettings -p /Gtk/FontName -s "$FNAME $FSTYLE $FSIZE"
 		set_theme_font gtk "\"$FNAME $FSTYLE $FSIZE\""
+		# Read by the GTK applications started without xfsettingsd
+		set_key_line "$confdir/gtk-3.0/settings.ini" gtk-font-name "$FNAME $FSTYLE $FSIZE"
+		set_key_line "$HOME/.gtkrc-2.0" gtk-font-name "\"$FNAME $FSTYLE $FSIZE\""
+		# The Thunar daemon only reads the font at startup
+		if pgrep -x thunar > /dev/null; then
+			thunar -q
+			setsid thunar --daemon > /dev/null 2>&1 &
+		fi
 	else
 		exit 0
 	fi
 }
 
 if [[ "$1" == "--bar" ]]; then
-	getfonts
+	getfonts "$1"
 	font_bar
 
 elif [[ "$1" == "--rofi" ]]; then
-	getfonts
+	getfonts "$1"
 	font_rofi
 
 elif [[ "$1" == "--terminal" ]]; then
-	getfonts
+	getfonts "$1"
 	font_term
 
 elif [[ "$1" == "--openbox" ]]; then
-	getfonts
+	getfonts "$1"
 	font_ob
 
 elif [[ "$1" == "--dunst" ]]; then
-	getfonts
+	getfonts "$1"
 	font_dunst
 
 elif [[ "$1" == "--gtk" ]]; then
-	getfonts
+	getfonts "$1"
 	font_gtk
 
 elif [[ "$1" == "--all" ]]; then
-	getfonts
+	getfonts "$1"
 	font_bar
 	font_rofi
 	font_term
