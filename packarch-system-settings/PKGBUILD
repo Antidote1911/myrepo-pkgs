@@ -5,7 +5,9 @@
 # - no screen blanking from the X server, also on the login screen
 #   (/usr/share/X11/xorg.conf.d)
 # - numeric keypad on at the LightDM login screen (numlockx)
-# - dark LightDM greeter: Greybird-dark, Luna-Red-Dark icons, Qogir-Dark
+# - dark LightDM greeter: its own GTK theme Packarch-Greeter (GTK 3 of
+#   Greybird-dark, 1.0-4: packarch-themes, the themes of the XFCE desktop, is
+#   no longer needed by the Openbox desktop), Luna-Red-Dark icons, Qogir-Dark
 #   cursor, wallpaper-alt.png background (lightdm-gtk-greeter.conf.d, read before
 #   /etc/lightdm/lightdm-gtk-greeter.conf, whose settings are commented out)
 # - pacman hooks, also run when this package is installed: Geany opens a new
@@ -18,12 +20,12 @@
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
 license=('GPL3')
-depends=(sed numlockx qogir-icon-theme packarch-themes packarch-icons
+depends=(sed numlockx qogir-icon-theme packarch-icons
          packarch-backgrounds cachy-update)
 optdepends=(
   'lightdm-gtk-greeter: login screen using these settings'

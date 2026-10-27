@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Packarch-Greeter
+Comment=Greybird dark theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Packarch-Greeter
+IconTheme=elementary-xfce-dark
+CursorTheme=DMZ-Black
+ButtonLayout=:minimize,maximize,close
