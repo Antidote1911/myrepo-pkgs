@@ -1,0 +1,5 @@
+! DPI of the fonts, fixed to 96 like the GTK applications. Without it, some
+! drivers (NVIDIA: "UseEdidDpi") compute it from the EDID of a monitor, e.g.
+! ~70 DPI, and Openbox, which reads it at startup, shrinks its fonts.
+! Merged by LightDM (/etc/lightdm/Xsession) before the session starts.
+Xft.dpi: 96
