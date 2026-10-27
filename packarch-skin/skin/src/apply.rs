@@ -23,6 +23,18 @@ pub enum Target<'a> {
     Package(&'a Path),
 }
 
+/// First line of the fastfetch configuration written for the "fastfetch"
+/// role: a file without it belongs to the user and is not touched
+const FASTFETCH_MARK: &str = "// Couleurs du thème, écrites par packarch-skin (supprimer cette ligne pour garder vos réglages)";
+
+/// Modules of fastfetch (its default list: a configuration file without
+/// "modules" shows none)
+const FASTFETCH_MODULES: [&str; 29] = [
+    "title", "separator", "os", "host", "kernel", "uptime", "packages", "shell", "display", "de", "wm",
+    "wmtheme", "theme", "icons", "font", "cursor", "terminal", "terminalfont", "cpu", "gpu", "memory",
+    "swap", "disk", "localip", "battery", "poweradapter", "locale", "break", "colors",
+];
+
 /// Colors of the roles, resolved
 struct Colors {
     term_bg: Color,
@@ -38,6 +50,7 @@ struct Colors {
     rofi: [Color; 6],
     dunst: [Color; 4],
     border: Color,
+    fastfetch: Option<Color>,
 }
 
 fn resolve(theme: &Theme) -> Result<Colors, String> {
@@ -90,6 +103,7 @@ fn resolve(theme: &Theme) -> Result<Colors, String> {
             p.eval(&r.dunst_urgent)?,
         ],
         border: p.eval(&r.screenshot_border)?,
+        fastfetch: r.fastfetch.as_deref().map(|e| p.eval(e)).transpose()?,
         bar_bg,
         bar_alt_bg,
     })
@@ -445,6 +459,25 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     });
     if session && run("pkill", &["-x", "dunst"]) {
         spawn("dunst", &[], &[]);
+    }
+
+    // Fastfetch: only its own file (the one of the user is kept)
+    let ff = conf.join("fastfetch/config.jsonc");
+    let ours = fs::read_to_string(&ff).map_or(true, |t| t.starts_with(FASTFETCH_MARK));
+    if ours {
+        match &c.fastfetch {
+            Some(col) => write_file(
+                &ff,
+                &format!(
+                    "{FASTFETCH_MARK}\n{{\n  \"logo\": {{ \"color\": {{ \"1\": \"{t}\", \"2\": \"{t}\" }} }},\n  \"display\": {{ \"color\": {{ \"keys\": \"{t}\", \"title\": \"{t}\" }} }},\n  \"modules\": [{}]\n}}\n",
+                    FASTFETCH_MODULES.iter().map(|m| format!("\"{m}\"")).collect::<Vec<_>>().join(", "),
+                    t = col.text
+                ),
+            ),
+            None => {
+                let _ = fs::remove_file(&ff);
+            }
+        }
     }
 
     // Compositor

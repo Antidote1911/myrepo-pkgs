@@ -30,6 +30,10 @@ accent = "#e01b24"
 alt_background = "lighten(background, 0.06)"
 alt_foreground = "darken(foreground, 0.35)"
 
+[roles]
+# Logo, title and keys of fastfetch: the yellow of the palette
+fastfetch = "color3"
+
 [fonts]
 polybar = "JetBrains Mono:size=10;3"
 rofi = "Iosevka 10"

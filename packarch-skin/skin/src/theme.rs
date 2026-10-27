@@ -56,6 +56,8 @@ pub struct Roles {
     pub dunst_urgent: String,
     /// Border of the area selection of the screenshots
     pub screenshot_border: String,
+    /// Logo, title and keys of fastfetch (none: its own colors)
+    pub fastfetch: Option<String>,
 }
 
 impl Default for Roles {
@@ -78,6 +80,7 @@ impl Default for Roles {
             dunst_frame: s("alt_background"),
             dunst_urgent: s("color1"),
             screenshot_border: s("accent"),
+            fastfetch: None,
         }
     }
 }
