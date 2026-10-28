@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=packarch-pi
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="Package installer for Packarch (fork of CachyOS Package Installer)"
 arch=('x86_64')
