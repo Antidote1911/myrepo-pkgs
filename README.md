@@ -27,7 +27,7 @@ installer.
 | `packarch-zsh-config` | configuration zsh de CachyOS (`cachyos-zsh-config`) sans la dépendance inutile à vim, avec notre configuration powerlevel10k par défaut (utilisée sans `~/.p10k.zsh`) et l’alias `cleanup` corrigé ; fournit `cachyos-zsh-config` |
 | `packarch-mirrorlist` | `/etc/pacman.d/packarch-mirrorlist` |
 | `apps/*` | nos applications, compilées depuis le dernier tag de leur dépôt GitHub : `cryptyrust`, `bombicat`, `deadpool`, `liloucalc`, `nounours-player`, `packarch-rmatrix` (`apps/rmatrix`, effet « Matrix » en console) |
-| `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light`, `beautyline` (thème d’icônes BeautyLine, dépendance de `packarch-icons-openbox`) |
+| `aur/*` | copies de PKGBUILD AUR : `gtkmm`, `nitrogen`, `xfce-polkit`, `lead-git`, `skippy-xd-git`, `ksuperkey`, `betterlockscreen`, `networkmanager-dmenu-git`, `light`, `beautyline` (thème d’icônes BeautyLine, dépendance de `packarch-icons-openbox`), `filebot` (renommage de films et séries, logiciel commercial : licence à acheter sur filebot.net) |
 
 Les paquets de thèmes remplacent les anciens paquets séparés
 (`packarch-icons-arc`, `packarch-icons-luna`…, `packarch-gtk-theme-*` : `replaces`).
