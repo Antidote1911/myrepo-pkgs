@@ -80,8 +80,8 @@ fn resolve(theme: &Theme) -> Result<Colors, String> {
         extra.push((k.clone(), p.eval(v)?));
     }
     Ok(Colors {
-        term_bg: p.get("background")?,
-        term_fg: p.get("foreground")?,
+        term_bg: p.eval(&r.terminal_background)?,
+        term_fg: p.eval(&r.terminal_foreground)?,
         palette,
         bar_fg: p.eval(&r.bar_foreground)?,
         bar_alt_fg: p.eval(&r.bar_alt_foreground)?,

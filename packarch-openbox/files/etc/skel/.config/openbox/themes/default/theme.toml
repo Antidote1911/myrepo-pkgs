@@ -27,6 +27,10 @@ accent = "#5294E2"
 alt_background = "#292d37"  # lighten(background, 0.05)
 alt_foreground = "#5a6477"  # darken(foreground, 0.30)
 
+[roles]
+# Terminal: the gray of the title bar of OB-Packarch-Default
+terminal_background = "#2b313c"
+
 [fonts]
 polybar = "JetBrains Mono:size=10;3"
 rofi = "Iosevka 10"

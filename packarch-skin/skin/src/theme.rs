@@ -35,10 +35,12 @@ fn default_wallpaper() -> String {
     "wallpaper".into()
 }
 
-/// Colors of the bar, rofi and dunst: color expressions
+/// Colors of the terminal, the bar, rofi and dunst: color expressions
 #[derive(Deserialize, Debug)]
 #[serde(deny_unknown_fields, default)]
 pub struct Roles {
+    pub terminal_background: String,
+    pub terminal_foreground: String,
     pub bar_background: String,
     pub bar_foreground: String,
     pub bar_alt_background: String,
@@ -64,6 +66,8 @@ impl Default for Roles {
     fn default() -> Roles {
         let s = |x: &str| x.to_string();
         Roles {
+            terminal_background: s("background"),
+            terminal_foreground: s("foreground"),
             bar_background: s("background"),
             bar_foreground: s("foreground"),
             bar_alt_background: s("alt_background"),
