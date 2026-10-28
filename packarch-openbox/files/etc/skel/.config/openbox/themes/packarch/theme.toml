@@ -33,6 +33,8 @@ alt_background = "lighten(element_bg, 0.06)"
 alt_foreground = "darken(element_fg, 0.35)"
 
 [roles]
+# Terminal: the gray of the title bar of OB-Packarch-Packarch
+terminal_background = "#20262C"
 bar_background = "element_bg"
 bar_foreground = "element_fg"
 bar_accent = "element_hl"
