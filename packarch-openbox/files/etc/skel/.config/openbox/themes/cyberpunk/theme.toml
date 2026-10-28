@@ -76,5 +76,5 @@ blur_method = "none"
 blur_strength = 0
 
 [polybar]
-bars = ["main", "bottom"]
+bars = ["main", "bottom", "line-top", "line-bottom"]
 polywins = true
