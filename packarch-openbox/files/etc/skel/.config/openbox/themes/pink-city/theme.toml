@@ -53,7 +53,7 @@ theme = "OB-Packarch-Pink-City"
 layout = "NLIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
-margins = [48, 10, 10, 10]
+margins = [0, 0, 0, 0]
 
 [dunst]
 width = 300

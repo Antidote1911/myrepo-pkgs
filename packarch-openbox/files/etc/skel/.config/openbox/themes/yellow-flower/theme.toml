@@ -55,7 +55,7 @@ theme = "OB-Packarch-Yellow-Flower"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
-margins = [40, 40, 10, 10]
+margins = [0, 0, 0, 0]
 
 [dunst]
 width = 300

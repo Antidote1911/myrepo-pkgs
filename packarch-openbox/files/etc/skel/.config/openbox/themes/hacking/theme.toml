@@ -61,7 +61,7 @@ theme = "OB-Packarch-Hacking"
 layout = "LIMC"
 menu = "menu-glyphs.xml"
 # top, bottom, left, right
-margins = [36, 36, 10, 10]
+margins = [0, 0, 0, 0]
 
 [dunst]
 width = 300

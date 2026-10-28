@@ -67,7 +67,7 @@ theme = "OB-Packarch-Spark"
 layout = "LIMC"
 menu = "menu-icons.xml"
 # top, bottom, left, right
-margins = [8, 61, 8, 8]
+margins = [0, 0, 0, 0]
 
 [dunst]
 width = 300
