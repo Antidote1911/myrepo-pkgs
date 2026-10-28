@@ -1,13 +1,14 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=packarch-hello
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Welcome screen for Packarch (fork of CachyOS Hello)"
 arch=('x86_64')
 url="https://github.com/Antidote1911/packarch-hello"
 license=('GPL-3.0-or-later')
 depends=('gcc-libs' 'glib2' 'glibc' 'gtk3' 'libusb' 'pciutils' 'procps-ng')
+optdepends=('packarch-pi: "Install Apps" button')
 makedepends=('cargo' 'git')
 # Replaces CachyOS Hello on Packarch systems (both would start at login)
 conflicts=('cachyos-hello')
