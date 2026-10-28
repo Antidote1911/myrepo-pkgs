@@ -35,7 +35,7 @@
 
 pkgname=packarch-xfce-settings
 pkgver=1.0.9
-pkgrel=2
+pkgrel=3
 pkgdesc="XFCE configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

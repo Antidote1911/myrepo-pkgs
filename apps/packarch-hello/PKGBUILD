@@ -1,0 +1,43 @@
+# Maintainer: Fabrice Corraire <antidote1911@gmail.com>
+
+pkgname=packarch-hello
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Welcome screen for Packarch (fork of CachyOS Hello)"
+arch=('x86_64')
+url="https://github.com/Antidote1911/packarch-hello"
+license=('GPL-3.0-or-later')
+depends=('gcc-libs' 'glib2' 'glibc' 'gtk3' 'libusb' 'pciutils' 'procps-ng')
+makedepends=('cargo' 'git')
+# Replaces CachyOS Hello on Packarch systems (both would start at login)
+conflicts=('cachyos-hello')
+replaces=('cachyos-hello')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Antidote1911/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --release --frozen
+}
+
+# The files that meson.build and postinstall.sh install, without meson (its
+# own CARGO_HOME would download the crates again)
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 $pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 icons/org.packarch.hello.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/apps/org.packarch.hello.svg"
+  install -Dm755 src/scripts/rootshell.sh "$pkgdir/usr/share/$pkgname/scripts/rootshell.sh"
+  install -Dm755 src/scripts/terminal-helper "$pkgdir/usr/share/$pkgname/scripts/terminal-helper"
+  # Started at login, like CachyOS Hello (switch "Launch at start")
+  install -Dm644 $pkgname.desktop "$pkgdir/etc/skel/.config/autostart/$pkgname.desktop"
+}
