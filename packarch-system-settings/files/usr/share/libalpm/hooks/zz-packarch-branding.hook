@@ -1,0 +1,17 @@
+# Runs after the hooks of cachyos-hooks (os-release.hook, lsb-release.hook,
+# cachyos-branding.hook), which write CachyOS in /etc/os-release and
+# /etc/lsb-release: pacman runs the hooks in the alphabetical order of their
+# file names.
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = filesystem
+Target = lsb-release
+Target = cachyos-hooks
+Target = packarch-system-settings
+
+[Action]
+Description = Writing Packarch in os-release and lsb-release...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/packarch-branding
