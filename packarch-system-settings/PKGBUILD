@@ -21,12 +21,15 @@
 #   ID=packarch, ID_LIKE="cachyos arch" for the CachyOS logo of fastfetch,
 #   DISTRIB_ID=packarch): pacman hook zz-packarch-branding, run after the
 #   ones of cachyos-hooks that write CachyOS there (1.0-5, identifiers 1.0-6)
+# - the same hook renames the OS entry /+CachyOS of limine.conf to /+Packarch
+#   (limine-entry-tool finds it by PRETTY_NAME when its machine-id is not
+#   under it) and enrolls limine.conf again if enabled (1.0-7)
 # - icon of the "packarch" GRUB class (GRUB_DISTRIBUTOR=Packarch) in the
 #   cachyos GRUB theme (1.0-6)
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=6
+pkgrel=7
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

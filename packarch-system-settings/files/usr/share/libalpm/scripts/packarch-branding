@@ -26,5 +26,25 @@ update_lsb_release() {
         -e 's|^DISTRIB_DESCRIPTION=.*$|DISTRIB_DESCRIPTION="Packarch"|'
 }
 
+# limine-entry-tool and limine-snapper-sync find the OS entry of limine.conf
+# by the PRETTY_NAME of os-release when its machine-id comment is not under
+# it (installations by Calamares before Packarch): the entry /+CachyOS is
+# renamed, otherwise the next kernel update would add a second entry
+# /+Packarch. limine.conf is enrolled again if enrollment is enabled (boot
+# fails otherwise).
+rename_limine_entry() {
+    local esp conf
+    [[ -r /etc/default/limine ]] || return 0
+    esp=$(sed -n 's/^ESP_PATH="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' /etc/default/limine)
+    conf="${esp:-/boot}/limine.conf"
+    [[ -f $conf ]] && grep -qx '/+CachyOS' "$conf" || return 0
+    sed -i 's|^/+CachyOS$|/+Packarch|' "$conf"
+    if grep -qs '^ENABLE_ENROLL_LIMINE_CONFIG=yes' /etc/limine-entry-tool.conf /etc/default/limine &&
+        command -v limine-enroll-config >/dev/null; then
+        limine-enroll-config
+    fi
+}
+
 update_os_release
 update_lsb_release
+rename_limine_entry
