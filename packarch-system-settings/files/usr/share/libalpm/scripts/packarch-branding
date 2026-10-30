@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Names of Packarch in /etc/os-release and /etc/lsb-release, after
-# cachyos-branding (cachyos-hooks). The identifiers stay cachyos (ID,
-# DISTRIB_ID): tools of CachyOS test them. /etc/issue shows PRETTY_NAME.
+# Packarch in /etc/os-release and /etc/lsb-release, after cachyos-branding
+# (cachyos-hooks), which writes CachyOS there. ID_LIKE keeps cachyos before
+# arch: fastfetch then shows the logo of CachyOS. /etc/issue shows
+# PRETTY_NAME.
 
 update_os_release() {
     local os_release="/etc/os-release"
@@ -9,6 +10,8 @@ update_os_release() {
     sed -i "$os_release" \
         -e 's|^NAME=.*$|NAME="Packarch"|' \
         -e 's|^PRETTY_NAME=.*$|PRETTY_NAME="Packarch"|' \
+        -e 's|^ID=.*$|ID=packarch|' \
+        -e 's|^ID_LIKE=.*$|ID_LIKE="cachyos arch"|' \
         -e 's|^HOME_URL=.*$|HOME_URL="https://github.com/Antidote1911/CachyOS-Packarch"|' \
         -e 's|^SUPPORT_URL=.*$|SUPPORT_URL="https://github.com/Antidote1911/CachyOS-Packarch/issues"|' \
         -e 's|^BUG_REPORT_URL=.*$|BUG_REPORT_URL="https://github.com/Antidote1911/CachyOS-Packarch/issues"|' \
@@ -19,6 +22,7 @@ update_lsb_release() {
     local lsb_release="/etc/lsb-release"
     [[ -e $lsb_release ]] || return 0
     sed -i "$lsb_release" \
+        -e 's|^DISTRIB_ID=.*$|DISTRIB_ID=packarch|' \
         -e 's|^DISTRIB_DESCRIPTION=.*$|DISTRIB_DESCRIPTION="Packarch"|'
 }
 

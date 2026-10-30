@@ -17,13 +17,16 @@
 #   (/etc/xdg/autostart of cachy-update) and the daily update check
 #   (arch-update.timer) is enabled for every user
 #   (/usr/lib/systemd/user/timers.target.wants)
-# - Packarch in /etc/os-release and /etc/lsb-release (names, links, logo;
-#   identifiers kept cachyos): pacman hook zz-packarch-branding, run after
-#   the ones of cachyos-hooks that write CachyOS there (1.0-5)
+# - Packarch in /etc/os-release and /etc/lsb-release (names, links, logo,
+#   ID=packarch, ID_LIKE="cachyos arch" for the CachyOS logo of fastfetch,
+#   DISTRIB_ID=packarch): pacman hook zz-packarch-branding, run after the
+#   ones of cachyos-hooks that write CachyOS there (1.0-5, identifiers 1.0-6)
+# - icon of the "packarch" GRUB class (GRUB_DISTRIBUTOR=Packarch) in the
+#   cachyos GRUB theme (1.0-6)
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=5
+pkgrel=6
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
