@@ -33,11 +33,12 @@
 # - GRUB theme packarch (1.0-10): the cachyos theme of cachyos-grub-theme
 #   (GPL-3.0) with the Packarch background and icon, chosen by the grubcfg
 #   module of Calamares; the zz-packarch-branding hook switches the systems
-#   still on the cachyos theme and generates grub.cfg again
+#   still on the cachyos theme and generates grub.cfg again; background in
+#   8-bit PNG since 1.0-11 (GRUB shows a 16-bit PNG as colored rings)
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=10
+pkgrel=11
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
