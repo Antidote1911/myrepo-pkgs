@@ -31,13 +31,14 @@
 #   them installed), and the dependencies only they or the CachyOS theme used
 # - Packarch icon (packarch.png of packarch-system-settings) on the button of
 #   the whisker menu instead of the CachyOS one (1.0.9-4)
+# - htop instead of btop in the system monitor launcher of the panel (1.0.9-5)
 #
 # Conflicts with packarch-openbox: both ship some files of /etc/skel (GTK,
 # Thunar, xfconf), the ISO installs one desktop or the other.
 
 pkgname=packarch-xfce-settings
 pkgver=1.0.9
-pkgrel=4
+pkgrel=5
 pkgdesc="XFCE configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -45,7 +46,7 @@ license=('GPL-1.0-only')
 depends=(
   xfce4-panel xfce4-whiskermenu-plugin xfdesktop xfconf thunar
   noto-fonts qogir-icon-theme packarch-themes packarch-icons
-  packarch-backgrounds packarch-system-settings
+  packarch-backgrounds packarch-system-settings htop
 )
 optdepends=(
   'firefox: web browser of the panel and the whisker menu'

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=System Monitor
-Comment=System Monitor - Btop
+Comment=System Monitor - Htop
 GenericName=System Monitor
-Exec=xfce4-terminal -e "btop"
+Exec=xfce4-terminal -e "htop"
 Icon=utilities-system-monitor
 Terminal=false
 StartupNotify=true
