@@ -33,7 +33,7 @@
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=8
+pkgrel=9
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"

@@ -30,7 +30,7 @@ const FASTFETCH_MARK: &str = "// Couleurs du thème, écrites par packarch-skin 
 /// Logo of /etc/xdg/fastfetch/config.jsonc (packarch-system-settings), which
 /// the file of the role replaces: packarch.png in kitty, the text logo of the
 /// distribution, in the color of the role, elsewhere
-const FASTFETCH_LOGO: &str = "\"type\": \"kitty\", \"source\": \"/usr/share/pixmaps/packarch.png\", \"width\": 28, \"height\": 14, \"padding\": { \"top\": 2, \"left\": 2, \"right\": 4 }";
+const FASTFETCH_LOGO: &str = "\"type\": \"kitty\", \"source\": \"/usr/share/pixmaps/packarch.png\", \"width\": 20, \"padding\": { \"top\": 2, \"left\": 2, \"right\": 4 }";
 
 /// Modules of fastfetch (its default list: a configuration file without
 /// "modules" shows none)
