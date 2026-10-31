@@ -34,10 +34,10 @@ const FASTFETCH_LOGO: &str = "\"type\": \"kitty\", \"source\": \"/usr/share/pixm
 
 /// Modules of fastfetch (its default list: a configuration file without
 /// "modules" shows none)
-const FASTFETCH_MODULES: [&str; 29] = [
-    "title", "separator", "os", "host", "kernel", "uptime", "packages", "shell", "display", "de", "wm",
+const FASTFETCH_MODULES: [&str; 26] = [
+    "title", "separator", "os", "host", "kernel", "shell", "display", "de", "wm",
     "wmtheme", "theme", "icons", "font", "cursor", "terminal", "terminalfont", "cpu", "gpu", "memory",
-    "swap", "disk", "localip", "battery", "poweradapter", "locale", "break", "colors",
+    "swap", "disk", "localip", "battery", "poweradapter", "break", "colors",
 ];
 
 /// Colors of the roles, resolved

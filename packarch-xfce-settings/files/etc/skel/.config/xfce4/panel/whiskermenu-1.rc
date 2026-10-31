@@ -1,6 +1,6 @@
 favorites=firefox.desktop,xfce4-terminal.desktop,ristretto.desktop,liloucalc.desktop,thunar.desktop,xfce4-taskmanager.desktop,xfce-settings-manager.desktop,pavucontrol.desktop,packarch-hello.desktop
 recent=thunar.desktop,xfce4-taskmanager.desktop,xfce4-terminal.desktop
-button-icon=cachyos
+button-icon=/usr/share/pixmaps/packarch.png
 button-single-row=false
 show-button-title=false
 show-button-icon=true

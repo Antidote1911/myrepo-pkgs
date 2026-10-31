@@ -45,6 +45,21 @@ rename_limine_entry() {
     fi
 }
 
+# GRUB theme packarch (this package) instead of the cachyos one, which
+# Calamares wrote in /etc/default/grub before Packarch: the background of
+# the cachyos theme shows CachyOS. grub.cfg is generated again if it exists.
+update_grub_theme() {
+    local conf="/etc/default/grub"
+    local theme="/usr/share/grub/themes/packarch/theme.txt"
+    [[ -f $conf && -f $theme ]] || return 0
+    grep -q '^GRUB_THEME="\{0,1\}/usr/share/grub/themes/cachyos/theme.txt"\{0,1\}$' "$conf" || return 0
+    sed -i "s|^GRUB_THEME=.*$|GRUB_THEME=\"$theme\"|" "$conf"
+    if [[ -f /boot/grub/grub.cfg ]] && command -v grub-mkconfig >/dev/null; then
+        grub-mkconfig -o /boot/grub/grub.cfg
+    fi
+}
+
 update_os_release
 update_lsb_release
 rename_limine_entry
+update_grub_theme
