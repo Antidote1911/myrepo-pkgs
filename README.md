@@ -1,8 +1,8 @@
 # myrepo-pkgs
 
 Sources des paquets du dépôt **[packarch]** (binaires dans
-[myrepo](https://github.com/Antidote1911/myrepo), servis par
-`https://antidote1911.github.io/myrepo/$arch`).
+[myrepo](https://github.com/packarch/myrepo), servis par
+`https://packarch.github.io/myrepo/$arch`).
 
 ## Paquets
 

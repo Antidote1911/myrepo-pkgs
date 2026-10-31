@@ -40,7 +40,7 @@ pkgver=7.0
 pkgrel=69
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 depends=(
   # Openbox and the tools of the configuration

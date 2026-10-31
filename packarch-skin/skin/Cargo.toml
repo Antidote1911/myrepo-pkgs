@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2024"
 description = "Theme (skin) chooser of the Packarch Openbox desktop"
 license = "GPL-3.0-or-later"
-repository = "https://github.com/Antidote1911/myrepo-pkgs"
+repository = "https://github.com/packarch/myrepo-pkgs"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }

@@ -2,13 +2,13 @@
 
 pkgname="packarch-mirrorlist"
 pkgver=2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Packarch mirrorlist'
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 source=("$pkgname")
-sha512sums=('864b346d77eadf58305788ec22a542a59e00972298a7c7608710b2b425cf4d6ba0bd9871edc891be01a7c34b95be2516a2b35cc55e6c963e1350ff5f8b6ab967')
+sha512sums=('5669dc4130c73b474c2cbdec651b419148afdfc64968dcb8504189ca9750cec86544ef744a9197cd57be2c8ee7dbd99e0feb724e95d1c741216a35ab64f142c3')
 
 package() {
 	install -Dm 644 "$pkgname"  "$pkgdir"/etc/pacman.d/"$pkgname"

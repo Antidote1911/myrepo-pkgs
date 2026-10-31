@@ -9,7 +9,7 @@ pkgver=2.0
 pkgrel=2
 pkgdesc="Fonts for Packarch (all of them)"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 options=(!strip !emptydirs)
 

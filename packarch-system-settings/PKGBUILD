@@ -41,7 +41,7 @@ pkgver=1.0
 pkgrel=11
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 depends=(sed numlockx qogir-icon-theme packarch-icons
          packarch-backgrounds cachy-update)

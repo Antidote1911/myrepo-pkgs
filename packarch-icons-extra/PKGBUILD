@@ -13,7 +13,7 @@ pkgver=2.0
 pkgrel=1
 pkgdesc="Extra icon themes for Packarch (used by no Packarch theme)"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 depends=('packarch-icons>=2.0-5')
 options=(!strip !emptydirs)

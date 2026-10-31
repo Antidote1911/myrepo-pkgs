@@ -41,7 +41,7 @@ pkgver=1.0.9
 pkgrel=5
 pkgdesc="XFCE configuration of Packarch"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL-1.0-only')
 depends=(
   xfce4-panel xfce4-whiskermenu-plugin xfdesktop xfconf thunar

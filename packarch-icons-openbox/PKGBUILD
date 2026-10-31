@@ -16,7 +16,7 @@ pkgver=2.0
 pkgrel=1
 pkgdesc="Icon themes of the Openbox themes of Packarch"
 arch=('any')
-url="https://github.com/Antidote1911/myrepo-pkgs"
+url="https://github.com/packarch/myrepo-pkgs"
 license=('GPL3')
 depends=('packarch-icons>=2.0-6' 'qogir-icon-theme' 'beautyline')
 options=(!strip !emptydirs)

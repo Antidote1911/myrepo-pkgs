@@ -12,9 +12,9 @@ update_os_release() {
         -e 's|^PRETTY_NAME=.*$|PRETTY_NAME="Packarch"|' \
         -e 's|^ID=.*$|ID=packarch|' \
         -e 's|^ID_LIKE=.*$|ID_LIKE="cachyos arch"|' \
-        -e 's|^HOME_URL=.*$|HOME_URL="https://github.com/Antidote1911/CachyOS-Packarch"|' \
-        -e 's|^SUPPORT_URL=.*$|SUPPORT_URL="https://github.com/Antidote1911/CachyOS-Packarch/issues"|' \
-        -e 's|^BUG_REPORT_URL=.*$|BUG_REPORT_URL="https://github.com/Antidote1911/CachyOS-Packarch/issues"|' \
+        -e 's|^HOME_URL=.*$|HOME_URL="https://github.com/packarch/CachyOS-Packarch"|' \
+        -e 's|^SUPPORT_URL=.*$|SUPPORT_URL="https://github.com/packarch/CachyOS-Packarch/issues"|' \
+        -e 's|^BUG_REPORT_URL=.*$|BUG_REPORT_URL="https://github.com/packarch/CachyOS-Packarch/issues"|' \
         -e 's|^LOGO=.*$|LOGO=org.packarch.hello|'
 }
 

@@ -1,4 +1,4 @@
 ############### Packarch Mirrorlist ###############
 
 ## Worldwide (Github)
-Server = https://antidote1911.github.io/myrepo/$arch
+Server = https://packarch.github.io/myrepo/$arch
