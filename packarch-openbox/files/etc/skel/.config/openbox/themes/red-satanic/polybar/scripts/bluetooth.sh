@@ -6,6 +6,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 CDIR=$(cd "$DIR" && cd .. && pwd)
 POWER_ON=$(grep 'GREEN' < "$CDIR"/colors.ini | head -n1 | cut -d '=' -f2 | tr -d ' ')
+ICON_ON=$(grep '^RED' < "$CDIR"/colors.ini | head -n1 | cut -d '=' -f2 | tr -d ' ')
 POWER_OFF=$(grep 'ALTFOREGROUND' < "$CDIR"/colors.ini | head -n1 | cut -d '=' -f2 | tr -d ' ')
 
 # Checks if bluetooth controller is powered on
@@ -32,7 +33,7 @@ device_connected() {
 print_status() {
     if power_on; then
 		if [[ -z $(bluetoothctl info "$device" | grep "Alias" | cut -d ' ' -f 2-) ]]; then
-			echo "%{F$POWER_ON}󰂯 %{F-}Activé"
+			echo "%{F$ICON_ON}󰂯 %{F$POWER_ON}Activé%{F-}"
 		fi
 		
         paired_devices_cmd="devices Paired"
@@ -84,9 +85,9 @@ print_status() {
         icons=$(echo "$icons" | cut -c3-)
 
         if [[ $counter -gt 1 ]]; then
-            echo "%{F$POWER_ON} %{F-}$icons"
+            echo "%{F$ICON_ON} %{F$POWER_ON}$icons%{F-}"
         elif [[ $counter -gt 0 ]]; then
-            echo "%{F$POWER_ON} %{F-}$icons | $device_alias"
+            echo "%{F$ICON_ON} %{F$POWER_ON}$icons | $device_alias%{F-}"
         fi
     else
         echo "%{F$POWER_OFF}󰂲 Désactivé%{F-}"
