@@ -27,6 +27,11 @@ pub enum Target<'a> {
 /// role: a file without it belongs to the user and is not touched
 const FASTFETCH_MARK: &str = "// Couleurs du thème, écrites par packarch-skin (supprimer cette ligne pour garder vos réglages)";
 
+/// Logo of /etc/xdg/fastfetch/config.jsonc (packarch-system-settings), which
+/// the file of the role replaces: packarch.png in kitty, the text logo of the
+/// distribution, in the color of the role, elsewhere
+const FASTFETCH_LOGO: &str = "\"type\": \"kitty\", \"source\": \"/usr/share/pixmaps/packarch.png\", \"width\": 28, \"height\": 14, \"padding\": { \"top\": 2, \"left\": 2, \"right\": 4 }";
+
 /// Modules of fastfetch (its default list: a configuration file without
 /// "modules" shows none)
 const FASTFETCH_MODULES: [&str; 29] = [
@@ -469,7 +474,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
             Some(col) => write_file(
                 &ff,
                 &format!(
-                    "{FASTFETCH_MARK}\n{{\n  \"logo\": {{ \"color\": {{ \"1\": \"{t}\", \"2\": \"{t}\" }} }},\n  \"display\": {{ \"color\": {{ \"keys\": \"{t}\", \"title\": \"{t}\" }} }},\n  \"modules\": [{}]\n}}\n",
+                    "{FASTFETCH_MARK}\n{{\n  \"logo\": {{ {FASTFETCH_LOGO}, \"color\": {{ \"1\": \"{t}\", \"2\": \"{t}\" }} }},\n  \"display\": {{ \"color\": {{ \"keys\": \"{t}\", \"title\": \"{t}\" }} }},\n  \"modules\": [{}]\n}}\n",
                     FASTFETCH_MODULES.iter().map(|m| format!("\"{m}\"")).collect::<Vec<_>>().join(", "),
                     t = col.text
                 ),

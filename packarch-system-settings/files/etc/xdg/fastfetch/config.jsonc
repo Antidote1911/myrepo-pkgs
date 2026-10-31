@@ -1,0 +1,17 @@
+// Fastfetch de Packarch : logo packarch.png dans kitty (protocole d'image,
+// décodé par imagemagick), logo texte de la distribution ailleurs. Le
+// ~/.config/fastfetch/config.jsonc d'un utilisateur remplace ce fichier.
+{
+  "logo": {
+    "type": "kitty",
+    "source": "/usr/share/pixmaps/packarch.png",
+    "width": 28,
+    "height": 14,
+    "padding": { "top": 2, "left": 2, "right": 4 }
+  },
+  "modules": [
+    "title", "separator", "os", "host", "kernel", "uptime", "packages", "shell", "display", "de", "wm",
+    "wmtheme", "theme", "icons", "font", "cursor", "terminal", "terminalfont", "cpu", "gpu", "memory",
+    "swap", "disk", "localip", "battery", "poweradapter", "locale", "break", "colors"
+  ]
+}

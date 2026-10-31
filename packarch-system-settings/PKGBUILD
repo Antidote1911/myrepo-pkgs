@@ -25,11 +25,15 @@
 #   (limine-entry-tool finds it by PRETTY_NAME when its machine-id is not
 #   under it) and enrolls limine.conf again if enabled (1.0-7)
 # - icon of the "packarch" GRUB class (GRUB_DISTRIBUTOR=Packarch) in the
-#   cachyos GRUB theme (1.0-6)
+#   cachyos GRUB theme (1.0-6), the Packarch icon since 1.0-8
+# - Packarch icon /usr/share/pixmaps/packarch.png (1.0-8): default user image
+#   of the LightDM greeter, logo of fastfetch in kitty (/etc/xdg/fastfetch,
+#   replaced by the configuration of the user; text logo in the other
+#   terminals)
 
 pkgname=packarch-system-settings
 pkgver=1.0
-pkgrel=7
+pkgrel=8
 pkgdesc="System settings of Packarch (LightDM, X server, menu entries, cachy-update, os-release)"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -38,6 +42,11 @@ depends=(sed numlockx qogir-icon-theme packarch-icons
          packarch-backgrounds cachy-update)
 optdepends=(
   'lightdm-gtk-greeter: login screen using these settings'
+  'fastfetch: system information with the Packarch logo'
+  'imagemagick: image logo of fastfetch in kitty'
+)
+backup=(
+  'etc/xdg/fastfetch/config.jsonc'
 )
 options=(!strip !emptydirs)
 

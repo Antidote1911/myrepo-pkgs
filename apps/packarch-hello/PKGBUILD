@@ -1,7 +1,7 @@
 # Maintainer: Fabrice Corraire <antidote1911@gmail.com>
 
 pkgname=packarch-hello
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="Welcome screen for Packarch (fork of CachyOS Hello)"
 arch=('x86_64')

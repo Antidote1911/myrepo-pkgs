@@ -6,11 +6,12 @@
 # default theme into the /etc/skel of packarch-openbox when it is built.
 # "font" (1.0.0-11) stores the global fonts (themes/fonts.toml, the same for
 # every theme) chosen with the pa-change-fonts menu of packarch-openbox.
-# Role "fastfetch" (1.0.0-12): colors of fastfetch (logo, title, keys).
+# Role "fastfetch" (1.0.0-12): colors of fastfetch (logo, title, keys); with
+# the packarch.png logo of packarch-system-settings in kitty (1.0.0-14).
 
 pkgname=packarch-skin
 pkgver=1.0.0
-pkgrel=13
+pkgrel=14
 pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
 arch=('x86_64')
 url="https://github.com/Antidote1911/myrepo-pkgs"
