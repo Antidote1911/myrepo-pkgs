@@ -185,7 +185,7 @@ menu.border.color: #131519
 
 menu.items.bg: Flat Solid
 menu.items.bg.color: #131519
-menu.items.text.color: #e0e0e0
+menu.items.text.color: #e6c229
 menu.items.disabled.text.color: #3c484b
 
 menu.items.active.bg: Flat Solid
