@@ -37,7 +37,7 @@
 
 pkgname=packarch-openbox
 pkgver=7.0
-pkgrel=57
+pkgrel=58
 pkgdesc="Openbox configuration of Packarch"
 arch=('any')
 url="https://github.com/Antidote1911/myrepo-pkgs"
@@ -45,6 +45,8 @@ license=('GPL3')
 depends=(
   # Openbox and the tools of the configuration
   openbox obconf-qt obmenu-generator perl-linux-desktopfiles pulsemixer light
+  # names of the applications menu in the user language (locale_support)
+  perl-file-desktopentry
   polybar snixembed xdg-terminal-exec rofi dunst nitrogen
   xfce4-settings xmlstarlet
   python-lxml lead-git skippy-xd-git
