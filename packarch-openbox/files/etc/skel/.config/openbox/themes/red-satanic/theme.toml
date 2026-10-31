@@ -33,6 +33,8 @@ alt_foreground = "darken(foreground, 0.35)"
 [roles]
 # Logo, title and keys of fastfetch: the yellow of the palette
 fastfetch = "color3"
+# Inactive windows of polywins: the yellow of the launchers (GREEN of polybar)
+polywins_inactive = "color2"
 
 [fonts]
 polybar = "JetBrains Mono:size=10;3"

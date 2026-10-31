@@ -8,10 +8,12 @@
 # every theme) chosen with the pa-change-fonts menu of packarch-openbox.
 # Role "fastfetch" (1.0.0-12): colors of fastfetch (logo, title, keys); with
 # the packarch.png logo of packarch-system-settings in kitty (1.0.0-14).
+# Role "polywins_inactive" (1.0.0-17): inactive windows of polywins.sh
+# (default: bar_foreground).
 
 pkgname=packarch-skin
 pkgver=1.0.0
-pkgrel=16
+pkgrel=17
 pkgdesc="Theme (skin) chooser of the Packarch Openbox desktop"
 arch=('x86_64')
 url="https://github.com/Antidote1911/myrepo-pkgs"

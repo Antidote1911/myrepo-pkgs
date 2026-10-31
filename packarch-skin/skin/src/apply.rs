@@ -56,6 +56,7 @@ struct Colors {
     dunst: [Color; 4],
     border: Color,
     fastfetch: Option<Color>,
+    polywins_inactive: Color,
 }
 
 fn resolve(theme: &Theme) -> Result<Colors, String> {
@@ -109,6 +110,10 @@ fn resolve(theme: &Theme) -> Result<Colors, String> {
         ],
         border: p.eval(&r.screenshot_border)?,
         fastfetch: r.fastfetch.as_deref().map(|e| p.eval(e)).transpose()?,
+        polywins_inactive: match &r.polywins_inactive {
+            Some(e) => p.eval(e)?,
+            None => p.eval(&r.bar_foreground)?,
+        },
         bar_bg,
         bar_alt_bg,
     })
@@ -319,7 +324,7 @@ pub fn apply(dirs: &Dirs, entry: &Entry, target: Target) -> Result<(), String> {
     if theme.polybar.polywins {
         edit_file(&pbar.join("scripts/polywins.sh"), |t| {
             set_line(t, "active_text_color=", &format!("active_text_color='{}'", c.bar_accent.text));
-            set_line(t, "inactive_text_color=", &format!("inactive_text_color='{}'", c.bar_fg.text));
+            set_line(t, "inactive_text_color=", &format!("inactive_text_color='{}'", c.polywins_inactive.text));
             set_line(t, "minimized_text_color=", &format!("minimized_text_color='{}'", c.bar_alt_fg.text));
         });
     }

@@ -60,6 +60,9 @@ pub struct Roles {
     pub screenshot_border: String,
     /// Logo, title and keys of fastfetch (none: its own colors)
     pub fastfetch: Option<String>,
+    /// Inactive windows of the window list script polywins.sh (none:
+    /// bar_foreground)
+    pub polywins_inactive: Option<String>,
 }
 
 impl Default for Roles {
@@ -85,6 +88,7 @@ impl Default for Roles {
             dunst_urgent: s("color1"),
             screenshot_border: s("accent"),
             fastfetch: None,
+            polywins_inactive: None,
         }
     }
 }
