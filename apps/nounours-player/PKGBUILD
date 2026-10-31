@@ -1,6 +1,6 @@
 # Maintainer: antidote1911 <antidote1911@gmail.com>
 pkgname=nounours-player
-pkgver=2.5.2
+pkgver=2.5.4
 pkgrel=1
 pkgdesc="A simple libmpv-based multimedia player"
 arch=('x86_64')
