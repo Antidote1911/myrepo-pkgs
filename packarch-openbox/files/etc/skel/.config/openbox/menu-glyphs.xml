@@ -88,21 +88,6 @@
 					<command>xfce4-appearance-settings</command>
 				</action>
 			</item>
-			<item label="Paramètres Qt5">
-				<action name="Execute">
-					<command>qt5ct</command>
-				</action>
-			</item>
-			<item label="Paramètres Qt6">
-				<action name="Execute">
-					<command>qt6ct</command>
-				</action>
-			</item>
-			<item label="Gestionnaire Kvantum">
-				<action name="Execute">
-					<command>kvantummanager</command>
-				</action>
-			</item>
 			<separator/>
 			<item label="Paramètres audio">
 				<action name="Execute">
