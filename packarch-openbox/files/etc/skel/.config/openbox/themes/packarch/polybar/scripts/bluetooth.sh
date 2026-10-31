@@ -32,7 +32,7 @@ device_connected() {
 print_status() {
     if power_on; then
 		if [[ -z $(bluetoothctl info "$device" | grep "Alias" | cut -d ' ' -f 2-) ]]; then
-			echo "%{F$POWER_ON}%{T5}%{T-}%{F-}"
+			echo "%{F$POWER_ON}%{T2}%{T-}%{F-}"
 		fi
 		
         paired_devices_cmd="devices Paired"
@@ -84,12 +84,12 @@ print_status() {
         icons=$(echo "$icons" | cut -c3-)
 
         if [[ $counter -gt 1 ]]; then
-            echo "%{F$POWER_ON}%{T5}%{T-} %{F-}$icons"
+            echo "%{F$POWER_ON}%{T2}%{T-} %{F-}$icons"
         elif [[ $counter -gt 0 ]]; then
-            echo "%{F$POWER_ON}%{T5}%{T-} %{F-}$icons | $device_alias"
+            echo "%{F$POWER_ON}%{T2}%{T-} %{F-}$icons | $device_alias"
         fi
     else
-        echo "%{F$POWER_OFF}%{T5}%{T-}%{F-}"
+        echo "%{F$POWER_OFF}%{T2}%{T-}%{F-}"
     fi
 }
 
